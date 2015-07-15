@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ipat_fx.FXMLDocumentController">
+   <children>
+      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="907.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+            <Menu fx:id="cases" mnemonicParsing="false" text="Cases" />
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextArea layoutX="30.0" layoutY="65.0" prefHeight="41.0" prefWidth="270.0" />
+      <Button id="chooseFilesButton" fx:id="chooseFilesButton" layoutX="30.0" layoutY="34.0" mnemonicParsing="false" onAction="#chooseFiles" prefHeight="25.0" prefWidth="103.0" text="Choose Files" />
+      <Button fx:id="abort" layoutX="30.0" layoutY="475.0" mnemonicParsing="false" onAction="#abort" text="Abort" />
+      <Button fx:id="reset" layoutX="101.0" layoutY="475.0" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores" />
+      <Button fx:id="nextGen" layoutX="202.0" layoutY="475.0" mnemonicParsing="false" onAction="#nextGeneration" text="Next Generation" />
+      <WebView id="previewFrame" fx:id="previewFrame" layoutX="461.0" layoutY="128.0" prefHeight="352.0" prefWidth="429.0" />
+      <TabPane fx:id="tabPane" layoutX="30.0" layoutY="115.0" prefHeight="342.0" prefWidth="418.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="By Profile">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <WebView fx:id="byProfile" layoutX="-3.0" prefHeight="314.0" prefWidth="418.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="By Images">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <WebView fx:id="byImage" layoutY="7.0" prefHeight="306.0" prefWidth="418.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <TextField layoutX="509.0" layoutY="47.0" promptText="Desktop" />
+      <TextField layoutX="509.0" layoutY="94.0" text="N / A " />
+      <TextField layoutX="710.0" layoutY="47.0" text="0" />
+      <TextField fx:id="noOfProfiles" layoutX="710.0" layoutY="94.0" text="6" />
+      <Label layoutX="509.0" layoutY="26.0" text="Application Mode" />
+      <Label layoutX="710.0" layoutY="26.0" text="Generation" />
+      <Label layoutX="509.0" layoutY="77.0" text="Loaded Profile" />
+      <Label layoutX="710.0" layoutY="77.0" text="No. Of Profiles" />
+   </children>
+</Pane>
