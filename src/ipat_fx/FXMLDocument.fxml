@@ -21,7 +21,7 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-            <Menu fx:id="cases" mnemonicParsing="false" text="Cases" />
+           <Menu fx:id="cases" mnemonicParsing="false" text="Cases" />
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
