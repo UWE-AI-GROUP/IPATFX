@@ -57,6 +57,7 @@ import javax.xml.transform.stream.StreamResult;
 import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -103,11 +104,11 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
-            System.out.println("about to create chooser");
+            
             FileChooser chooser = new FileChooser();
             List<File> uploads= chooser.showOpenMultipleDialog(null);
     
-            System.out.println("here3");
+            
             for (File fi : uploads) {
                 File file;
                 String fileName = fi.getName();
@@ -182,7 +183,8 @@ public class FXMLDocumentController implements Initializable {
             
             
             
-//                             Document doc = engine.getDocument();
+                        Document doc = engine.getDocument();
+                        NodeList allnodes= doc.getElementsByTagName("*");
 //                        try {
 //                            Transformer transformer = TransformerFactory.newInstance().newTransformer();
 //                            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
@@ -198,37 +200,11 @@ public class FXMLDocumentController implements Initializable {
 //                            }
             engine.executeScript("app.scores[0]=\"first rewrite\"");
             engine.executeScript("app.getScores()");    
-            engine.executeScript("app.scores = document.body");
+            //engine.executeScript("app.scores = document.body");
+            
+            Object returnString = engine.executeScript("loadscores()");
             engine.executeScript("app.getScores()");      
-            Object returnString = engine.executeScript("function loadscores() "
-                    + "   { "
-                    + "    var scores = {};"
-                    + "    var all = document.getElementByClassName('cell');"
-//                    + "    for (var i = 0; i < all.length; i++) "
-//                    + "       {" 
-//                    + "        var inputs = $(all[i]).find(\"input\");"
-//                    + "        for (var j = 0; j < inputs.length; j++) "
-//                    + "           {"
-//                    + "             var name = $(inputs[j]).prop('id');"
-//                    + "             if ($(inputs[j]).prop('type') === \"checkbox\")"
-//                    + "                {"
-//                    + "                  var value = $(inputs[j]).is(':checked');"
-//                    + "                   scores[name] = value;"
-//                    + "                }"
-//                    + "             else if ($(inputs[j]).prop('type') === \"range\")"
-//                    + "                {"
-//                    + "                  var value = $(inputs[j]).val();"
-//                    + "                  scores[name] = value;"
-//                    + "                 }"
-//                    + "             else"
-//                    + "              {  "
-//                    + "                alert(\"Error: A javascript JQuery check needs to be implemented for \" + $(inputs[i]).attr('id') + \" in javascript.js\");"
-//                    + "              }"
-//                    + "          }"
-//                    + "      }"
-                    + "    return all.length; "
-                    + "   }");
-            System.out.println(returnString.getClass() + "with value " + returnString);
+            System.out.println("returnString was an object of type" + returnString.getClass() + "with value " + returnString);
             
         }
     }
@@ -313,7 +289,15 @@ public class FXMLDocumentController implements Initializable {
     public class JavaApp {
 
         public String myString= "empty";
-        public String[] scores  = {"empty","empty2"};
+        public String[] scores = new String[100];
+        public String[] inputnames = new String[100];
+        public String[] inputvalues = new String[100];
+        public JavaApp()
+          {scores[0] = "empty";
+        scores[1] ="empty2";
+          }
+        
+        
        public void onClick() {
             System.out.println("Clicked with mystring value = " + myString);
         }
@@ -324,11 +308,17 @@ public class FXMLDocumentController implements Initializable {
         }
 
         public void getScores() {
-            System.out.println(" we have them now! " );
+            //System.out.println(" we have them now! " );
             for (int i = 0; i < scores.length; i++)
               {
-                String score = scores[i];
-                System.out.println( score);
+                //String score = scores[i];
+                ///if (score != null)
+                //System.out.println( "score i = "+ score);    
+                String name = inputnames[i];
+                String value = inputvalues[i];
+                if (name != null)
+                System.out.println( "name " +i +" = "+ name + " with value " + value);  
+      
               }
             
             

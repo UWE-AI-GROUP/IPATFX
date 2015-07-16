@@ -25,6 +25,44 @@ public class DesktopDisplay extends Display {
         HashMap<String, String> HM = new HashMap();
         int resultCount = 0;
         String hintString = "";
+        
+        String headerString = "<html><header>";
+        String scriptString = "<script language=javascript>function loadscores() "
+                    + "   { "
+                      + " app.scores[1] = \"added by js function\" ;"  
+//                    + "    var scores = {};"
+                    + "    var all = document.getElementsByClassName(\"cell\");"
+                    + "    for (var i = 0; i < all.length; i++) "
+                    + "       {" 
+                     + "         var inputs = all[i].getElementsByTagName(\"input\");"
+                    + "        for (var j = 0; j < inputs.length; j++) "
+                    + "           {"
+                    + "             var name = inputs[j].getAttribute(\"id\");"
+                    + "              app.inputnames[inputs.length*i +j] = name;"
+                    + "             if (inputs[j].getAttribute(\"type\") === \"checkbox\")"
+                    + "                {"
+                    + "                  var value = inputs[j].checked;"
+                    + "                   app.inputvalues[inputs.length*i +j] = value;"
+                    + "                }"
+                    + "             else if (inputs[j].getAttribute(\"type\") === \"range\")"
+                    + "                {"
+                    + "                  var value = inputs[j].value;"
+                    + "                  app.inputvalues[inputs.length*i +j] = value;"
+                    + "                 }"
+                    + "             else"
+                    + "              {  "
+                    + "                alert(\"Error: A javascript JQuery check needs to be implemented for \" + $(inputs[i]).attr('id') + \" in javascript.js\");"
+                    + "              }"
+                    + "          }"
+                    + "      }"
+                    + "  return \"somestring\" }"
+                    + "</script>";
+        String htmlBodyStart = "<body>";
+        String htmlBodyEnd = "</body></html>";
+        
+        String webPageAsString;
+        
+        
         String cells = "<div id='tabs-container'><ul class='tabs-menu'>";
         for (int i = 0; i < controller.noOfProfiles; i++) {
             cells += "<li  id='li_" + i + "' onclick='tabClicked(this.id)'><a class='tabText_" + i + "' href='#byProfile_" + i + "'>" + i + "</a></li>";
@@ -74,7 +112,8 @@ public class DesktopDisplay extends Display {
             cells += "</div>";
         }
         cells += "</div>";
-        HM.put("byProfile", cells);
+        webPageAsString = headerString + scriptString + htmlBodyStart + cells + htmlBodyEnd;
+        HM.put("byProfile", webPageAsString);
         cells = "<div id='tabs-container'><ul class='tabs-menu'>";
         Set<String> keySet = byImageArray.keySet();
         Iterator<String> iterator = keySet.iterator();
@@ -94,7 +133,8 @@ public class DesktopDisplay extends Display {
             count++;
         }
         cells += "</div>";
-        HM.put("byImage", cells);
+        webPageAsString = headerString + scriptString + htmlBodyStart + cells + htmlBodyEnd;
+        HM.put("byImage", webPageAsString);
         HM.put("hintString", hintString);
         HM.put("count", Integer.toString(artifacts.length));
         return HM;
