@@ -6,6 +6,7 @@
 package ipat_fx;
 
 import Src.Controller;
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +15,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,12 +44,19 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
+import org.w3c.dom.Document;
 
 /**
  *
@@ -93,12 +103,11 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
-
-            JFileChooser chooser = new JFileChooser();
-            chooser.setMultiSelectionEnabled(true);
-            chooser.showOpenDialog(null);
-            File[] uploads = chooser.getSelectedFiles();
-
+            System.out.println("about to create chooser");
+            FileChooser chooser = new FileChooser();
+            List<File> uploads= chooser.showOpenMultipleDialog(null);
+    
+            System.out.println("here3");
             for (File fi : uploads) {
                 File file;
                 String fileName = fi.getName();
@@ -136,9 +145,9 @@ public class FXMLDocumentController implements Initializable {
                 Controller controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
                 HashMap HTML_Strings = controller.initialisation();
                 String byProfileHTML = (String) HTML_Strings.get("byProfile");
-                System.out.println("#######");
-                System.out.println(byProfileHTML);
-                System.out.println("#######");
+//                System.out.println("#######");
+//                System.out.println(byProfileHTML);
+//                System.out.println("#######");
                 byProfileEngine.loadContent(byProfileHTML);
                 String byImageHTML = (String) HTML_Strings.get("byImage");
                 byImageEngine.loadContent(byImageHTML);
@@ -163,33 +172,64 @@ public class FXMLDocumentController implements Initializable {
         if (numOfProfiles > 8) {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
         } else {
-            WebEngine engine = byProfile.getEngine();
+            WebEngine engine = byImage.getEngine();
 
             engine.setJavaScriptEnabled(true);
             JSObject window = (JSObject) engine.executeScript("window");
             window.setMember("app", new JavaApp());
-            JSObject scores = (JSObject) engine.executeScript("function() {"
-                    + "var scores = {};"
-                    + "var all = document.getElementByClassName('cell');"
-                    + "    for (var i = 0; i < all.length; i++) {"
-                    + "        var inputs = $(all[i]).find(\"input\");"
-                    + "        for (var j = 0; j < inputs.length; j++) {"
-                    + "            var name = $(inputs[j]).prop('id');"
-                    + "            if ($(inputs[j]).prop('type') === \"checkbox\") {"
-                    + "                var value = $(inputs[j]).is(':checked');"
-                    + "                scores[name] = value;"
-                    + "            }"
-                    + "            else if ($(inputs[j]).prop('type') === \"range\") {"
-                    + "                var value = $(inputs[j]).val();"
-                    + "                scores[name] = value;"
-                    + "            }"
-                    + "            else {"
-                    + "                alert(\"Error: A javascript JQuery check needs to be implemented for \" + $(inputs[i]).attr('id') + \" in javascript.js\");"
-                    + "            }"
-                    + "        }"
-                    + "    }"
-                    + "app.getScores(scores);}");
-            System.out.println(scores);
+            engine.executeScript("app.myString=\"written\"");
+            engine.executeScript("app.onClick()");
+            
+            
+            
+//                             Document doc = engine.getDocument();
+//                        try {
+//                            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+//                            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+//                            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+//                            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//                            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+//                            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+//
+//                            transformer.transform(new DOMSource(doc),
+//                                    new StreamResult(new OutputStreamWriter(System.out, "UTF-8")));
+//                        } catch (Exception ex) {
+//                            ex.printStackTrace();
+//                            }
+            engine.executeScript("app.scores[0]=\"first rewrite\"");
+            engine.executeScript("app.getScores()");    
+            engine.executeScript("app.scores = document.body");
+            engine.executeScript("app.getScores()");      
+            Object returnString = engine.executeScript("function loadscores() "
+                    + "   { "
+                    + "    var scores = {};"
+                    + "    var all = document.getElementByClassName('cell');"
+//                    + "    for (var i = 0; i < all.length; i++) "
+//                    + "       {" 
+//                    + "        var inputs = $(all[i]).find(\"input\");"
+//                    + "        for (var j = 0; j < inputs.length; j++) "
+//                    + "           {"
+//                    + "             var name = $(inputs[j]).prop('id');"
+//                    + "             if ($(inputs[j]).prop('type') === \"checkbox\")"
+//                    + "                {"
+//                    + "                  var value = $(inputs[j]).is(':checked');"
+//                    + "                   scores[name] = value;"
+//                    + "                }"
+//                    + "             else if ($(inputs[j]).prop('type') === \"range\")"
+//                    + "                {"
+//                    + "                  var value = $(inputs[j]).val();"
+//                    + "                  scores[name] = value;"
+//                    + "                 }"
+//                    + "             else"
+//                    + "              {  "
+//                    + "                alert(\"Error: A javascript JQuery check needs to be implemented for \" + $(inputs[i]).attr('id') + \" in javascript.js\");"
+//                    + "              }"
+//                    + "          }"
+//                    + "      }"
+                    + "    return all.length; "
+                    + "   }");
+            System.out.println(returnString.getClass() + "with value " + returnString);
+            
         }
     }
 
@@ -224,10 +264,13 @@ public class FXMLDocumentController implements Initializable {
             File get = caseFileArray.get(i);
             MenuItem menuItem = new MenuItem(get.getName());
             cases.getItems().add(menuItem);
-            menuBar.getMenus().add(cases);
+     
             caseItemArray[i] = menuItem;
         }
-
+       //menuBar.getMenus().add(cases);//moved outside the loop to remove the muiltiple meu items in the menubar
+       
+       
+       
         problemDataFolderName = "/" + caseItemArray[0].getText();
         System.out.println("case = " + problemDataFolderName);
         profilePath = new File(contextPath + "/data" + problemDataFolderName + "/Profiles/");
@@ -269,8 +312,10 @@ public class FXMLDocumentController implements Initializable {
 
     public class JavaApp {
 
-        public void exit() {
-            Platform.exit();
+        public String myString= "empty";
+        public String[] scores  = {"empty","empty2"};
+       public void onClick() {
+            System.out.println("Clicked with mystring value = " + myString);
         }
 
         public void preview(String src) {
@@ -278,8 +323,15 @@ public class FXMLDocumentController implements Initializable {
             previewFrame.getEngine().load(src);
         }
 
-        public void getScores(JSObject scores) {
-            System.out.println(" we have them now! ");
+        public void getScores() {
+            System.out.println(" we have them now! " );
+            for (int i = 0; i < scores.length; i++)
+              {
+                String score = scores[i];
+                System.out.println( score);
+              }
+            
+            
         }
     }
 
