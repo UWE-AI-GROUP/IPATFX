@@ -28,9 +28,7 @@ public class DesktopDisplay extends Display {
         
         String headerString = "<html><header>";
         String scriptString = "<script language=javascript>function loadscores() "
-                    + "   { "
-                      + " app.scores[1] = \"added by js function\" ;"  
-//                    + "    var scores = {};"
+                    + "   { " 
                     + "    var all = document.getElementsByClassName(\"cell\");"
                     + "    for (var i = 0; i < all.length; i++) "
                     + "       {" 
@@ -55,7 +53,7 @@ public class DesktopDisplay extends Display {
                     + "              }"
                     + "          }"
                     + "      }"
-                    + "  return \"somestring\" }"
+                    + "   }"
                     + "</script>";
         String htmlBodyStart = "<body>";
         String htmlBodyEnd = "</body></html>";

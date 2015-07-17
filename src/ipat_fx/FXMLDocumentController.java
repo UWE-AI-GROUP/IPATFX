@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,6 +99,7 @@ public class FXMLDocumentController implements Initializable {
     private final ArrayList<File> caseFileArray = new ArrayList<>();
     MenuItem[] caseItemArray;
 
+
     @FXML
     private void chooseFiles(ActionEvent event) {
         if (problemDataFolderName == null) {
@@ -172,40 +174,37 @@ public class FXMLDocumentController implements Initializable {
         int numOfProfiles = Integer.parseInt(noOfProfiles.getText());
         if (numOfProfiles > 8) {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
-        } else {
+        } 
+        else 
+          {
+            //get engine
             WebEngine engine = byImage.getEngine();
-
             engine.setJavaScriptEnabled(true);
             JSObject window = (JSObject) engine.executeScript("window");
-            window.setMember("app", new JavaApp());
-            engine.executeScript("app.myString=\"written\"");
-            engine.executeScript("app.onClick()");
-            
-            
-            
-                        Document doc = engine.getDocument();
-                        NodeList allnodes= doc.getElementsByTagName("*");
-//                        try {
-//                            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-//                            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-//                            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-//                            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-//                            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-//                            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-//
-//                            transformer.transform(new DOMSource(doc),
-//                                    new StreamResult(new OutputStreamWriter(System.out, "UTF-8")));
-//                        } catch (Exception ex) {
-//                            ex.printStackTrace();
-//                            }
-            engine.executeScript("app.scores[0]=\"first rewrite\"");
-            engine.executeScript("app.getScores()");    
-            //engine.executeScript("app.scores = document.body");
-            
-            Object returnString = engine.executeScript("loadscores()");
-            engine.executeScript("app.getScores()");      
-            System.out.println("returnString was an object of type" + returnString.getClass() + "with value " + returnString);
-            
+            //create a bridging app to talk to it and store data
+            JavaApp myJavaScriptBridge = new JavaApp();
+            window.setMember("app",myJavaScriptBridge );
+            //execute the java script to put the user inputs into the arrays in the bridging object
+            engine.executeScript("loadscores()");
+            //now pull them out into a hashmap
+            HashMap<String,String> interactions = new HashMap();
+            for (int i = 0; i < myJavaScriptBridge.inputnames.length; i++)
+              {
+                String name = myJavaScriptBridge.inputnames[i];
+                String value = myJavaScriptBridge.inputvalues[i];
+                if (name != null)
+                  interactions.put(name, value);
+              }
+            //finally make a loop and print them out ot show they rethere
+              for (Map.Entry<String, String> entrySet : interactions.entrySet())
+                {
+                  String key = entrySet.getKey();
+                  String value = entrySet.getValue();
+                    System.out.println(key + " : " + value);
+                }
+              
+              //test the preview option
+              engine.executeScript("app.preview(\"previewtest\")");
         }
     }
 
@@ -289,14 +288,9 @@ public class FXMLDocumentController implements Initializable {
     public class JavaApp {
 
         public String myString= "empty";
-        public String[] scores = new String[100];
         public String[] inputnames = new String[100];
         public String[] inputvalues = new String[100];
-        public JavaApp()
-          {scores[0] = "empty";
-        scores[1] ="empty2";
-          }
-        
+   
         
        public void onClick() {
             System.out.println("Clicked with mystring value = " + myString);
@@ -304,20 +298,21 @@ public class FXMLDocumentController implements Initializable {
 
         public void preview(String src) {
             System.out.println(src);
-            previewFrame.getEngine().load(src);
+            previewFrame.getEngine().loadContent(src);
         }
 
-        public void getScores() {
+        public void getInputs() {
             //System.out.println(" we have them now! " );
-            for (int i = 0; i < scores.length; i++)
+            for (int i = 0; i < inputnames.length; i++)
               {
-                //String score = scores[i];
-                ///if (score != null)
-                //System.out.println( "score i = "+ score);    
                 String name = inputnames[i];
                 String value = inputvalues[i];
                 if (name != null)
-                System.out.println( "name " +i +" = "+ name + " with value " + value);  
+                  {
+                    System.out.println( "name " +i +" = "+ name + " with value " + value);
+//                    this.interactions.put(name, value);
+                  }  
+
       
               }
             
