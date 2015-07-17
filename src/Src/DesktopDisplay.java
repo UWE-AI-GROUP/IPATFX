@@ -49,9 +49,9 @@ public class DesktopDisplay extends Display {
 
         for (int i = 0; i < noOfProfiles; i++) { // Create tabs based on number of profiles
 
-            Tab tab = new Tab();
-            tab.setId("li_" + i);
-            tab.setText(String.valueOf(i));
+            Tab byProfileTab = new Tab();
+            byProfileTab.setId("li_" + i);
+            byProfileTab.setText(String.valueOf(i));
 
             for (Artifact artifact : artifacts) { // cycle through all results per profile
 
@@ -73,16 +73,13 @@ public class DesktopDisplay extends Display {
                     });
                     GridPane.setConstraints(webview, 0, 0);
                     gridpane.getChildren().add(webview);
-                    System.out.println("I am a webview " + webview.getId());
-                    // get the hints one by one and apply to gridpane "cell"
-                    Set keySet = hintMap.keySet();
+                    Set keySet = hintMap.keySet();// get the hints one by one and apply to gridpane "cell"
                     int keyCount = 0;
                     for (Object key : keySet) {
                         String k = (String) key;
                         Hint h = (Hint) hintMap.get(k);
                         String displaytype = h.getDisplaytype();
                         Label label;
-                        System.out.println("I am a hint " + h.getHintName());
                         switch (displaytype) {
                             case "range":
                                 Slider slider = new Slider();
@@ -114,17 +111,19 @@ public class DesktopDisplay extends Display {
                         }
                     }
                     resultCount += 1;
-                    String key = name.substring(name.indexOf("-") + 1);
-                    if (tempByImageStore.containsKey(key)) {
-                        GridPane get = (GridPane) tempByImageStore.get(key);
-                        tempByImageStore.put(key, get);
+                    // add cell to the tempByImageStore based on it's artefact name 
+                    String nameOfArtefact = name.substring(name.indexOf("-") + 1);
+                    if (tempByImageStore.containsKey(nameOfArtefact)) {
+                        GridPane get = (GridPane) tempByImageStore.get(nameOfArtefact);
+                        tempByImageStore.put(nameOfArtefact, get);
                     } else {
-                        tempByImageStore.put(key, gridpane);
+                        tempByImageStore.put(nameOfArtefact, gridpane);
                     }
-                    tab.setContent(gridpane); // TODO this will overwrite other cells (cant have multiple profiles)
+                    byProfileTab.setContent(gridpane); // TODO this will overwrite other cells (cant have multiple profiles)
                 }
             }
-            byProfile.getTabs().add(tab);
+         
+            byProfile.getTabs().add(byProfileTab);
             byProfile.setId("byProfileTabPane");
             display.put("byProfile", byProfile);
         }
@@ -133,13 +132,14 @@ public class DesktopDisplay extends Display {
         Iterator<String> iterator = keySet.iterator();
         resultCount = 0;
         while (iterator.hasNext()) {
-            String next = iterator.next();
-            Tab tab = new Tab();
-            tab.setId("li_" + resultCount);
-            tab.setText(next);
-            GridPane get = (GridPane) tempByImageStore.get(iterator.next());
-            tab.setContent(get);
-            byImage.getTabs().add(tab);
+            String artefactName = iterator.next();
+            System.out.println("by Image = " + artefactName);
+            Tab byImageTab = new Tab();
+            byImageTab.setId("li_" + resultCount);
+            byImageTab.setText(artefactName);
+            GridPane cells = (GridPane) tempByImageStore.get(iterator.next());
+            byImageTab.setContent(cells);
+            byImage.getTabs().add(byImageTab);
             resultCount++;
         }
         byImage.setId("byImageTabPane");

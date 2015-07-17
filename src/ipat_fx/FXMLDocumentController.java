@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,7 +39,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import netscape.javascript.JSObject;
 
 /**
  *
@@ -130,7 +128,6 @@ public class FXMLDocumentController implements Initializable {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
                 HashMap display = controller.initialisation();
                 WebView previewView = (WebView) display.get("previewView");
-                System.out.println("Preview View = " + previewView);
                 previewPane.getChildren().add(previewView);
                 TabPane byProfile = (TabPane) display.get("byProfile");
                 byProfilePane.setCenter(byProfile);
@@ -193,12 +190,10 @@ public class FXMLDocumentController implements Initializable {
             File get = caseFileArray.get(i);
             MenuItem menuItem = new MenuItem(get.getName());
             cases.getItems().add(menuItem);
-            menuBar.getMenus().add(cases);
             caseItemArray[i] = menuItem;
         }
 
         problemDataFolderName = "/" + caseItemArray[0].getText();
-        System.out.println("case = " + problemDataFolderName);
         profilePath = new File(contextPath + "/data" + problemDataFolderName + "/Profiles/");
         hintsXML = new File(contextPath + "/data" + problemDataFolderName + "/hints.xml");
         inputFolder = new File(dataPath + "/input/");
@@ -208,7 +203,6 @@ public class FXMLDocumentController implements Initializable {
             caseItem.setOnAction(e -> {
                 MenuItem mItem = (MenuItem) e.getSource();
                 problemDataFolderName = "/" + mItem.getText();
-                System.out.println("case = " + problemDataFolderName);
                 profilePath = new File(contextPath + "/data" + problemDataFolderName + "/Profiles/");
                 hintsXML = new File(contextPath + "/data" + problemDataFolderName + "/hints.xml");
                 inputFolder = new File(dataPath + "/input/");
