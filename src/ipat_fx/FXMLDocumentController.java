@@ -209,8 +209,6 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         contextPath = System.getProperty("user.dir") + "/web/";
-        File logFile = new File(contextPath + "/log/log4j-IPAT.log");
-        System.setProperty("rootPath", logFile.getAbsolutePath());
         dataPath = contextPath + "/Client Data";
         File prePopulatedProfilePath = new File(contextPath + "/data/");
         File[] listFiles = prePopulatedProfilePath.listFiles();
