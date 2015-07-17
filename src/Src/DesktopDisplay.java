@@ -6,28 +6,18 @@
 package Src;
 
 import Algorithms.Hint;
-import ipat_fx.FXMLDocumentController;
-import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 /**
  *
@@ -38,7 +28,7 @@ public class DesktopDisplay extends Display {
     @Override
     public HashMap<String, Object> loadDisplay(HashMap hintMap, Artifact[] artifacts, int noOfProfiles) {
 
-        HashMap<String, Object> tempByImageStore = new HashMap<>(); // temp for byImage
+        HashMap<String, GridPane> tempByImageStore = new HashMap<>(); // temp for byImage
         HashMap<String, Object> display = new HashMap();
 
        
@@ -65,6 +55,7 @@ public class DesktopDisplay extends Display {
                     gridpane.setHgap(10);
                     WebView webview = new WebView();  // the visible thumbnail preview of the artefact
                     WebEngine engine = webview.getEngine();
+                    engine.setJavaScriptEnabled(true);
                     engine.load("file:///" + artifact.getFilepath());
                     webview.setId("frame_" + resultCount);
                     // if clicked set PreviewFrame to this src
@@ -132,12 +123,13 @@ public class DesktopDisplay extends Display {
         Set<String> keySet = tempByImageStore.keySet();
         Iterator<String> iterator = keySet.iterator();
         resultCount = 0;
+        System.out.println(tempByImageStore.size());
         while (iterator.hasNext()) {
             String artefactName = iterator.next();
             Tab byImageTab = new Tab();
             byImageTab.setId("li_" + resultCount);
             byImageTab.setText(artefactName);
-            GridPane cells = (GridPane) tempByImageStore.get(iterator.next());
+            GridPane cells = (GridPane) tempByImageStore.get(artefactName);
             byImageTab.setContent(cells);
             byImage.getTabs().add(byImageTab);
             resultCount++;

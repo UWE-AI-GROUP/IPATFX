@@ -6,6 +6,7 @@
 package ipat_fx;
 
 import Src.Controller;
+import Src.Interaction;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -87,7 +88,7 @@ public class FXMLDocumentController implements Initializable {
     private final ArrayList<File> caseFileArray = new ArrayList<>();
     public MenuItem[] caseItemArray;
     public Controller controller;
-    
+    public Interaction interaction = new Interaction();
  
 
     @FXML
@@ -163,6 +164,7 @@ public class FXMLDocumentController implements Initializable {
         if (numOfProfiles > 8) {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
         } else {
+            HashMap<String, Object> scores = new HashMap();
             // TODO get the scores from the user input to then get the next gen
             ObservableList<Tab> tabs = byProfileTab.getTabs();
             Iterator<Tab> iterator = tabs.iterator();
@@ -174,14 +176,27 @@ public class FXMLDocumentController implements Initializable {
                     Node cellElement = cellIterator.next();
                    // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
                      if(cellElement instanceof Slider){
+                         scores.put(cellElement.getId(), ((Slider)cellElement).getValue());
                          System.out.println(cellElement.getId() + " / Slider value: "+((Slider)cellElement).getValue());
                 }
                      if(cellElement instanceof CheckBox){
+                         scores.put(cellElement.getId(), ((CheckBox)cellElement).isSelected());
                          System.out.println(cellElement.getId() + " / CheckBox value: "+((CheckBox)cellElement).isSelected());
                 }
+                     
                 }
             }
-            //   HashMap HTML_Strings = controller.mainloop(scores, profileCount);
+              
+            
+            
+               HashMap display = controller.mainloop(scores, numOfProfiles);
+               
+                WebView previewView = (WebView) display.get("previewView");
+                previewPane.getChildren().add(previewView);
+                byProfileTab = (TabPane) display.get("byProfile");
+                byProfilePane.setCenter(byProfileTab);
+                byImageTab = (TabPane) display.get("byImage");
+                byImagePane.setCenter(byImageTab);
         }
     }
 

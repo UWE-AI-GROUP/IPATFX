@@ -351,9 +351,15 @@ public class UMLProcessor implements Processor {
                 Element item = (Element) iterator.next();
                 if (item.getName().equalsIgnoreCase("designElement")) {
                     String name = item.getChildText("name");
-                    if(name!= null) logger.error("designElement name is " +name + "\n");
+                    if(name == null) { 
+                        logger.error("designElement name is " +name + "\n"); 
+                        System.exit(0);
+                    }
                     String type = item.getChildText("type");
-                    if(type!= null) logger.error("designElement type is " +type + "\n");
+                    if(type == null) {
+                        logger.error("designElement type is " +type + "\n");
+                        System.exit(0);
+                    }
                     if (type.equalsIgnoreCase("method")) {
                         methodList.add(name);
                     } else {
