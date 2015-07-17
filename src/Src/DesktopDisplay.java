@@ -109,6 +109,7 @@ public class DesktopDisplay extends Display {
                             default:
                                 throw new AssertionError();
                         }
+                        keyCount++;
                     }
                     resultCount += 1;
                     // add cell to the tempByImageStore based on it's artefact name 
@@ -133,7 +134,6 @@ public class DesktopDisplay extends Display {
         resultCount = 0;
         while (iterator.hasNext()) {
             String artefactName = iterator.next();
-            System.out.println("by Image = " + artefactName);
             Tab byImageTab = new Tab();
             byImageTab.setId("li_" + resultCount);
             byImageTab.setText(artefactName);

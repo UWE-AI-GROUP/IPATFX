@@ -15,22 +15,29 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
@@ -67,6 +74,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TabPane tabPane;
 
+    private TabPane byProfileTab;
+    private TabPane byImageTab;
+    
     private String contextPath;
     private File inputFolder = null;
     private File outputFolder = null;
@@ -77,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
     private final ArrayList<File> caseFileArray = new ArrayList<>();
     public MenuItem[] caseItemArray;
     public Controller controller;
-
+    
  
 
     @FXML
@@ -129,10 +139,10 @@ public class FXMLDocumentController implements Initializable {
                 HashMap display = controller.initialisation();
                 WebView previewView = (WebView) display.get("previewView");
                 previewPane.getChildren().add(previewView);
-                TabPane byProfile = (TabPane) display.get("byProfile");
-                byProfilePane.setCenter(byProfile);
-                TabPane byImage = (TabPane) display.get("byImage");
-                byImagePane.setCenter(byImage);
+                byProfileTab = (TabPane) display.get("byProfile");
+                byProfilePane.setCenter(byProfileTab);
+                byImageTab = (TabPane) display.get("byImage");
+                byImagePane.setCenter(byImageTab);
             } catch (IOException ex) {
                 Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -154,7 +164,23 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
         } else {
             // TODO get the scores from the user input to then get the next gen
-            System.out.println("TODO get scores");
+            ObservableList<Tab> tabs = byProfileTab.getTabs();
+            Iterator<Tab> iterator = tabs.iterator();
+            while (iterator.hasNext()) {
+                Tab profileTab = iterator.next();
+                GridPane cells = (GridPane) profileTab.getContent();
+                Iterator<Node> cellIterator = cells.getChildren().iterator();
+                while (cellIterator.hasNext()) {
+                    Node cellElement = cellIterator.next();
+                   // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
+                     if(cellElement instanceof Slider){
+                         System.out.println(cellElement.getId() + " / Slider value: "+((Slider)cellElement).getValue());
+                }
+                     if(cellElement instanceof CheckBox){
+                         System.out.println(cellElement.getId() + " / CheckBox value: "+((CheckBox)cellElement).isSelected());
+                }
+                }
+            }
             //   HashMap HTML_Strings = controller.mainloop(scores, profileCount);
         }
     }
