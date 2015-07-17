@@ -6,100 +6,139 @@
 package Src;
 
 import Algorithms.Hint;
+import ipat_fx.FXMLDocumentController;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  *
  * @author kieran
  */
 public class DesktopDisplay extends Display {
-  
-    
-     @Override
-     public HashMap<String, String> loadDisplay(Controller controller) {
-        HashMap hintMap = controller.getHints();
-        Artifact[] artifacts = controller.processedArtifacts;
-        HashMap<String, String> byImageArray = new HashMap<>();
-        HashMap<String, String> HM = new HashMap();
+
+    @Override
+    public HashMap<String, Object> loadDisplay(HashMap hintMap, Artifact[] artifacts, int noOfProfiles) {
+
+        HashMap<String, Object> tempByImageStore = new HashMap<>(); // temp for byImage
+        HashMap<String, Object> display = new HashMap();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+        FXMLDocumentController controller = (FXMLDocumentController) loader.getController();
+        System.out.println("Controller " + controller);
+        
+        TabPane byProfile = new TabPane();
+        TabPane byImage = new TabPane();
         int resultCount = 0;
-        String hintString = "";
-        String cells = "<div id='tabs-container'><ul class='tabs-menu'>";
-        for (int i = 0; i < controller.noOfProfiles; i++) {
-            cells += "<li  id='li_" + i + "' onclick='tabClicked(this.id)'><a class='tabText_" + i + "' href='#byProfile_" + i + "'>" + i + "</a></li>";
-        }
-        cells += " </ul> <div class='tabstuff'>";
-        String cell = "";
-        for (int i = 0; i < controller.noOfProfiles; i++) {
-            cells += "<div id='byProfile_" + i + "' class='tab-content'>";
-            for (Artifact artifact : artifacts) {
-                cell = "";
+
+        for (int i = 0; i < noOfProfiles; i++) { // Create tabs based on number of profiles
+           
+            Tab tab = new Tab();
+            tab.setId("li_" + i);
+            tab.setText(String.valueOf(i));
+ 
+            for (Artifact artifact : artifacts) { // cycle through all results per profile
+                
                 String name = artifact.getFilename().substring(artifact.getFilename().indexOf("-") + 1);
                 String[] parts = name.split("-");
                 int profileNum = Integer.parseInt(parts[0].substring(parts[0].indexOf("_") + 1));
-                if (profileNum == i) {
-                    cell = "<div class='cell'>" + "<div id='overlay_" + resultCount + "' class='overlay' onclick='app.preview(document.getElementById('frame_'+"+resultCount+").src)'></div>" + "<iframe src='file:///" + artifact.getFilepath() + "' scrolling='no' class='cellFrames' id='frame_" + resultCount + "' ></iframe>";
+                if (profileNum == i) { // if result matches the current Profile
+                    GridPane gridpane = new GridPane(); // create a gridpane "cell" to put the artefact components
+                    gridpane.setPadding(new Insets(10, 10, 10, 10));
+                    gridpane.setVgap(8);
+                    gridpane.setHgap(10);
+                    WebView webview = new WebView();  // the visible thumbnail preview of the artefact
+                    WebEngine engine = webview.getEngine();
+                    engine.load("file:///" + artifact.getFilepath());
+                    webview.setId("frame_" + resultCount);
+                    // if clicked set PreviewFrame to this src
+                    webview.setOnMouseClicked(e -> controller.setPreviewFrame("file:///" + artifact.getFilepath()));
+                    GridPane.setConstraints(webview, 0, 0);
+                    gridpane.getChildren().add(webview);
+                    System.out.println("I am a webview " + webview.getId());
+                    // get the hints one by one and apply to gridpane "cell"
                     Set keySet = hintMap.keySet();
+                    int keyCount = 0;
                     for (Object key : keySet) {
                         String k = (String) key;
                         Hint h = (Hint) hintMap.get(k);
                         String displaytype = h.getDisplaytype();
+                        Label label;
+                        System.out.println("I am a hint " + h.getHintName());
                         switch (displaytype) {
                             case "range":
-                                cell += "<div class='hint'><input type='range' class='hintScore' id ='" + h.getHintName() + "_" + resultCount + "' min='" + h.getRangeMin() + "' max='" + h.getRangeMax() + "' value='" + h.getDefaultValue() + "' step='1'/><label for='" + h.getHintName() + "_" + resultCount + "' class='label'>" + h.getDisplaytext() + "</label></div>";
-                                hintString += h.getHintName() + "_" + resultCount + ",";
+                                Slider slider = new Slider();
+                                slider.setMax(h.getRangeMax());
+                                slider.setMin(h.getRangeMin());
+                                slider.setValue(Double.valueOf(h.getDefaultValue()));
+                                slider.setId(h.getHintName() + "_" + resultCount);
+                                label = new Label();
+                                label.setId(h.getHintName() + "_" + resultCount);
+                                label.setText(h.getDisplaytext());
+                                GridPane.setConstraints(label, keyCount, 1);
+                                GridPane.setConstraints(slider, keyCount, 2);
+                                gridpane.getChildren().add(label);
+                                gridpane.getChildren().add(slider);
                                 break;
                             case "checkbox":
-                                cell += "<div class='hint'><input type='checkbox' id='" + h.getHintName() + "_" + resultCount + "' class='hintScore' ><label for='" + h.getHintName() + "_" + resultCount + "' class='label'>" + h.getDisplaytext() + "</label></div>";
-                                hintString += h.getHintName() + "_" + resultCount + ",";
+                                CheckBox checkbox = new CheckBox();
+                                checkbox.setId(h.getHintName() + "_" + resultCount);
+                                label = new Label();
+                                label.setId(h.getHintName() + "_" + resultCount);
+                                label.setText(h.getDisplaytext());
+                                GridPane.setConstraints(label, keyCount, 1);
+                                GridPane.setConstraints(checkbox, keyCount, 2);
+                                gridpane.getChildren().add(label);
+                                gridpane.getChildren().add(checkbox);
                                 break;
                             default:
                                 throw new AssertionError();
                         }
                     }
-                    cell += "</div>";
                     resultCount += 1;
                     String key = name.substring(name.indexOf("-") + 1);
-                    if (byImageArray.containsKey(key)) {
-                        String get = byImageArray.get(key);
-                        get += cell;
-                        byImageArray.put(key, get);
+                    if (tempByImageStore.containsKey(key)) {
+                        GridPane get = (GridPane) tempByImageStore.get(key);
+                        tempByImageStore.put(key, get);
                     } else {
-                        byImageArray.put(key, cell);
+                        tempByImageStore.put(key, gridpane);
                     }
+                    tab.setContent(gridpane); // TODO this will overwrite other cells (cant have multiple profiles)
                 }
-                cells += cell;
             }
-            cells += "</div>";
+            byProfile.getTabs().add(tab);
+            byProfile.setId("byProfileTabPane");
+            display.put("byProfile", byProfile);
         }
-        cells += "</div>";
-        HM.put("byProfile", cells);
-        cells = "<div id='tabs-container'><ul class='tabs-menu'>";
-        Set<String> keySet = byImageArray.keySet();
+
+       
+        Set<String> keySet = tempByImageStore.keySet();
         Iterator<String> iterator = keySet.iterator();
-        int count = 0;
+        resultCount = 0;
         while (iterator.hasNext()) {
             String next = iterator.next();
-            cells += "<li  id='li_" + count + "' onclick='tabClicked(this.id)'><a class='tabText_" + count + "' href='#byImage_" + count + "'>" + next + "</a></li>";
-            count++;
+            Tab tab = new Tab();
+            tab.setId("li_" + resultCount);
+            tab.setText(next);
+            GridPane get = (GridPane) tempByImageStore.get(iterator.next()); 
+            tab.setContent(get);
+            byImage.getTabs().add(tab);
+            resultCount++;
         }
-        cells += " </ul> <div class='tabstuff'>";
-        iterator = keySet.iterator();
-        count = 0;
-        while (iterator.hasNext()) {
-            cells += "<div id='byImage_" + count + "' class='tab-content'>";
-            String get = byImageArray.get(iterator.next());
-            cells += get + "</div>";
-            count++;
-        }
-        cells += "</div>";
-        HM.put("byImage", cells);
-        HM.put("hintString", hintString);
-        HM.put("count", Integer.toString(artifacts.length));
-        return HM;
+        byImage.setId("byImageTabPane");
+        display.put("byImage", byImage);
+        display.put("count", Integer.toString(artifacts.length));
+        return display;
     }
-    
-     
-     
+
 }

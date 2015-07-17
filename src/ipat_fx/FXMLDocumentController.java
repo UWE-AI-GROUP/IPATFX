@@ -6,13 +6,11 @@
 package ipat_fx;
 
 import Src.Controller;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,10 +19,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -36,16 +31,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 /**
@@ -59,9 +52,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private WebView previewFrame;
     @FXML
-    private WebView byImage;
+    private BorderPane byImagePane;
     @FXML
-    private WebView byProfile;
+    private BorderPane byProfilePane;
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -75,8 +68,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TabPane tabPane;
 
-    private WebEngine byProfileEngine;
-    private WebEngine byImageEngine;
     private String contextPath;
     private File inputFolder = null;
     private File outputFolder = null;
@@ -85,7 +76,14 @@ public class FXMLDocumentController implements Initializable {
     private String dataPath;
     private String problemDataFolderName;
     private final ArrayList<File> caseFileArray = new ArrayList<>();
-    MenuItem[] caseItemArray;
+    public MenuItem[] caseItemArray;
+    public Controller controller;
+
+    public void setPreviewFrame(String location) {
+        System.out.println("Preview activated : " + location);
+        this.previewFrame.getEngine().load(location);
+        
+    }
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -93,7 +91,6 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
-
             JFileChooser chooser = new JFileChooser();
             chooser.setMultiSelectionEnabled(true);
             chooser.showOpenDialog(null);
@@ -133,15 +130,12 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             try {
-                Controller controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
-                HashMap HTML_Strings = controller.initialisation();
-                String byProfileHTML = (String) HTML_Strings.get("byProfile");
-                System.out.println("#######");
-                System.out.println(byProfileHTML);
-                System.out.println("#######");
-                byProfileEngine.loadContent(byProfileHTML);
-                String byImageHTML = (String) HTML_Strings.get("byImage");
-                byImageEngine.loadContent(byImageHTML);
+                controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
+                HashMap display = controller.initialisation();
+                TabPane byProfile = (TabPane) display.get("byProfile");
+                byProfilePane.setCenter(byProfile);
+                TabPane byImage = (TabPane) display.get("byImage");
+                byImagePane.setCenter(byImage);
             } catch (IOException ex) {
                 Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -151,7 +145,6 @@ public class FXMLDocumentController implements Initializable {
                 dialogStage.show();
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }
 
@@ -163,33 +156,9 @@ public class FXMLDocumentController implements Initializable {
         if (numOfProfiles > 8) {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
         } else {
-            WebEngine engine = byProfile.getEngine();
-
-            engine.setJavaScriptEnabled(true);
-            JSObject window = (JSObject) engine.executeScript("window");
-            window.setMember("app", new JavaApp());
-            JSObject scores = (JSObject) engine.executeScript("function() {"
-                    + "var scores = {};"
-                    + "var all = document.getElementByClassName('cell');"
-                    + "    for (var i = 0; i < all.length; i++) {"
-                    + "        var inputs = $(all[i]).find(\"input\");"
-                    + "        for (var j = 0; j < inputs.length; j++) {"
-                    + "            var name = $(inputs[j]).prop('id');"
-                    + "            if ($(inputs[j]).prop('type') === \"checkbox\") {"
-                    + "                var value = $(inputs[j]).is(':checked');"
-                    + "                scores[name] = value;"
-                    + "            }"
-                    + "            else if ($(inputs[j]).prop('type') === \"range\") {"
-                    + "                var value = $(inputs[j]).val();"
-                    + "                scores[name] = value;"
-                    + "            }"
-                    + "            else {"
-                    + "                alert(\"Error: A javascript JQuery check needs to be implemented for \" + $(inputs[i]).attr('id') + \" in javascript.js\");"
-                    + "            }"
-                    + "        }"
-                    + "    }"
-                    + "app.getScores(scores);}");
-            System.out.println(scores);
+            // TODO get the scores from the user input to then get the next gen
+            System.out.println("TODO get scores");
+            //   HashMap HTML_Strings = controller.mainloop(scores, profileCount);
         }
     }
 
@@ -246,25 +215,6 @@ public class FXMLDocumentController implements Initializable {
                 outputFolder = new File(dataPath + "/output/");
             });
         }
-        byProfileEngine = byProfile.getEngine();
-        byImageEngine = byImage.getEngine();
-        byProfileEngine.setUserStyleSheetLocation("file:///" + contextPath + "css/StyleSheet.css");
-        byImageEngine.setUserStyleSheetLocation("file:///" + contextPath + "css/StyleSheet.css");
-
-//        String script = "script = document.createElement('script');"
-//                + "script.onload = function() {};"
-//                + "var head = document.getElementsByTagName(\"head\")[0];"
-//                + "script.type = 'text/javascript';"
-//                + "script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js';"
-//                + "head.appendChild(script);";
-//
-//        byProfileEngine.executeScript(script);
-//        byImageEngine.executeScript(script);
-
-        byProfileEngine.setOnAlert((WebEvent<String> event) -> {
-            System.out.println(event.getData());
-        });
-
     }
 
     public class JavaApp {

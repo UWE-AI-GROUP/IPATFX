@@ -1667,3 +1667,1128 @@
 2015-07-15 15:10:08 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
 2015-07-15 15:10:08 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
 2015-07-15 15:10:08 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 19:40:33 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 19:40:33 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:40:33 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 19:40:34 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 19:40:34 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 19:40:34 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 19:40:34 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 19:40:34 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 19:49:28 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 19:49:28 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 19:49:28 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 19:49:28 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 19:49:29 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 19:49:29 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 19:49:29 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 19:49:29 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 19:49:29 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 19:58:06 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 19:58:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 19:58:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 19:58:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 19:58:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 19:58:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 19:58:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 19:58:07 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 19:58:07 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:04:33 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:04:33 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:04:33 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:06:06 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:06:06 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:06:06 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:11:35 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:11:35 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:11:35 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:15:38 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:15:38 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:15:38 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:17:06 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:17:06 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:17:06 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:18:54 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:18:54 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:18:54 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:19:35 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:19:35 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:35 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:19:36 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:20:22 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:20:22 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:20:22 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:22 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:23 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:23 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:23 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:23 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:20:23 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:21:08 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:21:08 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:21:08 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:34:53 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:34:53 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:34:53 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:35:45 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:35:45 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:35:45 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:37:07 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:37:07 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:37:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:07 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:08 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:37:08 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:40:16 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:40:16 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:40:16 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:45:02 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:45:02 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:45:02 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:02 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:45:03 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:47:10 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:47:10 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:47:10 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:47:11 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:48:24 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:48:25 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:48:25 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:57:43 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:57:43 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:57:43 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:58:03 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:58:03 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:58:03 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 20:58:46 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 20:58:46 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 20:58:46 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 20:58:46 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 20:58:46 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 20:58:46 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 20:58:46 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 20:58:47 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 20:58:47 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-16 21:05:18 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-16 21:05:18 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-16 21:05:18 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-17 10:44:40 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-17 10:44:41 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-17 10:44:41 DEBUG Controller:307 - Processing : gen_1-profile_5.xml
+2015-07-17 10:46:55 INFO  Controller:137 - initial no of Profiles = 6
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_1.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_2.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_3.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_4.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_5.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:335 - those assigned as best in ESEvolution.updateWorkingMemory(): gen_0-profile_6.xml : 5
+
+2015-07-17 10:46:55 DEBUG ESEvolution:222 - How Many in ESEvolution.generateNextSolutions : 6
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[0] with filename gen_0-profile_1.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[1] with filename gen_0-profile_2.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[2] with filename gen_0-profile_3.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[3] with filename gen_0-profile_4.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[4] with filename gen_0-profile_5.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:252 - have made a copy of best[5] with filename gen_0-profile_6.xml
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG ESEvolution:287 - after reading generation  has value 0
+
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_0.xml
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_1.xml
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_2.xml
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_3.xml
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_4.xml
+2015-07-17 10:46:55 DEBUG Controller:307 - Processing : gen_1-profile_5.xml

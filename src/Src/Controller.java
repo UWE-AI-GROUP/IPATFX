@@ -143,7 +143,7 @@ public class Controller {
             currentGenerationOfProfiles[i] = metaHeuristic.getNextGenProfileAtIndex(i);
         }
         getResultArtifacts();
-        HashMap<String, String> results = display.loadDisplay(this);
+        HashMap<String, Object> results = display.loadDisplay(this.getHints(), this.processedArtifacts, this.noOfProfiles);
         return results;
     }
 
@@ -167,7 +167,7 @@ public class Controller {
             currentGenerationOfProfiles[i] = metaHeuristic.getNextGenProfileAtIndex(i);
         }
         getResultArtifacts();
-      HashMap<String, String> results =  display.loadDisplay(this);
+      HashMap<String, Object> results = display.loadDisplay(this.getHints(), this.processedArtifacts, this.noOfProfiles);
         return results;
     }
 

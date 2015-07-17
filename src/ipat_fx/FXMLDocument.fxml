@@ -39,18 +39,18 @@
         <tabs>
           <Tab text="By Profile">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="byProfileAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <WebView fx:id="byProfile" layoutX="-3.0" prefHeight="314.0" prefWidth="418.0" />
+                        <BorderPane fx:id="byProfilePane" layoutX="9.0" layoutY="7.0" prefHeight="305.0" prefWidth="409.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab text="By Images">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="byImageAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <WebView fx:id="byImage" layoutY="7.0" prefHeight="306.0" prefWidth="418.0" />
+                        <BorderPane fx:id="byImagePane" layoutX="9.0" layoutY="6.0" prefHeight="308.0" prefWidth="410.0" />
                      </children>
                   </AnchorPane>
             </content>

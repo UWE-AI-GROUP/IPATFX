@@ -14,5 +14,5 @@ import java.util.HashMap;
 public abstract class Display {
     
     
-    public abstract HashMap<String, String> loadDisplay(Controller controller);
+    public abstract HashMap<String, Object> loadDisplay(HashMap hintMap, Artifact[] artifacts, int noOfProfiles);
 }
