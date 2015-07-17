@@ -28,12 +28,12 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
     public Profile[] updateProfileHints(HashMap data, Profile[] currentGenerationOfProfiles, HashMap hints) {
 
     //Check for data structure
-//    Iterator it = data.keySet().iterator();
-//        while (it.hasNext()) {
-//        String hint = (String) it.next();
-//        Object value = data.get(hint);
-//            System.out.println("hint " + hint + " / value " + value);
-//        }
+    Iterator it = data.keySet().iterator();
+        while (it.hasNext()) {
+        String hint = (String) it.next();
+        Object value = data.get(hint);
+            System.out.println("hint " + hint + " / value " + value);
+        }
         
         int numOfProfiles = currentGenerationOfProfiles.length;
         int numOfHints = hints.size();
@@ -43,21 +43,21 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
 
         // We don't know the order in which hints are initialised in hints.xml so organisation of return values is required
         // Run through the different hints (keys) in the data set
-        Set keySet = data.keySet();
+        Set hintSet = data.keySet();
         logger.debug("Num of Hints =" + numOfHints);
         int numOfResults = data.size() / numOfHints;
         int numOfUploads = numOfResults / numOfProfiles;
-        for (Object keySet1 : keySet) {
+        for (Object keySet1 : hintSet) {
 
-            String key = (String) keySet1;
-            String[] hint_Iteration = key.split("_");
+            String hintName = (String) keySet1;
+            String[] hint_Iteration = hintName.split("_");
             // name of the hint in question
             String hint = hint_Iteration[0];
             int iteration = Integer.parseInt(hint_Iteration[1]);
             // which array position to add the different results to
             int profileNum = iteration / numOfUploads;
 
-            Object rawValue = data.get(key);
+            Object rawValue = data.get(hintName);
 
             // print statements to ensure that the cells value are placed into the right array and positions for averaging
            // System.out.println("=================");

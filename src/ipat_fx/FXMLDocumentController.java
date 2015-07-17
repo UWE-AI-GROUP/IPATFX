@@ -77,7 +77,7 @@ public class FXMLDocumentController implements Initializable {
 
     private TabPane byProfileTab;
     private TabPane byImageTab;
-    
+
     private String contextPath;
     private File inputFolder = null;
     private File outputFolder = null;
@@ -89,7 +89,6 @@ public class FXMLDocumentController implements Initializable {
     public MenuItem[] caseItemArray;
     public Controller controller;
     public Interaction interaction = new Interaction();
- 
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -174,29 +173,25 @@ public class FXMLDocumentController implements Initializable {
                 Iterator<Node> cellIterator = cells.getChildren().iterator();
                 while (cellIterator.hasNext()) {
                     Node cellElement = cellIterator.next();
-                   // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
-                     if(cellElement instanceof Slider){
-                         scores.put(cellElement.getId(), ((Slider)cellElement).getValue());
-                         System.out.println(cellElement.getId() + " / Slider value: "+((Slider)cellElement).getValue());
-                }
-                     if(cellElement instanceof CheckBox){
-                         scores.put(cellElement.getId(), ((CheckBox)cellElement).isSelected());
-                         System.out.println(cellElement.getId() + " / CheckBox value: "+((CheckBox)cellElement).isSelected());
-                }
-                     
+                    // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
+                    if (cellElement instanceof Slider) {
+                        scores.put(cellElement.getId(), String.valueOf(((Slider) cellElement).getValue()));
+                        System.out.println(cellElement.getId() + " / Slider value: " + ((Slider) cellElement).getValue());
+                    }
+                    if (cellElement instanceof CheckBox) {
+                        scores.put(cellElement.getId(), ((CheckBox) cellElement).isSelected());
+                        System.out.println(cellElement.getId() + " / CheckBox value: " + ((CheckBox) cellElement).isSelected());
+                    }
+
                 }
             }
-              
-            
-            
-               HashMap display = controller.mainloop(scores, numOfProfiles);
-               
-                WebView previewView = (WebView) display.get("previewView");
-                previewPane.getChildren().add(previewView);
-                byProfileTab = (TabPane) display.get("byProfile");
-                byProfilePane.setCenter(byProfileTab);
-                byImageTab = (TabPane) display.get("byImage");
-                byImagePane.setCenter(byImageTab);
+            HashMap display = controller.mainloop(scores, numOfProfiles);
+            WebView previewView = (WebView) display.get("previewView");
+            previewPane.getChildren().add(previewView);
+            byProfileTab = (TabPane) display.get("byProfile");
+            byProfilePane.setCenter(byProfileTab);
+            byImageTab = (TabPane) display.get("byImage");
+            byImagePane.setCenter(byImageTab);
         }
     }
 
