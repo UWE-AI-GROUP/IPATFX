@@ -32,6 +32,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
@@ -50,7 +51,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button chooseFilesButton;
     @FXML
-    private WebView previewFrame;
+    private Pane previewPane;
     @FXML
     private BorderPane byImagePane;
     @FXML
@@ -79,11 +80,7 @@ public class FXMLDocumentController implements Initializable {
     public MenuItem[] caseItemArray;
     public Controller controller;
 
-    public void setPreviewFrame(String location) {
-        System.out.println("Preview activated : " + location);
-        this.previewFrame.getEngine().load(location);
-        
-    }
+ 
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -132,6 +129,9 @@ public class FXMLDocumentController implements Initializable {
             try {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
                 HashMap display = controller.initialisation();
+                WebView previewView = (WebView) display.get("previewView");
+                System.out.println("Preview View = " + previewView);
+                previewPane.getChildren().add(previewView);
                 TabPane byProfile = (TabPane) display.get("byProfile");
                 byProfilePane.setCenter(byProfile);
                 TabPane byImage = (TabPane) display.get("byImage");
@@ -216,21 +216,4 @@ public class FXMLDocumentController implements Initializable {
             });
         }
     }
-
-    public class JavaApp {
-
-        public void exit() {
-            Platform.exit();
-        }
-
-        public void preview(String src) {
-            System.out.println(src);
-            previewFrame.getEngine().load(src);
-        }
-
-        public void getScores(JSObject scores) {
-            System.out.println(" we have them now! ");
-        }
-    }
-
 }

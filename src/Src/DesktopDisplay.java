@@ -42,7 +42,7 @@ public class DesktopDisplay extends Display {
         HashMap<String, Object> display = new HashMap();
 
        
-
+        WebView preview = new WebView();
         TabPane byProfile = new TabPane();
         TabPane byImage = new TabPane();
         int resultCount = 0;
@@ -69,9 +69,7 @@ public class DesktopDisplay extends Display {
                     webview.setId("frame_" + resultCount);
                     // if clicked set PreviewFrame to this src
                     webview.setOnMouseClicked(e -> {
-                       FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocumentController.fxml"));
-                        FXMLDocumentController controller = loader.getController();
-                        controller.setPreviewFrame("file:///" + artifact.getFilepath());
+                        preview.getEngine().load("file:///" + artifact.getFilepath());
                     });
                     GridPane.setConstraints(webview, 0, 0);
                     gridpane.getChildren().add(webview);
@@ -147,6 +145,7 @@ public class DesktopDisplay extends Display {
         byImage.setId("byImageTabPane");
         display.put("byImage", byImage);
         display.put("count", Integer.toString(artifacts.length));
+        display.put("previewView", preview);
         return display;
     }
 }
