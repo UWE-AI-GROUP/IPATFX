@@ -7,19 +7,27 @@ package Src;
 
 import Algorithms.Hint;
 import ipat_fx.FXMLDocumentController;
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
 /**
  *
@@ -33,22 +41,20 @@ public class DesktopDisplay extends Display {
         HashMap<String, Object> tempByImageStore = new HashMap<>(); // temp for byImage
         HashMap<String, Object> display = new HashMap();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-        FXMLDocumentController controller = (FXMLDocumentController) loader.getController();
-        System.out.println("Controller " + controller);
-        
+       
+
         TabPane byProfile = new TabPane();
         TabPane byImage = new TabPane();
         int resultCount = 0;
 
         for (int i = 0; i < noOfProfiles; i++) { // Create tabs based on number of profiles
-           
+
             Tab tab = new Tab();
             tab.setId("li_" + i);
             tab.setText(String.valueOf(i));
- 
+
             for (Artifact artifact : artifacts) { // cycle through all results per profile
-                
+
                 String name = artifact.getFilename().substring(artifact.getFilename().indexOf("-") + 1);
                 String[] parts = name.split("-");
                 int profileNum = Integer.parseInt(parts[0].substring(parts[0].indexOf("_") + 1));
@@ -62,7 +68,11 @@ public class DesktopDisplay extends Display {
                     engine.load("file:///" + artifact.getFilepath());
                     webview.setId("frame_" + resultCount);
                     // if clicked set PreviewFrame to this src
-                    webview.setOnMouseClicked(e -> controller.setPreviewFrame("file:///" + artifact.getFilepath()));
+                    webview.setOnMouseClicked(e -> {
+                       FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocumentController.fxml"));
+                        FXMLDocumentController controller = loader.getController();
+                        controller.setPreviewFrame("file:///" + artifact.getFilepath());
+                    });
                     GridPane.setConstraints(webview, 0, 0);
                     gridpane.getChildren().add(webview);
                     System.out.println("I am a webview " + webview.getId());
@@ -121,7 +131,6 @@ public class DesktopDisplay extends Display {
             display.put("byProfile", byProfile);
         }
 
-       
         Set<String> keySet = tempByImageStore.keySet();
         Iterator<String> iterator = keySet.iterator();
         resultCount = 0;
@@ -130,7 +139,7 @@ public class DesktopDisplay extends Display {
             Tab tab = new Tab();
             tab.setId("li_" + resultCount);
             tab.setText(next);
-            GridPane get = (GridPane) tempByImageStore.get(iterator.next()); 
+            GridPane get = (GridPane) tempByImageStore.get(iterator.next());
             tab.setContent(get);
             byImage.getTabs().add(tab);
             resultCount++;
@@ -140,5 +149,4 @@ public class DesktopDisplay extends Display {
         display.put("count", Integer.toString(artifacts.length));
         return display;
     }
-
 }
