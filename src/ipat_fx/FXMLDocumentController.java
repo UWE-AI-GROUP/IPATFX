@@ -97,6 +97,7 @@ public class FXMLDocumentController implements Initializable {
     private String dataPath;
     private String problemDataFolderName;
     private final ArrayList<File> caseFileArray = new ArrayList<>();
+    private Controller theController;
     MenuItem[] caseItemArray;
 
 
@@ -145,8 +146,8 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             try {
-                Controller controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
-                HashMap HTML_Strings = controller.initialisation();
+                theController = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
+                HashMap HTML_Strings = theController.initialisation();
                 String byProfileHTML = (String) HTML_Strings.get("byProfile");
 //                System.out.println("#######");
 //                System.out.println(byProfileHTML);
@@ -187,24 +188,35 @@ public class FXMLDocumentController implements Initializable {
             //execute the java script to put the user inputs into the arrays in the bridging object
             engine.executeScript("loadscores()");
             //now pull them out into a hashmap
-            HashMap<String,String> interactions = new HashMap();
+            HashMap<String,Object> interactions = new HashMap();
             for (int i = 0; i < myJavaScriptBridge.inputnames.length; i++)
               {
                 String name = myJavaScriptBridge.inputnames[i];
                 String value = myJavaScriptBridge.inputvalues[i];
+                
                 if (name != null)
-                  interactions.put(name, value);
+                  {
+                    if (value.equals("false"))
+                        interactions.put(name, false);
+                    else if (value.equals("true"))
+                        interactions.put(name, true);
+                    else
+                        interactions.put(name, value);
+                  }
+                  
               }
-            //finally make a loop and print them out ot show they rethere
-              for (Map.Entry<String, String> entrySet : interactions.entrySet())
-                {
-                  String key = entrySet.getKey();
-                  String value = entrySet.getValue();
-                    System.out.println(key + " : " + value);
-                }
+
               
               //test the preview option
               engine.executeScript("app.preview(\"previewtest\")");
+              //call the mainloop
+              HashMap HTML_Strings = theController.mainloop(interactions, numOfProfiles);
+              //pull out the strings and reload them into the relevant engines
+              String byProfileHTML = (String) HTML_Strings.get("byProfile");
+              byProfileEngine.loadContent(byProfileHTML);
+              String byImageHTML = (String) HTML_Strings.get("byImage");
+              byImageEngine.loadContent(byImageHTML);
+              
         }
     }
 
