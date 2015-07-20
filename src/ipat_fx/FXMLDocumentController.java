@@ -89,6 +89,7 @@ public class FXMLDocumentController implements Initializable {
 
     private WebEngine byProfileEngine;
     private WebEngine byImageEngine;
+    private WebEngine previewEngine;
     private String contextPath;
     private File inputFolder = null;
     private File outputFolder = null;
@@ -208,7 +209,7 @@ public class FXMLDocumentController implements Initializable {
 
               
               //test the preview option
-              engine.executeScript("app.preview(\"previewtest\")");
+//              engine.executeScript("app.preview(\"previewtest\")");
               //call the mainloop
               HashMap HTML_Strings = theController.mainloop(interactions, numOfProfiles);
               //pull out the strings and reload them into the relevant engines
@@ -216,6 +217,7 @@ public class FXMLDocumentController implements Initializable {
               byProfileEngine.loadContent(byProfileHTML);
               String byImageHTML = (String) HTML_Strings.get("byImage");
               byImageEngine.loadContent(byImageHTML);
+              previewEngine.load("File:///umlexample.html");
               
         }
     }
@@ -280,6 +282,7 @@ public class FXMLDocumentController implements Initializable {
         byImageEngine = byImage.getEngine();
         byProfileEngine.setUserStyleSheetLocation("file:///" + contextPath + "css/StyleSheet.css");
         byImageEngine.setUserStyleSheetLocation("file:///" + contextPath + "css/StyleSheet.css");
+        previewEngine = previewFrame.getEngine();
 
 //        String script = "script = document.createElement('script');"
 //                + "script.onload = function() {};"
@@ -310,7 +313,8 @@ public class FXMLDocumentController implements Initializable {
 
         public void preview(String src) {
             System.out.println(src);
-            previewFrame.getEngine().loadContent(src);
+            String toLoad = "file:///" + src;
+            previewFrame.getEngine().load(toLoad);
         }
 
         public void getInputs() {
