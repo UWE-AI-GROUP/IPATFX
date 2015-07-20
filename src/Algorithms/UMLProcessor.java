@@ -66,7 +66,7 @@ public class UMLProcessor implements Processor {
     @Override
     public Artifact applyProfileToArtifact(Profile profile, Artifact artifact, String outputFolder) {
 
-        logger.debug("in UMLProcessor.applyprofiletoartefact()\n");
+        //logger.debug("in UMLProcessor.applyprofiletoartefact()\n");
         HashMap<Integer, ArrayList> classMethodsMap = new HashMap();
         HashMap<Integer, ArrayList> classAttributesMap = new HashMap();
         ArrayList<Integer> classesPresent = new ArrayList();
@@ -97,7 +97,7 @@ public class UMLProcessor implements Processor {
                 }
                 //get the type of element it is - held as the unit
                 String elementtype = ipvar.getUnit();
-                logger.debug("profile variable " + elementName + "is of type (from unit) " + elementtype + "\n");
+                //logger.debug("profile variable " + elementName + "is of type (from unit) " + elementtype + "\n");
 
                 //add this assignment in this design
                 classAssignments.put(elementName, elementClass);
@@ -145,7 +145,7 @@ public class UMLProcessor implements Processor {
             }
         }
 
-        logger.debug("highest class id used is " + highestClasses+"\n");
+        //logger.debug("highest class id used is " + highestClasses+"\n");
         int numUses[][] = new int[highestClasses + 1][highestClasses + 1];
         //2.2 loop through each class
         for (Integer thisClass : classesPresent) {
@@ -160,7 +160,7 @@ public class UMLProcessor implements Processor {
                     for (String attrString : thisMethodAtts) {
                         //and then what class they are in
                         int attClass = classAssignments.get(attrString);
-                        logger.debug("dealing with method " + thisMethod + "in class " + thisClass + ": it uses attribute " + attrString + " which is is class " + attClass+"\n");
+                        //logger.debug("dealing with method " + thisMethod + "in class " + thisClass + ": it uses attribute " + attrString + " which is is class " + attClass+"\n");
                         //2.5 finally increment the numberof uses
                         numUses[thisClass][attClass]++;
                     }
@@ -351,9 +351,10 @@ public class UMLProcessor implements Processor {
                 Element item = (Element) iterator.next();
                 if (item.getName().equalsIgnoreCase("designElement")) {
                     String name = item.getChildText("name");
-                    if(name!= null) logger.error("designElement name is " +name + "\n");
+                    if(name!= null) ;//TODO FIXMElogger.error("designElement name is " +name + "\n");
                     String type = item.getChildText("type");
-                    if(type!= null) logger.error("designElement type is " +type + "\n");
+                    if(type!= null) 
+                      ;//TODO FIXME logger.error("designElement type is " +type + "\n");
                     if (type.equalsIgnoreCase("method")) {
                         methodList.add(name);
                     } else {
@@ -364,10 +365,10 @@ public class UMLProcessor implements Processor {
                     String attribute = item.getChildText("attributeName");
                     if ((!methodList.contains(method)) || (!attributeList.contains(attribute))) {
                  
-                       logger.error("declared designUse names method" +method+ " or attribute " +attribute+ "that has not been declarted as a design element\n");
+                       logger.error("declared designUse names method" +method+ " or attribute " +attribute+ "that has not been declared as a design element\n");
                       
                     } else {
-                        logger.debug("designUse: method " + method + " uses attribute " + attribute + "\n");
+                        //logger.debug("designUse: method " + method + " uses attribute " + attribute + "\n");
                         ArrayList methodUsesList;
                         if (UsesMap.containsKey(method)) //get the list of uses associated with this method
                         {
