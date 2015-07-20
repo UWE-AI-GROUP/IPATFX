@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,9 +44,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -96,10 +97,8 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setMultiSelectionEnabled(true);
-            chooser.showOpenDialog(null);
-            File[] uploads = chooser.getSelectedFiles();
+            FileChooser chooser = new FileChooser();
+            List<File> uploads = chooser.showOpenMultipleDialog(null);
 
             for (File fi : uploads) {
                 File file;
