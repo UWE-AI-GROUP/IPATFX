@@ -64,16 +64,16 @@ public class ESEvolution implements MetaHeuristic {
         Iterator iterateKernels = values.iterator();
         IpatVariable currentVariable;
         String currentvarname;
-        logger.debug("in evolution.mutateprofile() name of profile nextgen[" +which +"] is " + nextGen.get(which).getName() + "\n");
-        logger.debug(".......mutation parameter is : " +mutation_rate + "\n");
-        logger.debug(".......number of kernels is  : " + kernels.size() + "\n");
+        //logger.debug("in evolution.mutateprofile() name of profile nextgen[" +which +"] is " + nextGen.get(which).getName() + "\n");
+        //logger.debug(".......mutation parameter is : " +mutation_rate + "\n");
+        //logger.debug(".......number of kernels is  : " + kernels.size() + "\n");
         
         while (iterateKernels.hasNext()) {
             Kernel kernel = (Kernel) iterateKernels.next();
             HashMap kernelVariables = kernel.getVariables();
             Set keySet1 = kernelVariables.keySet();
             Iterator eVar = keySet1.iterator();
-            logger.debug(".......Kernel " + kernel.getName() + " number of elements : " + kernelVariables.size() + "\n");
+            //logger.debug(".......Kernel " + kernel.getName() + " number of elements : " + kernelVariables.size() + "\n");
             
             while (eVar.hasNext()) {
                 currentvarname = eVar.next().toString();
@@ -81,12 +81,12 @@ public class ESEvolution implements MetaHeuristic {
                 newval = mutateVariable(currentVariable, mutation_rate);
                 
                 if (newval != currentVariable.getValue()) {
-                 logger.debug("mutating variable " + currentvarname + " in kernel " + kernel.getName() + "\n");
-                 logger.debug(".......old value " + currentVariable.getValue() + " is changing  to " + newval + "\n");
+                 //logger.debug("mutating variable " + currentvarname + " in kernel " + kernel.getName() + "\n");
+                 //logger.debug(".......old value " + currentVariable.getValue() + " is changing  to " + newval + "\n");
                  currentVariable.setValue(newval);
-                 logger.debug(".......have set value in currentVariable\n");
+                 //logger.debug(".......have set value in currentVariable\n");
                  kernelVariables.put(currentvarname, currentVariable);
-                 logger.debug("Value in vars is now " + ((IpatVariable) kernelVariables.get(currentvarname)).getValue() + "\n");
+                 //logger.debug("Value in vars is now " + ((IpatVariable) kernelVariables.get(currentvarname)).getValue() + "\n");
                 }
             }
             // mutate the probability that the kernel is active
@@ -106,7 +106,7 @@ public class ESEvolution implements MetaHeuristic {
          */
 
         HashMap variables = nextGen.get(which).getProfileLevelVariables();
-        logger.debug(".......the number of profile variables is : " + variables.size() + "\n");
+        //logger.debug(".......the number of profile variables is : " + variables.size() + "\n");
         Set keySet2 = variables.keySet();
         Iterator profileVariables = keySet2.iterator();
         while (profileVariables.hasNext()) {
@@ -114,18 +114,17 @@ public class ESEvolution implements MetaHeuristic {
             currentVariable = (IpatVariable) variables.get(currentvarname);
             newval = mutateVariable(currentVariable, mutation_rate);
             if (newval != currentVariable.getValue()) {
-                logger.debug("mutating profile variable " + currentvarname + "\n");
-                logger.debug(".......old value " + currentVariable.getValue() + " is changing  to " + newval + "\n");
+                //logger.debug("mutating profile variable " + currentvarname + "\n");
+                //logger.debug(".......old value " + currentVariable.getValue() + " is changing  to " + newval + "\n");
                 currentVariable.setValue(newval);
-                logger.debug(".......have set value in currentVariable\n");
+                //logger.debug(".......have set value in currentVariable\n");
                 variables.put(currentvarname, currentVariable);
                 currentVariable = (IpatVariable) variables.get(currentvarname);
-                logger.debug(".......Value in variables is now" + currentVariable.getValue()    );
-                logger.debug(".......now changing the profile in the nextgen arraylist");
+                //logger.debug(".......Value in variables is now" + currentVariable.getValue()    );
+                //logger.debug(".......now changing the profile in the nextgen arraylist");
                 nextGen.get(which).replaceVariable(currentVariable);
                 IpatVariable valInNextGen = (IpatVariable)nextGen.get(which).getProfileLevelVariables().get(currentvarname);
-                logger.debug(".......Value in nextGen is now" 
-                + valInNextGen.getValue() + "\n");
+                //logger.debug(".......Value in nextGen is now" + valInNextGen.getValue() + "\n");
             }
         }
         return true;
@@ -144,7 +143,7 @@ public class ESEvolution implements MetaHeuristic {
         double stepsize, dchosen, myrand;
         double newValue = 0;
         myrand = Utils.GetRandDouble01();
-        logger.debug("random number in ESEvolution.mutateVariable is : " + myrand + "\n");
+        //logger.debug("random number in ESEvolution.mutateVariable is : " + myrand + "\n");
 
         //the way that mutation paramter is interpreted, and mutation works, depends on the type of variable
         
@@ -156,7 +155,7 @@ public class ESEvolution implements MetaHeuristic {
                 } else {
                     newValue = 1.0;
                 }
-                logger.debug("flipping binary variable " + variableToChange.getName() + "to value " + variableToChange.getValue()) ;
+                //logger.debug("flipping binary variable " + variableToChange.getName() + "to value " + variableToChange.getValue()) ;
             }
         } else if (variableToChange.getType().equalsIgnoreCase("cardinal")) {
             if (myrand < mutation_rate * variableToChange.getRateOfEvolution()) {// a list of different catgorical values with no natural oerdering so just pick a new value at random
@@ -167,7 +166,7 @@ public class ESEvolution implements MetaHeuristic {
                 chosen = Utils.GetRandIntInRange(0, possibilities);
                 // now compute what actual value this would be
                 newValue = variableToChange.getLbound() + variableToChange.getGranularity() * chosen;
-                logger.debug("...............randomly choosing new value " + newValue + "for cardinal variable " + variableToChange.getName() + "\n" );
+                //logger.debug("...............randomly choosing new value " + newValue + "for cardinal variable " + variableToChange.getName() + "\n" );
             }
         } else if (variableToChange.getType().equalsIgnoreCase("ordinal")) {
             // ordinal varibles - for exanmple continuos variables of integers where sequence counts 
@@ -184,7 +183,7 @@ public class ESEvolution implements MetaHeuristic {
             if (newValue > variableToChange.getUbound()) {
                 newValue = variableToChange.getUbound();
             }
-            logger.debug("...................choosing new value " + newValue + "for ordinal variable " + variableToChange.getName() );
+            //logger.debug("...................choosing new value " + newValue + "for ordinal variable " + variableToChange.getName() );
         } else {
             logger.error("Error - unkown variable type " + variableToChange.getType() + "for variable " + variableToChange.getName());
         }
@@ -219,7 +218,7 @@ public class ESEvolution implements MetaHeuristic {
     @Override
     public void generateNextSolutions(int howMany) {
        
-        logger.debug("How Many in ESEvolution.generateNextSolutions : " + howMany +"\n");
+        //logger.debug("How Many in ESEvolution.generateNextSolutions : " + howMany +"\n");
        
         int copied, toCopy;
         if (best.size() <= 0) {
@@ -249,7 +248,7 @@ public class ESEvolution implements MetaHeuristic {
             File thisfile = best.get(toCopy).getFile();
             Profile toAdd = new Profile(thisfile);
             nextGen.add(toAdd);
-            logger.debug("have made a copy of best[" + copied + "] with filename " + thisfile.getName()+"\n");
+            //logger.debug("have made a copy of best[" + copied + "] with filename " + thisfile.getName()+"\n");
         }
 
         // apply mutation where necessary - i.e. leaving one dulicate of each of the best
@@ -258,13 +257,13 @@ public class ESEvolution implements MetaHeuristic {
             //double rateToApply = 0.5; 
             // double rateToApply = 1.0; 
             double rateToApply = this.F1(nextGen.get(toMutate).getGlobalScore());
-            logger.debug("global score for the profile " + nextGen.get(toMutate).getName());
+            //logger.debug("global score for the profile " + nextGen.get(toMutate).getName());
             //        + " is " + nextGen.get(toMutate).getGlobalScore() 
             //       + " and mutation parameter is " + rateToApply);
             //now apply mutation with this parameter
             this.mutateProfile(toMutate, rateToApply);
 
-            logger.debug("..... mutate profile " + toMutate + " complete\n");
+            //logger.debug("..... mutate profile " + toMutate + " complete\n");
         }
 
         //make the folder to hold the files in which we will store the next generation
@@ -284,7 +283,7 @@ public class ESEvolution implements MetaHeuristic {
                 //get generation and increment it
                 generation = Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-')));
           
-                logger.debug("after reading generation  has value " + generation + "\n");
+                //logger.debug("after reading generation  has value " + generation + "\n");
                 generation++;
                 String outProfileName = "gen_" + generation + profileTemplate + k + ".xml";
 
