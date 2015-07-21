@@ -157,14 +157,13 @@ public class FXMLDocumentController implements Initializable {
                 byProfilePane.setCenter(byProfileTab);
                 
                 tabPane.getSelectionModel().select(0);
+                tabFlag = "byProfile";
                 
                 tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
                     if (newValue == Number.class.cast(1)) {
                         tabFlag = "byImage";
                         byImageTab = getByImage(map);
                         byImagePane.setCenter(byImageTab);
-                       // ((WebView) ((GridPane)((GridPane) byImageTab.getTabs().get(0).getContent()).getChildren().get(0)).getChildren().get(0));
-
                     } else if (newValue == Number.class.cast(0)) {
                         tabFlag = "byProfile";
                         byProfileTab = getByProfile(map, numOfProfiles);
@@ -199,6 +198,7 @@ public class FXMLDocumentController implements Initializable {
 
             ObservableList<Tab> tabs = null;
 
+            
             if (tabFlag.equalsIgnoreCase("byImage")) {
                 tabs = byImageTab.getTabs();
             } else if (tabFlag.equalsIgnoreCase("byProfile")) {
