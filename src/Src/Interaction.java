@@ -16,25 +16,27 @@ import org.apache.log4j.Logger;
  * @author kieran
  */
 public class Interaction {
-private static final Logger logger = Logger.getLogger(Interaction.class);
+
+    private static final Logger logger = Logger.getLogger(Interaction.class);
+
     /**
      *
      * @param data
      * @param currentGenerationOfProfiles
      * @param hints
      * @param controller
-     * @return 
+     * @return
      */
     public Profile[] updateProfileHints(HashMap data, Profile[] currentGenerationOfProfiles, HashMap hints) {
 
-    //Check for data structure
-    Iterator it = data.keySet().iterator();
+        //Check for data structure
+        Iterator it = data.keySet().iterator();
         while (it.hasNext()) {
-        String hint = (String) it.next();
-        Object value = data.get(hint);
+            String hint = (String) it.next();
+            Object value = data.get(hint);
             System.out.println("hint " + hint + " / value " + value);
         }
-        
+
         int numOfProfiles = currentGenerationOfProfiles.length;
         int numOfHints = hints.size();
         HashMap<String, HashMap> averageCounters = new HashMap();
@@ -43,10 +45,15 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
 
         // We don't know the order in which hints are initialised in hints.xml so organisation of return values is required
         // Run through the different hints (keys) in the data set
-        Set hintSet = data.keySet();
+        logger.debug("Num of Profiles =" + numOfProfiles);
         logger.debug("Num of Hints =" + numOfHints);
+        logger.debug("Data Size =" + data.size());
+
+        Set hintSet = data.keySet();
         int numOfResults = data.size() / numOfHints;
+        logger.debug("numOfResults =" + numOfResults);
         int numOfUploads = numOfResults / numOfProfiles;
+        logger.debug("numOfUploads =" + numOfUploads);
         for (Object keySet1 : hintSet) {
 
             String hintName = (String) keySet1;
@@ -55,14 +62,14 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
             String hint = hint_Iteration[0];
             int iteration = Integer.parseInt(hint_Iteration[1]);
             // which array position to add the different results to
+            System.out.println("iteration " + iteration + " number of uploads " + numOfUploads);
             int profileNum = iteration / numOfUploads;
 
             Object rawValue = data.get(hintName);
 
             // print statements to ensure that the cells value are placed into the right array and positions for averaging
-           // System.out.println("=================");
-          //  System.out.println("Iteration: " + iteration + "\nHint: " + hint + "\nValue: " + data.get(key) + "\nArray Postition: " + profileNum + "\n");
-
+            // System.out.println("=================");
+            //  System.out.println("Iteration: " + iteration + "\nHint: " + hint + "\nValue: " + data.get(key) + "\nArray Postition: " + profileNum + "\n");
             // if the ordered list hasn't yet initialised this profile's hint's averages map then create it and add the value as its first entry
             if (!ordered.containsKey(hint)) {
 
@@ -72,7 +79,7 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
                     Boolean value = (Boolean) rawValue;
                     profilesBooleanHintAverages.put(profileNum, value);
                     ordered.put(hint, profilesBooleanHintAverages);
-                //    System.out.println("Created Boolean value (first input)");
+                    //    System.out.println("Created Boolean value (first input)");
                 }
 
                 if (rawValue instanceof String) {
@@ -82,7 +89,7 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
                     averageCountMap.put(profileNum, 1.0);
                     ordered.put(hint, profilesDoubleHintAverages);
                     averageCounters.put(hint, averageCountMap);
-                //    System.out.println("Added new hint [" + hint + "] averaged value for profile [" + profileNum + "] with value [" + ((String) rawValue) + "]");
+                    //    System.out.println("Added new hint [" + hint + "] averaged value for profile [" + profileNum + "] with value [" + ((String) rawValue) + "]");
                 }
 
                 // else add the value to the existing profile's hint's averages map, 
@@ -114,12 +121,11 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
                         Double currentCount = (Double) averageCount.get(profileNum);
 
                     //    System.out.println("runningAverage " + runningAverage);
-                     //   System.out.println("currentCount " + currentCount);
-                     //   System.out.println("rawValue " + rawValue);
-
+                        //   System.out.println("currentCount " + currentCount);
+                        //   System.out.println("rawValue " + rawValue);
                         Double av = (runningAverage * currentCount + Double.parseDouble((String) rawValue)) / (currentCount + 1);
                         PDHA.put(profileNum, av);
-                      //  System.out.println("Updated hint [" + hint + "] in profilesDoubleHintAverages at [" + profileNum + "] from value [" + runningAverage + "] to value [" + av + "] as the [" + (currentCount + 1) + "] entry");
+                        //  System.out.println("Updated hint [" + hint + "] in profilesDoubleHintAverages at [" + profileNum + "] from value [" + runningAverage + "] to value [" + av + "] as the [" + (currentCount + 1) + "] entry");
                         averageCount.put(profileNum, currentCount + 1);
                         averageCounters.put(hint, averageCount);
                         ordered.put(hint, PDHA);
@@ -138,7 +144,7 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
 
         // for each profile
         for (int i = 0; i < numOfProfiles; i++) {
-         
+
             logger.debug("Updating hints for Profile: " + i + "\n");
 
             // run through the hints getting each averageMap
@@ -150,10 +156,10 @@ private static final Logger logger = Logger.getLogger(Interaction.class);
 
                 if (key.equalsIgnoreCase("globalScore")) {
                     Object value = profilesHintAverages.get(i);
-                    Double intValue =  (Double) value;
+                    Double intValue = (Double) value;
                     currentGenerationOfProfiles[i].setGlobalScore(intValue.intValue());
                     logger.info("Updated " + key + " : " + intValue.intValue());
-                    
+
                 } else {
 
                     // apply the average value of the current profile to the profile

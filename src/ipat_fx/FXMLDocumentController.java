@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -92,7 +94,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void chooseFiles(ActionEvent event) {
-        if (problemDataFolderName == null) {
+
+        int numOfProfiles = Integer.parseInt(noOfProfiles.getText());
+        if (numOfProfiles > 8) {
+            JOptionPane.showMessageDialog(null, "Please set the number of Profiles to be less than 8.");
+        } else if (problemDataFolderName == null) {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
@@ -139,10 +145,23 @@ public class FXMLDocumentController implements Initializable {
                 HashMap display = controller.initialisation();
                 WebView previewView = (WebView) display.get("previewView");
                 previewPane.getChildren().add(previewView);
-                byProfileTab = (TabPane) display.get("byProfile");
+
+                HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
+                byProfileTab = getByProfile(map, numOfProfiles);
                 byProfilePane.setCenter(byProfileTab);
-                byImageTab = (TabPane) display.get("byImage");
-                byImagePane.setCenter(byImageTab);
+
+                tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
+                    if (newValue == Number.class.cast(1)) {
+                        byImageTab = getByImage(map);
+                        byImagePane.setCenter(byImageTab);
+                    } else if (newValue == Number.class.cast(0)) {
+                        byProfileTab = getByProfile(map, numOfProfiles);
+                        byProfilePane.setCenter(byProfileTab);
+                    } else {
+                        System.out.println("Error this tab has not been created.");
+                    }
+                });
+
             } catch (IOException ex) {
                 Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -166,32 +185,45 @@ public class FXMLDocumentController implements Initializable {
             HashMap<String, Object> scores = new HashMap();
             // TODO get the scores from the user input to then get the next gen
             ObservableList<Tab> tabs = byProfileTab.getTabs();
-            Iterator<Tab> iterator = tabs.iterator();
-            while (iterator.hasNext()) {
-                Tab profileTab = iterator.next();
+            Iterator<Tab> profileTabIterator = tabs.iterator();
+            while (profileTabIterator.hasNext()) {
+                Tab profileTab = profileTabIterator.next();
                 GridPane cells = (GridPane) profileTab.getContent();
                 Iterator<Node> cellIterator = cells.getChildren().iterator();
                 while (cellIterator.hasNext()) {
-                    Node cellElement = cellIterator.next();
-                    // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
-                    if (cellElement instanceof Slider) {
-                        scores.put(cellElement.getId(), String.valueOf(((Slider) cellElement).getValue()));
-                        System.out.println(cellElement.getId() + " / Slider value: " + ((Slider) cellElement).getValue());
+                    GridPane cell = (GridPane) cellIterator.next();
+                    Iterator<Node> nodeIterator = cell.getChildren().iterator();
+                    while (nodeIterator.hasNext()) {
+                        Node cellElement = nodeIterator.next();
+                        if (cellElement instanceof Slider) {
+                            scores.put(cellElement.getId(), String.valueOf(((Slider) cellElement).getValue()));
+                        }
+                        if (cellElement instanceof CheckBox) {
+                            scores.put(cellElement.getId(), ((CheckBox) cellElement).isSelected());
+                        }
                     }
-                    if (cellElement instanceof CheckBox) {
-                        scores.put(cellElement.getId(), ((CheckBox) cellElement).isSelected());
-                        System.out.println(cellElement.getId() + " / CheckBox value: " + ((CheckBox) cellElement).isSelected());
-                    }
-
                 }
             }
+            
             HashMap display = controller.mainloop(scores, numOfProfiles);
             WebView previewView = (WebView) display.get("previewView");
             previewPane.getChildren().add(previewView);
-            byProfileTab = (TabPane) display.get("byProfile");
+
+            HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
+            byProfileTab = getByProfile(map, numOfProfiles);
             byProfilePane.setCenter(byProfileTab);
-            byImageTab = (TabPane) display.get("byImage");
-            byImagePane.setCenter(byImageTab);
+
+            tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
+                if (newValue == Number.class.cast(1)) {
+                    byImageTab = getByImage(map);
+                    byImagePane.setCenter(byImageTab);
+                } else if (newValue == Number.class.cast(0)) {
+                    byProfileTab = getByProfile(map, numOfProfiles);
+                    byProfilePane.setCenter(byProfileTab);
+                } else {
+                    System.out.println("Error this tab has not been created.");
+                }
+            });
         }
     }
 
@@ -243,5 +275,52 @@ public class FXMLDocumentController implements Initializable {
                 outputFolder = new File(dataPath + "/output/");
             });
         }
+    }
+
+    public TabPane getByImage(HashMap map) {
+
+        TabPane tabpane = new TabPane();
+        Tab tabForImage;
+        GridPane paneForImage;
+
+        Iterator iterator = map.keySet().iterator();
+        while (iterator.hasNext()) {
+            tabForImage = new Tab();
+            paneForImage = new GridPane();
+            String nameOfArtefact = (String) iterator.next();
+            tabForImage.setId("li_" + nameOfArtefact);
+            tabForImage.setText(nameOfArtefact);
+            ArrayList<GridPane> cells = (ArrayList) map.get(nameOfArtefact);
+            for (int i = 0; i < cells.size(); i++) {
+                GridPane cell = (GridPane) cells.get(i);
+                paneForImage.add(cell, 0, i);
+            }
+            tabForImage.setContent(paneForImage);
+            tabpane.getTabs().add(tabForImage);
+        }
+        return tabpane;
+    }
+
+    public TabPane getByProfile(HashMap map, int noOfProfiles) {
+
+        TabPane tabpane = new TabPane();
+        Tab tabForProfile;
+        GridPane paneForProfile;
+
+        for (int i = 0; i < noOfProfiles; i++) {
+            tabForProfile = new Tab();
+            paneForProfile = new GridPane();
+            tabForProfile.setId("li_Profile_" + i);
+            tabForProfile.setText("Profile " + i);
+            int j = 0;
+            for (Iterator iterator = map.keySet().iterator(); iterator.hasNext(); j++) {
+                String nameOfArtefact = (String) iterator.next();
+                ArrayList<GridPane> cells = (ArrayList<GridPane>) map.get(nameOfArtefact);
+                paneForProfile.add(cells.get(i), 0, j);
+            }
+            tabForProfile.setContent(paneForProfile);
+            tabpane.getTabs().add(tabForProfile);
+        }
+        return tabpane;
     }
 }
