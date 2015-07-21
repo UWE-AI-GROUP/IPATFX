@@ -31,9 +31,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -60,9 +62,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane previewPane;
     @FXML
-    private BorderPane byImagePane;
+    private Tab  byImagePane;
     @FXML
-    private BorderPane byProfilePane;
+    private Tab byProfilePane;
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -73,6 +75,8 @@ public class FXMLDocumentController implements Initializable {
     private Button nextGen;
     @FXML
     private TextField noOfProfiles;
+    @FXML
+    private Label gencount;
     @FXML
     private TabPane tabPane;
 
@@ -90,6 +94,7 @@ public class FXMLDocumentController implements Initializable {
     public MenuItem[] caseItemArray;
     public Controller controller;
     public Interaction interaction = new Interaction();
+    private Integer genCount;
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -139,9 +144,13 @@ public class FXMLDocumentController implements Initializable {
                 WebView previewView = (WebView) display.get("previewView");
                 previewPane.getChildren().add(previewView);
                 byProfileTab = (TabPane) display.get("byProfile");
-                byProfilePane.setCenter(byProfileTab);
+                byProfilePane.setContent(byProfileTab);
+                //byProfilePane.setCenter(byProfileTab);
                 byImageTab = (TabPane) display.get("byImage");
-                byImagePane.setCenter(byImageTab);
+                //byImagePane.setCenter(byImageTab);
+                byImagePane.setContent(byImageTab);
+                genCount=0;
+                gencount.setText("Generation " + genCount.toString());
             } catch (IOException ex) {
                 Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -168,35 +177,47 @@ public class FXMLDocumentController implements Initializable {
             Iterator<Tab> iterator = tabs.iterator();
             while (iterator.hasNext()) {
                 Tab profileTab = iterator.next();
-                GridPane cells = (GridPane) profileTab.getContent();
-                Iterator<Node> cellIterator = cells.getChildren().iterator();
-                while (cellIterator.hasNext()) {
-                    Node cellElement = cellIterator.next();
-                    // System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
-                    if (cellElement instanceof Slider) {
-                        scores.put(cellElement.getId(), String.valueOf(((Slider) cellElement).getValue()));
-                        System.out.println(cellElement.getId() + " / Slider value: " + ((Slider) cellElement).getValue());
-                    }
-                    if (cellElement instanceof CheckBox) {
-                        scores.put(cellElement.getId(), ((CheckBox) cellElement).isSelected());
-                        System.out.println(cellElement.getId() + " / CheckBox value: " + ((CheckBox) cellElement).isSelected());
-                    }
+                ScrollPane cells = (ScrollPane) profileTab.getContent();
+                GridPane profileTabContent = (GridPane) cells.getContent();
+                ObservableList<Node>  children = profileTabContent.getChildren();
+                for (Iterator<Node> iterator1 = children.iterator(); iterator1.hasNext();)
+                  {
+                    GridPane cell = (GridPane) iterator1.next();
+                    ObservableList<Node>  cellchildren = cell.getChildren();
+                      for (Iterator<Node> iterator2 = cellchildren.iterator(); iterator2.hasNext();)
+                        {
+                            Node cellElement = iterator2.next();
+                            //System.out.println(cellElement.getId() + " : " +  cellElement.getTypeSelector());
+                            if (cellElement instanceof Slider) {
+                                scores.put(cellElement.getId(), String.valueOf(((Slider) cellElement).getValue()));
+                                //System.out.println(cellElement.getId() + " / Slider value: " + ((Slider) cellElement).getValue());
+                            }
+                            if (cellElement instanceof CheckBox) {
+                                scores.put(cellElement.getId(), ((CheckBox) cellElement).isSelected());
+                                //System.out.println(cellElement.getId() + " / CheckBox value: " + ((CheckBox) cellElement).isSelected());
+                            }
 
+                        }
                 }
             }
             HashMap display = controller.mainloop(scores, numOfProfiles);
             WebView previewView = (WebView) display.get("previewView");
             previewPane.getChildren().add(previewView);
             byProfileTab = (TabPane) display.get("byProfile");
-            byProfilePane.setCenter(byProfileTab);
+            byProfilePane.setContent(byProfileTab);
+            //byProfilePane.setCenter(byProfileTab);
             byImageTab = (TabPane) display.get("byImage");
-            byImagePane.setCenter(byImageTab);
+            byImagePane.setContent(byImageTab);
+            //byImagePane.setCenter(byImageTab);
+            genCount++;
+            gencount.setText("Generation " + genCount.toString());
         }
     }
 
     @FXML
     public void abort() {
-        System.out.println("abort button pressed");
+        System.exit(0);
+        //System.out.println("abort button pressed");
     }
 
     @FXML
