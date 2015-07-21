@@ -304,7 +304,7 @@ public class Controller {
         for (int profileID = 0; profileID < noOfProfiles; profileID++) {
             currentProfile = currentGenerationOfProfiles[profileID];
             // TESTING : distinguishing the Raw artifact name from the processed one (raw artifact)
-            logger.debug("Processing : " + currentProfile.getName());
+            //logger.debug("Processing : " + currentProfile.getName());
 
             // Process the profile to generate CSS
             for (int artifactID = 0; artifactID < raw_artifacts.length; artifactID++) {
