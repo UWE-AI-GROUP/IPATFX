@@ -48,14 +48,14 @@
       
     <center>
         <GridPane> 
-      <TabPane fx:id="tabPane" GridPane.columnIndex="0"  prefWidth="800"  tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" GridPane.columnIndex="0"  prefWidth="500"  tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="By Profile" fx:id="byProfilePane"  />
           <Tab text="By Images" fx:id="byImagePane"  />
         </tabs>
       </TabPane>
       
-      <Pane fx:id="previewPane" GridPane.columnIndex="2" prefWidth="800"   />
+      <Pane fx:id="previewPane" GridPane.columnIndex="2"    />
       </GridPane>
   </center>
   
