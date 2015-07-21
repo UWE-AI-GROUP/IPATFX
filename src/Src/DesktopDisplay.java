@@ -44,6 +44,8 @@ public class DesktopDisplay extends Display {
                     cell.setHgap(10);
 
                     WebView webview = new WebView();  // the thumbnail preview of the artefact in cell
+                    webview.setMinSize(200, 200);
+                    webview.setPrefSize(200, 200);
                     WebEngine engine = webview.getEngine();
                     engine.setJavaScriptEnabled(true);
                     engine.load("file:///" + artifact.getFilepath());

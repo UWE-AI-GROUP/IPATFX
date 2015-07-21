@@ -29,7 +29,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextArea layoutX="30.0" layoutY="65.0" prefHeight="41.0" prefWidth="270.0" />
+      <TextArea fx:id="fileTextArea" layoutX="30.0" layoutY="65.0" prefHeight="41.0" prefWidth="270.0" />
       <Button id="chooseFilesButton" fx:id="chooseFilesButton" layoutX="30.0" layoutY="34.0" mnemonicParsing="false" onAction="#chooseFiles" prefHeight="25.0" prefWidth="103.0" text="Choose Files" />
       <Button fx:id="abort" layoutX="30.0" layoutY="475.0" mnemonicParsing="false" onAction="#abort" text="Abort" />
       <Button fx:id="reset" layoutX="101.0" layoutY="475.0" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores" />

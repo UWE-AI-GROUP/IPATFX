@@ -35,9 +35,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -75,6 +77,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField noOfProfiles;
     @FXML
+    private TextArea fileTextArea;
+    @FXML
     private TabPane tabPane;
 
     private TabPane byProfileTab;
@@ -91,6 +95,7 @@ public class FXMLDocumentController implements Initializable {
     public MenuItem[] caseItemArray;
     public Controller controller;
     public Interaction interaction = new Interaction();
+    private String tabFlag;
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -139,6 +144,7 @@ public class FXMLDocumentController implements Initializable {
                     dialogStage.show();
                     Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, "Error loading file see mainframe ", ex);
                 }
+                fileTextArea.appendText(fileName + "\n");
             }
             try {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
@@ -149,12 +155,18 @@ public class FXMLDocumentController implements Initializable {
                 HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
                 byProfileTab = getByProfile(map, numOfProfiles);
                 byProfilePane.setCenter(byProfileTab);
-
+                
+                tabPane.getSelectionModel().select(0);
+                
                 tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
                     if (newValue == Number.class.cast(1)) {
+                        tabFlag = "byImage";
                         byImageTab = getByImage(map);
                         byImagePane.setCenter(byImageTab);
+                       // ((WebView) ((GridPane)((GridPane) byImageTab.getTabs().get(0).getContent()).getChildren().get(0)).getChildren().get(0));
+
                     } else if (newValue == Number.class.cast(0)) {
+                        tabFlag = "byProfile";
                         byProfileTab = getByProfile(map, numOfProfiles);
                         byProfilePane.setCenter(byProfileTab);
                     } else {
@@ -184,11 +196,22 @@ public class FXMLDocumentController implements Initializable {
         } else {
             HashMap<String, Object> scores = new HashMap();
             // TODO get the scores from the user input to then get the next gen
-            ObservableList<Tab> tabs = byProfileTab.getTabs();
+
+            ObservableList<Tab> tabs = null;
+
+            if (tabFlag.equalsIgnoreCase("byImage")) {
+                tabs = byImageTab.getTabs();
+            } else if (tabFlag.equalsIgnoreCase("byProfile")) {
+                tabs = byProfileTab.getTabs();
+            } else {
+                System.out.println("Something is wrong with tabFlag in FXML DOC CONT");
+            }
+
             Iterator<Tab> profileTabIterator = tabs.iterator();
             while (profileTabIterator.hasNext()) {
                 Tab profileTab = profileTabIterator.next();
-                GridPane cells = (GridPane) profileTab.getContent();
+                ScrollPane scrollPane = (ScrollPane) profileTab.getContent();
+                GridPane cells = (GridPane) scrollPane.getContent();
                 Iterator<Node> cellIterator = cells.getChildren().iterator();
                 while (cellIterator.hasNext()) {
                     GridPane cell = (GridPane) cellIterator.next();
@@ -204,14 +227,20 @@ public class FXMLDocumentController implements Initializable {
                     }
                 }
             }
-            
+
             HashMap display = controller.mainloop(scores, numOfProfiles);
             WebView previewView = (WebView) display.get("previewView");
             previewPane.getChildren().add(previewView);
 
             HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
-            byProfileTab = getByProfile(map, numOfProfiles);
-            byProfilePane.setCenter(byProfileTab);
+
+            if (tabFlag.equalsIgnoreCase("byImage")) {
+                byImageTab = getByImage(map);
+                byImagePane.setCenter(byImageTab);
+            } else if (tabFlag.equalsIgnoreCase("byProfile")) {
+                byProfileTab = getByProfile(map, numOfProfiles);
+                byProfilePane.setCenter(byProfileTab);
+            }
 
             tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
                 if (newValue == Number.class.cast(1)) {
@@ -295,7 +324,9 @@ public class FXMLDocumentController implements Initializable {
                 GridPane cell = (GridPane) cells.get(i);
                 paneForImage.add(cell, 0, i);
             }
-            tabForImage.setContent(paneForImage);
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(paneForImage);
+            tabForImage.setContent(scrollPane);
             tabpane.getTabs().add(tabForImage);
         }
         return tabpane;
@@ -318,7 +349,9 @@ public class FXMLDocumentController implements Initializable {
                 ArrayList<GridPane> cells = (ArrayList<GridPane>) map.get(nameOfArtefact);
                 paneForProfile.add(cells.get(i), 0, j);
             }
-            tabForProfile.setContent(paneForProfile);
+            ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setContent(paneForProfile);
+            tabForProfile.setContent(scrollPane);
             tabpane.getTabs().add(tabForProfile);
         }
         return tabpane;
