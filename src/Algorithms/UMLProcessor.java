@@ -66,7 +66,7 @@ public class UMLProcessor implements Processor {
     @Override
     public Artifact applyProfileToArtifact(Profile profile, Artifact artifact, String outputFolder) {
 
-        logger.debug("in UMLProcessor.applyprofiletoartefact()\n");
+        //logger.debug("in UMLProcessor.applyprofiletoartefact()\n");
         HashMap<Integer, ArrayList> classMethodsMap = new HashMap();
         HashMap<Integer, ArrayList> classAttributesMap = new HashMap();
         ArrayList<Integer> classesPresent = new ArrayList();
@@ -97,7 +97,7 @@ public class UMLProcessor implements Processor {
                 }
                 //get the type of element it is - held as the unit
                 String elementtype = ipvar.getUnit();
-                logger.debug("profile variable " + elementName + "is of type (from unit) " + elementtype + "\n");
+                //logger.debug("profile variable " + elementName + "is of type (from unit) " + elementtype + "\n");
 
                 //add this assignment in this design
                 classAssignments.put(elementName, elementClass);
@@ -132,7 +132,7 @@ public class UMLProcessor implements Processor {
             logger.error("problem - the list of attributes in the profile is not the same a in the problem defintion"
                     + "defintion has " + attributeList.size() + " but profile has " + attributesSeen.size() + "\n");
         } else {
-            logger.debug("problem defintion read from xml matches variables in " + profile.getName() + "\n");
+            //logger.debug("problem defintion read from xml matches variables in " + profile.getName() + "\n");
         }
 
         //2.1 now make a list of all the in-class and between-class uses in this design candidate
@@ -145,7 +145,7 @@ public class UMLProcessor implements Processor {
             }
         }
 
-        logger.debug("highest class id used is " + highestClasses+"\n");
+        //logger.debug("highest class id used is " + highestClasses+"\n");
         int numUses[][] = new int[highestClasses + 1][highestClasses + 1];
         //2.2 loop through each class
         for (Integer thisClass : classesPresent) {
@@ -160,7 +160,7 @@ public class UMLProcessor implements Processor {
                     for (String attrString : thisMethodAtts) {
                         //and then what class they are in
                         int attClass = classAssignments.get(attrString);
-                        logger.debug("dealing with method " + thisMethod + "in class " + thisClass + ": it uses attribute " + attrString + " which is is class " + attClass+"\n");
+                        //logger.debug("dealing with method " + thisMethod + "in class " + thisClass + ": it uses attribute " + attrString + " which is is class " + attClass+"\n");
                         //2.5 finally increment the numberof uses
                         numUses[thisClass][attClass]++;
                     }
@@ -268,9 +268,9 @@ public class UMLProcessor implements Processor {
             String rawArtifactName = artifact.getFilename();
             rawArtifactName = rawArtifactName.substring(0, rawArtifactName.lastIndexOf('.'));
             // TESTING : distinguishing the raw artifact name from the processed one (processed one)
-            logger.debug ("Raw artifact name = " + rawArtifactName + " : profilename = " + profileName +"\n");
+            //logger.debug ("Raw artifact name = " + rawArtifactName + " : profilename = " + profileName +"\n");
             processedArtifactName = profileName + "-" + rawArtifactName + ".html";
-            logger.debug("Processed artifact name = " + processedArtifactName+"\n");
+            //logger.debug("Processed artifact name = " + processedArtifactName+"\n");
             outHtmlPath = outputFolder + processedArtifactName;
             String htmlFile = "";
             BufferedReader reader = new BufferedReader(new FileReader(artifact.getFile().getAbsolutePath()));
@@ -334,7 +334,7 @@ public class UMLProcessor implements Processor {
         String outputFileName = inputFolderPath.substring(0, inputFolderPath.lastIndexOf("input")) + "output/" + problemDefinitionName;
             File copyOfDefinition = new File(outputFileName);
             if (!copyOfDefinition.exists()) {
-                logger.info("putting a copy of the problem definition in the output directory\n");
+                //logger.info("putting a copy of the problem definition in the output directory\n");
                 Files.copy(definitionFile.toPath(), copyOfDefinition.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
             
@@ -373,7 +373,7 @@ public class UMLProcessor implements Processor {
                        logger.error("declared designUse names method" +method+ " or attribute " +attribute+ "that has not been declarted as a design element\n");
                       
                     } else {
-                        logger.debug("designUse: method " + method + " uses attribute " + attribute + "\n");
+                        //logger.debug("designUse: method " + method + " uses attribute " + attribute + "\n");
                         ArrayList methodUsesList;
                         if (UsesMap.containsKey(method)) //get the list of uses associated with this method
                         {
@@ -397,7 +397,7 @@ public class UMLProcessor implements Processor {
                 ArrayList value = entrySet.getValue();
                 totaluses += value.size();
             }
-            logger.debug("read " + methodList.size() + " methods and " + attributeList.size() + " attributes and " + totaluses + " uses from problem defintion xml file\n");
+            //logger.debug("read " + methodList.size() + " methods and " + attributeList.size() + " attributes and " + totaluses + " uses from problem defintion xml file\n");
         } catch (IOException | JDOMException e) {
             logger.fatal(e.getMessage());
         }
