@@ -24,10 +24,10 @@ import javafx.scene.web.WebView;
 public class DesktopDisplay extends Display {
 
     @Override
-    public HashMap<String, Object> loadDisplay(HashMap hintMap, Artifact[] artifacts, int noOfProfiles) {
+    public HashMap<String, Object> loadDisplay(HashMap<String, Hint> hintMap, Artifact[] artifacts, int noOfProfiles) {
 
-        HashMap<String, Object> display = new HashMap();
-        HashMap<String, ArrayList<GridPane>> map = new HashMap();
+        HashMap<String, Object> display = new HashMap<>();
+        HashMap<String, ArrayList<GridPane>> map = new HashMap<>();
         WebView preview = new WebView();
         int resultCount = 0;
 
@@ -57,11 +57,10 @@ public class DesktopDisplay extends Display {
                     GridPane.setConstraints(webview, 0, 0);
                     cell.getChildren().add(webview);
 
-                    Set keySet = hintMap.keySet();// get the hints one by one and apply to cell
+                    Set<String> keySet = hintMap.keySet();// get the hints one by one and apply to cell
                     int keyCount = 0;
-                    for (Object key : keySet) {
-                        String k = (String) key;
-                        Hint h = (Hint) hintMap.get(k);
+                    for (String key : keySet) {
+                        Hint h = hintMap.get(key);
                         String displaytype = h.getDisplaytype();
                         switch (displaytype) {
 
@@ -103,7 +102,7 @@ public class DesktopDisplay extends Display {
                         get.add(cell);
                         map.put(nameOfArtefact, get);
                     } else {
-                        ArrayList<GridPane> cellArray = new ArrayList();
+                        ArrayList<GridPane> cellArray = new ArrayList<>();
                         cellArray.add(cell);
                         map.put(nameOfArtefact, cellArray);
                     }

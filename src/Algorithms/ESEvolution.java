@@ -59,9 +59,9 @@ public class ESEvolution implements MetaHeuristic {
      */
     private boolean mutateProfile(int which, double mutation_rate) {
         double newval;
-        HashMap kernels = nextGen.get(which).getKernels();
-        Collection values = kernels.values();
-        Iterator iterateKernels = values.iterator();
+        HashMap<String, Kernel> kernels = nextGen.get(which).getKernels();
+        Collection<Kernel> values = kernels.values();
+        Iterator<Kernel> iterateKernels = values.iterator();
         IpatVariable currentVariable;
         String currentvarname;
         logger.debug("in evolution.mutateprofile() name of profile nextgen[" +which +"] is " + nextGen.get(which).getName() + "\n");
@@ -69,15 +69,15 @@ public class ESEvolution implements MetaHeuristic {
         logger.debug(".......number of kernels is  : " + kernels.size() + "\n");
         
         while (iterateKernels.hasNext()) {
-            Kernel kernel = (Kernel) iterateKernels.next();
-            HashMap kernelVariables = kernel.getVariables();
-            Set keySet1 = kernelVariables.keySet();
-            Iterator eVar = keySet1.iterator();
+            Kernel kernel = iterateKernels.next();
+            HashMap<String, IpatVariable> kernelVariables = kernel.getVariables();
+            Set<String> keySet1 = kernelVariables.keySet();
+            Iterator<String> eVar = keySet1.iterator();
             logger.debug(".......Kernel " + kernel.getName() + " number of elements : " + kernelVariables.size() + "\n");
             
             while (eVar.hasNext()) {
-                currentvarname = eVar.next().toString();
-                currentVariable = (IpatVariable) kernelVariables.get(currentvarname);
+                currentvarname = eVar.next();
+                currentVariable = kernelVariables.get(currentvarname);
                 newval = mutateVariable(currentVariable, mutation_rate);
                 
                 if (newval != currentVariable.getValue()) {
@@ -86,7 +86,7 @@ public class ESEvolution implements MetaHeuristic {
                  currentVariable.setValue(newval);
                  logger.debug(".......have set value in currentVariable\n");
                  kernelVariables.put(currentvarname, currentVariable);
-                 logger.debug("Value in vars is now " + ((IpatVariable) kernelVariables.get(currentvarname)).getValue() + "\n");
+                 logger.debug("Value in vars is now " + (kernelVariables.get(currentvarname)).getValue() + "\n");
                 }
             }
             // mutate the probability that the kernel is active
@@ -105,13 +105,13 @@ public class ESEvolution implements MetaHeuristic {
          * numberofactivekernels++; } }
          */
 
-        HashMap variables = nextGen.get(which).getProfileLevelVariables();
+        HashMap<String, IpatVariable> variables = nextGen.get(which).getProfileLevelVariables();
         logger.debug(".......the number of profile variables is : " + variables.size() + "\n");
-        Set keySet2 = variables.keySet();
-        Iterator profileVariables = keySet2.iterator();
+        Set<String> keySet2 = variables.keySet();
+        Iterator<String> profileVariables = keySet2.iterator();
         while (profileVariables.hasNext()) {
-            currentvarname = profileVariables.next().toString();
-            currentVariable = (IpatVariable) variables.get(currentvarname);
+            currentvarname = profileVariables.next();
+            currentVariable = variables.get(currentvarname);
             newval = mutateVariable(currentVariable, mutation_rate);
             if (newval != currentVariable.getValue()) {
                 logger.debug("mutating profile variable " + currentvarname + "\n");
@@ -119,11 +119,11 @@ public class ESEvolution implements MetaHeuristic {
                 currentVariable.setValue(newval);
                 logger.debug(".......have set value in currentVariable\n");
                 variables.put(currentvarname, currentVariable);
-                currentVariable = (IpatVariable) variables.get(currentvarname);
+                currentVariable = variables.get(currentvarname);
                 logger.debug(".......Value in variables is now" + currentVariable.getValue()    );
                 logger.debug(".......now changing the profile in the nextgen arraylist");
                 nextGen.get(which).replaceVariable(currentVariable);
-                IpatVariable valInNextGen = (IpatVariable)nextGen.get(which).getProfileLevelVariables().get(currentvarname);
+                IpatVariable valInNextGen = nextGen.get(which).getProfileLevelVariables().get(currentvarname);
                 logger.debug(".......Value in nextGen is now" 
                 + valInNextGen.getValue() + "\n");
             }

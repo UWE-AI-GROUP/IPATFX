@@ -48,7 +48,7 @@ public class Profile {
     /**
      * The kernels.
      */
-    private HashMap kernels;
+    private HashMap<String, Kernel> kernels;
 
     /**
      * The name.
@@ -73,7 +73,7 @@ public class Profile {
     /**
      * The profileLevelVariables.
      */
-    private HashMap profileLevelVariables;
+    private HashMap<String, IpatVariable> profileLevelVariables;
 
     /**
      * Instantiates a new ipat profile.
@@ -81,8 +81,8 @@ public class Profile {
      * @param file the file
      */
     public Profile(File file) {
-        profileLevelVariables = new HashMap();
-        kernels = new HashMap();
+        profileLevelVariables = new HashMap<>();
+        kernels = new HashMap<>();
         this.file = file;
         this.name = file.getName();
         
@@ -90,62 +90,62 @@ public class Profile {
             Document XmlDoc = new SAXBuilder().build(file);
             //Element root = XmlDoc.getRootElement();
             Element profileNode = XmlDoc.getRootElement();//= root.getChild("profile", root.getNamespace());
-            Iterator iterator = profileNode.getChildren().iterator();
-            int i = 0;
+            Iterator<?> iterator = profileNode.getChildren().iterator();
             while (iterator.hasNext()) {
                 Element hint = (Element) iterator.next();
                 if (hint.getName().equalsIgnoreCase("variable")) {
-                    String name = hint.getChildText("name");
+                    String Hintname = hint.getChildText("name");
                     String type = hint.getChildText("type");
                     String temp = hint.getChildText("lbound");
                     Double dub = new Double(temp);
-                    double lbound = dub.doubleValue();
+                    double lbound = dub;
                     temp = hint.getChildText("ubound");
                     dub = new Double(temp);
-                    double ubound = dub.doubleValue();
+                    double ubound = dub;
                     temp = hint.getChildText("granularity");
                     dub = new Double(temp);
-                    double granularity = dub.doubleValue();
+                    double granularity = dub;
                     temp = hint.getChildText("rateOfEvolution");
                     dub = new Double(temp);
-                    double rateOfEvolution = dub.doubleValue();
+                    double rateOfEvolution = dub;
                     temp = hint.getChildText("value");
                     dub = new Double(temp);
-                    double value = dub.doubleValue();
+                    double value = dub;
                     String dfault = hint.getChildText("default");
                     String flag = hint.getChildText("flag");
                     String unit = hint.getChildText("unit");
-                    IpatVariable variable = new IpatVariable(name, type, lbound, ubound, granularity, rateOfEvolution, value, dfault, flag, unit);
+                    IpatVariable variable = new IpatVariable(Hintname, type, lbound, ubound, granularity, rateOfEvolution, value, dfault, flag, unit);
                     profileLevelVariables.put(variable.getName(), variable);
                 } else if (hint.getName().equalsIgnoreCase("kernel")) {
-                    Iterator it = hint.getChildren().iterator();
+                    List<?> children1 = hint.getChildren();
+                    Iterator<?> it = children1.iterator();
                     Element nm = (Element) it.next();
                     String kernelName = nm.getText();
-                    HashMap vars = new HashMap();
+                    HashMap<String, IpatVariable> vars = new HashMap<>();
                     while (it.hasNext()) {
                         Element hintt = (Element) it.next();
-                        String name = hintt.getChildText("name");
+                        String hintname = hintt.getChildText("name");
                         String type = hintt.getChildText("type");
                         String temp = hintt.getChildText("lbound");
                         Double dub = new Double(temp);
-                        double lbound = dub.doubleValue();
+                        double lbound = dub;
                         temp = hintt.getChildText("ubound");
                         dub = new Double(temp);
-                        double ubound = dub.doubleValue();
+                        double ubound = dub;
                         temp = hintt.getChildText("granularity");
                         dub = new Double(temp);
-                        double granularity = dub.doubleValue();
+                        double granularity = dub;
                         temp = hintt.getChildText("rateOfEvolution");
                         dub = new Double(temp);
-                        double rateOfEvolution = dub.doubleValue();
+                        double rateOfEvolution = dub;
                         temp = hintt.getChildText("value");
                         dub = new Double(temp);
-                        double value = dub.doubleValue();
+                        double value = dub;
                         String dfault = hintt.getChildText("default");
                         String flag = hintt.getChildText("flag");
                         String unit = hintt.getChildText("unit");
-                        IpatVariable variable = new IpatVariable(name, type, lbound, ubound, granularity, rateOfEvolution, value, dfault, flag, unit);
-                        vars.put(name, variable);
+                        IpatVariable variable = new IpatVariable(hintname, type, lbound, ubound, granularity, rateOfEvolution, value, dfault, flag, unit);
+                        vars.put(hintname, variable);
                     }
                     Kernel kernel = new Kernel(kernelName, vars);
                     kernels.put(kernel.getName(), kernel);
@@ -159,10 +159,10 @@ public class Profile {
 
     public void randomiseProfileVariableValues() {
         Collection<IpatVariable> collection = this.profileLevelVariables.values();
-        for (IpatVariable SA : collection) {
+        collection.stream().forEach((SA) -> {
             SA.randomiseValues();
-           // logger.debug("new value for " + this.name + " PROFILE VARIABLE " + SA.getName() + " = " + SA.getValue() + "\n");
-        }
+            // logger.debug("new value for " + this.name + " PROFILE VARIABLE " + SA.getName() + " = " + SA.getValue() + "\n");
+        });
     }
 
    
@@ -171,11 +171,11 @@ public class Profile {
         for (Kernel kernel : collection) {
             kernel.randomiseValues();
             logger.debug("new values for " + this.name + " KERNEL VARIABLE " + kernel.getName() + ":\n");
-            HashMap variables = kernel.getVariables();
+            HashMap<String, IpatVariable> variables = kernel.getVariables();
            Collection<IpatVariable> KernelCollection = variables.values();
-            for (IpatVariable SA : KernelCollection) {
-                 logger.debug(SA.getName() + " = " + SA.getValue());
-            }
+           KernelCollection.stream().forEach((SA) -> {
+               logger.debug(SA.getName() + " = " + SA.getValue());
+            });
            logger.debug("\n----------------------------------------------------------------------------\n");
         }
     }
@@ -186,14 +186,14 @@ public class Profile {
      * @param kernel the kernel
      */
     public void addNewKernel(Kernel kernel) {
-        Kernel oldvalue = (Kernel) kernels.put(kernel.getName(), kernel);
+        Kernel oldvalue = kernels.put(kernel.getName(), kernel);
          if (oldvalue != null) {
             logger.error("Error adding kernel " + kernel.getName() + " already exists in Profile");
         }
     }
 
     public void replaceKernel(Kernel kernel) {
-        Kernel oldvalue = (Kernel) kernels.put(kernel.getName(), kernel);
+        Kernel oldvalue =  kernels.put(kernel.getName(), kernel);
         if (oldvalue == null) {
             logger.error("Error replacing kernel " + kernel.getName() + "in profile " + this.getName() + " Not previously present in profile");
         }
@@ -208,19 +208,19 @@ public class Profile {
      */
     public Kernel getKernelCalled(String kernelName) {
         Kernel found = null;
-        found = (Kernel) kernels.get(kernelName);
+        found = kernels.get(kernelName);
         return found;
     }
 
        public void addNewVariable(IpatVariable var) {
-        IpatVariable oldvalue = (IpatVariable) kernels.put(var.getName(), var);
+        IpatVariable oldvalue =  profileLevelVariables.put(var.getName(), var);
          if (oldvalue != null) {
             logger.error("Error adding Profile Variable " + var.getName() + " already exists in Profile");
         }
     }
     
     public void replaceVariable(IpatVariable var) {
-        IpatVariable oldval = (IpatVariable) profileLevelVariables.put(var.getName(), var);
+        IpatVariable oldval = profileLevelVariables.put(var.getName(), var);
         if (oldval == null) {
             logger.error("error replacing profile variable " + var.getName() + " in profile " + this.getName() + " old value not found or null");
         }
@@ -253,7 +253,7 @@ public class Profile {
      *
      * @return the kernels
      */
-    public HashMap getKernels() {
+    public HashMap<String, Kernel> getKernels() {
         return kernels;
     }
 
@@ -271,7 +271,7 @@ public class Profile {
      *
      * @return the profileLevelVariables
      */
-    public HashMap getProfileLevelVariables() {
+    public HashMap<String, IpatVariable> getProfileLevelVariables() {
         return profileLevelVariables;
     }
 
@@ -279,23 +279,24 @@ public class Profile {
      * Prints the profile.
      */
     public void printProfile() {
-        Set keys = profileLevelVariables.keySet();
-        Iterator AttributesIterator = keys.iterator();
-        while (AttributesIterator.hasNext()) {
-            IpatVariable var = (IpatVariable) AttributesIterator.next();
+        Set<String> keys = profileLevelVariables.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            IpatVariable var = profileLevelVariables.get(key);
             logger.info(var.getName() + " : " + var.getValue());
         }
-        Set keySet = kernels.keySet();
-        Iterator kernelIterator = keySet.iterator();
+        Set<String> keySet = kernels.keySet();
+        Iterator<String> kernelIterator = keySet.iterator();
         while (kernelIterator.hasNext()) {
-            String name = (String) kernelIterator.next();
-            logger.debug(name);
-            Kernel kernel = (Kernel) kernels.get(name);
-            HashMap kVars = kernel.getVariables();
-            Set kVarsKeys = kVars.keySet();
-            Iterator kVarsKeysIterator = kVarsKeys.iterator();
+            String kernelName = kernelIterator.next();
+            logger.debug(kernelName);
+            Kernel kernel = kernels.get(kernelName);
+            HashMap<String, IpatVariable> kVars = kernel.getVariables();
+            Set<String> kVarsKeys = kVars.keySet();
+            Iterator<String> kVarsKeysIterator = kVarsKeys.iterator();
             while (kVarsKeysIterator.hasNext()) {
-                IpatVariable var = (IpatVariable) kVars.get(kVarsKeysIterator.next());
+                IpatVariable var = kVars.get(kVarsKeysIterator.next());
                 logger.debug("   " + var.getName() + " : "
                         + var.getValue());
             }
@@ -344,11 +345,10 @@ public class Profile {
             Document XmlDoc = new SAXBuilder().build(this.getFile());
             //Element root = XmlDoc.getRootElement();
             Element profileNode = XmlDoc.getRootElement();//root.getChild("profile", root.getNamespace());
-            List children = profileNode.getChildren();
-            Iterator iterator = children.iterator();
-            HashMap mySolutionAttributes = this.getProfileLevelVariables();
-            HashMap kernels = this.getKernels();
-            Set enuK = this.getKernels().keySet();
+            List<?> children = profileNode.getChildren();
+            Iterator<?> iterator = children.iterator();
+            HashMap<String, IpatVariable> mySolutionAttributes = this.getProfileLevelVariables();
+            HashMap<String, Kernel> kernelStore = this.getKernels();
 
             while (iterator.hasNext()) {
 
@@ -358,7 +358,7 @@ public class Profile {
 
                     //  System.out.println("\n Profile variable \n");
                     Element elem = hint.getChild("name");
-                    IpatVariable var = (IpatVariable) mySolutionAttributes.get(elem.getValue());
+                    IpatVariable var = mySolutionAttributes.get(elem.getValue());
                     elem.setText(var.getName());
 
                     elem = hint.getChild("type");
@@ -403,20 +403,18 @@ public class Profile {
                     elem.setText(var.getUnit());
 
                 } else if (hint.getName().equalsIgnoreCase("kernel")) {
-
-                    Iterator it = hint.getChildren().iterator();
+                    List<?> children1 = hint.getChildren();
+                    Iterator<?> it = children1.iterator();
                     Element nm = (Element) it.next();
-
                     String kernelName = nm.getText();
-
-                    Kernel kern = (Kernel) kernels.get(kernelName);
-                    HashMap vars = kern.getVariables();
-                    Collection coll = vars.values();
-                    Iterator enu3 = coll.iterator();
+                    Kernel kern = kernelStore.get(kernelName);
+                    HashMap<String, IpatVariable> vars = kern.getVariables();
+                    Collection<IpatVariable> coll = vars.values();
+                    Iterator<IpatVariable> enu3 = coll.iterator();
 
                     while (it.hasNext()) {
                         Element hintt = (Element) it.next();
-                        IpatVariable varb = (IpatVariable) enu3.next();
+                        IpatVariable varb = enu3.next();
 
                         Element elem = hintt.getChild("name");
                         elem.setText(varb.getName());

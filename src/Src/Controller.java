@@ -132,7 +132,7 @@ public class Controller {
      *
      * @return
      */
-    public HashMap initialisation() {
+    public HashMap<String, Object> initialisation() {
         bootstrapApplication();
         logger.info("initial no of Profiles = " + noOfProfiles);
         loadRawArtifacts();
@@ -157,7 +157,7 @@ public class Controller {
      * @param profileCount
      * @return
      */
-    public HashMap mainloop(HashMap scores, int profileCount ) {
+    public HashMap<String, Object> mainloop(HashMap<String, Object> scores, int profileCount ) {
         Interaction interaction = new Interaction();
         currentGenerationOfProfiles = interaction.updateProfileHints(scores, currentGenerationOfProfiles, hints);
         setNoOfProfiles(profileCount);
@@ -253,7 +253,7 @@ public class Controller {
                 if (i >= profiles_list.length) {
                     logger.debug("randomising generating profile [" + i + "]\n");
                     //create the new filename for this extra profile
-                    File fileRename = new File(this.profileFolder + "/gen_0-profile_" +(i+1)+ ".xml");
+                    File fileRename = new File(profileFolder + "/gen_0-profile_" +(i+1)+ ".xml");
                     logger.debug("fileRename of Profile to be generated : " + fileRename.getAbsolutePath());
                     //write the profile we are copying into this new file so that it exists on disk
                     currentGenerationOfProfiles[i].copyToNewFile(fileRename.getAbsolutePath());
@@ -319,7 +319,7 @@ public class Controller {
         }
     }
 
-    public HashMap loadHintsXML() {
+    public HashMap<String, Hint> loadHintsXML() {
 
         HashMap<String, Hint> hintMap = new HashMap<>();
 
@@ -405,7 +405,7 @@ public class Controller {
                     newCurrentGenerationOfProfiles[i] = currentGenerationOfProfiles[0];
                     logger.debug("randomising generated profile [" + i + "]\n");
                     //create the new filename for this extra profile
-                    String fileRename = this.profileFolder + "/gen_0-profile_" +(i+1)+ ".xml";
+                    String fileRename = profileFolder + "/gen_0-profile_" +(i+1)+ ".xml";
                     //write the profile we are copying into this new file so that it exists on disk
                     newCurrentGenerationOfProfiles[i].copyToNewFile(fileRename);
                     //chnage the sotred values in memory
@@ -425,7 +425,7 @@ public class Controller {
         System.out.println("How Many in Controller.setNoOfProfiles after : " + this.noOfProfiles);
     }
     
-    public HashMap getHints(){
+    public HashMap<String, Hint> getHints(){
     return this.hints;
     }
 }

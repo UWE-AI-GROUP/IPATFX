@@ -5,6 +5,7 @@
  */
 package Src;
 
+import Algorithms.Hint;
 import java.util.HashMap;
 
 /**
@@ -14,5 +15,5 @@ import java.util.HashMap;
 public abstract class Display {
     
     
-    public abstract HashMap<String, Object> loadDisplay(HashMap hintMap, Artifact[] artifacts, int noOfProfiles);
+    public abstract HashMap<String, Object> loadDisplay(HashMap<String, Hint> hintMap, Artifact[] artifacts, int noOfProfiles);
 }

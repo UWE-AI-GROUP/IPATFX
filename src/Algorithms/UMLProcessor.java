@@ -36,7 +36,7 @@ public class UMLProcessor implements Processor {
 
     private static final Logger logger = Logger.getLogger(UMLProcessor.class);
 
-    private HashMap<String, ArrayList> UsesMap;
+    private HashMap<String, ArrayList<String>> UsesMap;
     private ArrayList<String> methodList, attributeList;
     ArrayList<String> classNames;
 
@@ -48,7 +48,7 @@ public class UMLProcessor implements Processor {
         UsesMap = new HashMap<>();
         methodList = new ArrayList<>();
         attributeList = new ArrayList<>();
-        classNames = new ArrayList(Arrays.asList("zero", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+        classNames = new ArrayList<>(Arrays.asList("zero", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
     }
 
     /*
@@ -67,12 +67,12 @@ public class UMLProcessor implements Processor {
     public Artifact applyProfileToArtifact(Profile profile, Artifact artifact, String outputFolder) {
 
         logger.debug("in UMLProcessor.applyprofiletoartefact()\n");
-        HashMap<Integer, ArrayList> classMethodsMap = new HashMap();
-        HashMap<Integer, ArrayList> classAttributesMap = new HashMap();
-        ArrayList<Integer> classesPresent = new ArrayList();
+        HashMap<Integer, ArrayList<String>> classMethodsMap = new HashMap<>();
+        HashMap<Integer, ArrayList<String>> classAttributesMap = new HashMap<>();
+        ArrayList<Integer> classesPresent = new ArrayList<>();
         ArrayList<String> methodsSeen = new ArrayList<>();
         ArrayList<String> attributesSeen = new ArrayList<>();
-        HashMap<String, Integer> classAssignments = new HashMap();
+        HashMap<String, Integer> classAssignments = new HashMap<>();
         //should really need to clear the hashmaps but might as well
         UsesMap.clear();
         methodList.clear();
@@ -85,7 +85,7 @@ public class UMLProcessor implements Processor {
         if (pv == null) {
             logger.error("Error: applyProfileToArtifcat in UMLProcessor. No solution attributes in Profile\n");
         } else {
-            for (Map.Entry<String, IpatVariable> entrySet : pv.entrySet()) {
+            pv.entrySet().stream().forEach((entrySet) -> {
                 String elementName = entrySet.getKey();
                 IpatVariable ipvar = entrySet.getValue();
 
@@ -102,14 +102,14 @@ public class UMLProcessor implements Processor {
                 //add this assignment in this design
                 classAssignments.put(elementName, elementClass);
 
-                ArrayList membersList;
+                ArrayList<String> membersList;
                 //now we need to get the correct list of members
                 if ((elementtype.equalsIgnoreCase("method")) && (classMethodsMap.containsKey(elementClass))) {
                     membersList = classMethodsMap.get(elementClass);
                 } else if ((elementtype.equalsIgnoreCase("attribute")) && (classAttributesMap.containsKey(elementClass))) {
                     membersList = classAttributesMap.get(elementClass);
                 } else {
-                    membersList = new ArrayList();
+                    membersList = new ArrayList<>();
                 }
                 //then add the element to the list of members for this cvlass
                 membersList.add(elementName);
@@ -121,7 +121,7 @@ public class UMLProcessor implements Processor {
                     classAttributesMap.put(elementClass, membersList);
                     attributesSeen.add(elementName);
                 }
-            }
+            });
         }
         
         //2 check we have a class for every element in the problem definition and that everything we have aclassfor is in the problem defintion
@@ -148,25 +148,26 @@ public class UMLProcessor implements Processor {
         logger.debug("highest class id used is " + highestClasses+"\n");
         int numUses[][] = new int[highestClasses + 1][highestClasses + 1];
         //2.2 loop through each class
-        for (Integer thisClass : classesPresent) {
+        classesPresent.stream().forEach((thisClass) -> {
             //get all the methods in this class
-            ArrayList methodsInthisClass = classMethodsMap.get(thisClass);
+            ArrayList<String> methodsInthisClass = classMethodsMap.get(thisClass);
             if (methodsInthisClass != null) {
                 //2.3 foreach methid in the class
-                for (Iterator<String> iterator = methodsInthisClass.iterator(); iterator.hasNext();) {
-                    String thisMethod = iterator.next();
+                methodsInthisClass.stream().forEach((thisMethod) -> {
                     //get all of the attributes it uses
                     ArrayList<String> thisMethodAtts = UsesMap.get(thisMethod);
-                    for (String attrString : thisMethodAtts) {
+                    thisMethodAtts.stream().map((attrString) -> {
                         //and then what class they are in
                         int attClass = classAssignments.get(attrString);
                         logger.debug("dealing with method " + thisMethod + "in class " + thisClass + ": it uses attribute " + attrString + " which is is class " + attClass+"\n");
+                        return attClass;
+                    }).forEach((attClass) -> {
                         //2.5 finally increment the numberof uses
                         numUses[thisClass][attClass]++;
-                    }
-                }
+                    });
+                });
             }
-        }
+        });
 
         //3. For each of the classes create a javascript that will display a box that looks like a 
         // UML class with the method and attribute names in (if present - their numerical idâ€™s if not)
@@ -176,8 +177,8 @@ public class UMLProcessor implements Processor {
         double vertex = 0.0, numVertices = (double) classesPresent.size();
         double halfBoxSize = 250;
 
-        for (Iterator iterator = classesPresent.iterator(); iterator.hasNext();) {
-            Integer nextClass = (Integer) iterator.next();
+        for (Iterator<Integer> iterator = classesPresent.iterator(); iterator.hasNext();) {
+            Integer nextClass =  iterator.next();
             //put the class boxes at the vertices of a regular polyogn
             xpos = halfBoxSize + halfBoxSize * Math.cos(2 * Math.PI * vertex / numVertices);
 
@@ -187,13 +188,13 @@ public class UMLProcessor implements Processor {
             height = 10; //always be a name
             //then add 10 for each attribute
             if (classAttributesMap.containsKey(nextClass)) {
-                ArrayList memberslist = classAttributesMap.get(nextClass);
+                ArrayList<String> memberslist = classAttributesMap.get(nextClass);
                 height += 20*(memberslist.size());
             }
             else
               {height +=10;}
             if (classMethodsMap.containsKey(nextClass)) {
-                ArrayList memberslist = classMethodsMap.get(nextClass);
+                ArrayList<String> memberslist = classMethodsMap.get(nextClass);
                 height += 20*(memberslist.size());
             }
             else
@@ -206,9 +207,9 @@ public class UMLProcessor implements Processor {
                     + xpos + "  , y: " + ypos + "},size: { width: 150, height: " + height + " },name:'"
                     + classNames.get(nextClass) + "',attributes: [";
             if (classAttributesMap.containsKey(nextClass)) {
-                ArrayList memberslist = classAttributesMap.get(nextClass);
-                for (Iterator iterator1 = memberslist.iterator(); iterator1.hasNext();) {
-                    String nextAttribute = (String) iterator1.next();
+                ArrayList<String> memberslist = classAttributesMap.get(nextClass);
+                for (Iterator<String> iterator1 = memberslist.iterator(); iterator1.hasNext();) {
+                    String nextAttribute = iterator1.next();
                     textToAdd = textToAdd + "'" + nextAttribute + "'";
                     if (iterator1.hasNext()) {
                         textToAdd = textToAdd + ",";
@@ -218,9 +219,9 @@ public class UMLProcessor implements Processor {
 
             textToAdd = textToAdd + "], \n     methods: [";
             if (classMethodsMap.containsKey(nextClass)) {
-                ArrayList memberslist = classMethodsMap.get(nextClass);
-                for (Iterator iterator1 = memberslist.iterator(); iterator1.hasNext();) {
-                    String nextMethod = (String) iterator1.next();
+                ArrayList<String> memberslist = classMethodsMap.get(nextClass);
+                for (Iterator<String> iterator1 = memberslist.iterator(); iterator1.hasNext();) {
+                    String nextMethod = iterator1.next();
                     textToAdd = textToAdd + "'" + nextMethod + "'";
                     if (iterator1.hasNext()) {
                         textToAdd = textToAdd + ",";
@@ -308,12 +309,7 @@ public class UMLProcessor implements Processor {
     private void ReadProblemDefinition(Artifact artifact) {
         try {
   
-            FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".xml");
-            }
-        };
+            FilenameFilter filter = (File dir, String name) -> name.endsWith(".xml");
         //read the xml file with thew problem defintion from the input folder and check there is ionly one
         File[] xmlfiles_list =  artifact.getFile().getParentFile().listFiles(filter);
         if (xmlfiles_list == null) {
@@ -344,7 +340,7 @@ public class UMLProcessor implements Processor {
 
             Element root = XmlDoc.getRootElement();
             Element profileNode = root.getChild("design", root.getNamespace());
-            Iterator iterator = profileNode.getChildren().iterator();
+            Iterator<?> iterator = profileNode.getChildren().iterator();
 
             while (iterator.hasNext()) {
 
@@ -374,13 +370,13 @@ public class UMLProcessor implements Processor {
                       
                     } else {
                         logger.debug("designUse: method " + method + " uses attribute " + attribute + "\n");
-                        ArrayList methodUsesList;
+                        ArrayList<String> methodUsesList;
                         if (UsesMap.containsKey(method)) //get the list of uses associated with this method
                         {
                             methodUsesList = UsesMap.get(method);
                         } else {
                             //or make a new one if it doesn't exist
-                            methodUsesList = new ArrayList();
+                            methodUsesList = new ArrayList<>();
                         }
                         //add the new attribute
                         methodUsesList.add(attribute);
@@ -392,11 +388,9 @@ public class UMLProcessor implements Processor {
             }
             //calculatethe total numberof uses
             int totaluses = 0;
-            for (Map.Entry<String, ArrayList> entrySet : UsesMap.entrySet()) {
-                String key = entrySet.getKey();
-                ArrayList value = entrySet.getValue();
-                totaluses += value.size();
-            }
+            totaluses = UsesMap.entrySet().stream().map((entrySet) -> {
+                return entrySet;
+            }).map((entrySet) -> entrySet.getValue()).map((value) -> value.size()).reduce(totaluses, Integer::sum);
             logger.debug("read " + methodList.size() + " methods and " + attributeList.size() + " attributes and " + totaluses + " uses from problem defintion xml file\n");
         } catch (IOException | JDOMException e) {
             logger.fatal(e.getMessage());

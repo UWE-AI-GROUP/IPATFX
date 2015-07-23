@@ -20,16 +20,12 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Menu;
@@ -42,13 +38,10 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -136,23 +129,17 @@ public class FXMLDocumentController implements Initializable {
                     }
                     outStream.close();
                 } catch (IOException ex) {
-                    Stage dialogStage = new Stage();
-                    dialogStage.initModality(Modality.WINDOW_MODAL);
-                    dialogStage.setScene(new Scene(VBoxBuilder.create().
-                            children(new Text(ex.getMessage()), new Button("Ok.")).
-                            alignment(Pos.CENTER).padding(new Insets(5)).build()));
-                    dialogStage.show();
                     Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, "Error loading file see mainframe ", ex);
                 }
                 fileTextArea.appendText(fileName + "\n");
             }
             try {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
-                HashMap display = controller.initialisation();
+                HashMap<String, Object> display = controller.initialisation();
                 WebView previewView = (WebView) display.get("previewView");
                 previewPane.getChildren().add(previewView);
-
-                HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
+                @SuppressWarnings("unchecked")
+                HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
                 byProfileTab = getByProfile(map, numOfProfiles);
                 byProfilePane.setCenter(byProfileTab);
                 
@@ -174,12 +161,6 @@ public class FXMLDocumentController implements Initializable {
                 });
 
             } catch (IOException ex) {
-                Stage dialogStage = new Stage();
-                dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.setScene(new Scene(VBoxBuilder.create().
-                        children(new Text(ex.getMessage()), new Button("Ok.")).
-                        alignment(Pos.CENTER).padding(new Insets(5)).build()));
-                dialogStage.show();
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -193,7 +174,7 @@ public class FXMLDocumentController implements Initializable {
         if (numOfProfiles > 8) {
             JOptionPane.showMessageDialog(null, "Please make the number of profiles smaller than 8.");
         } else {
-            HashMap<String, Object> scores = new HashMap();
+            HashMap<String, Object> scores = new HashMap<>();
             // TODO get the scores from the user input to then get the next gen
 
             ObservableList<Tab> tabs = null;
@@ -228,11 +209,11 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
 
-            HashMap display = controller.mainloop(scores, numOfProfiles);
+            HashMap<String, Object> display = controller.mainloop(scores, numOfProfiles);
             WebView previewView = (WebView) display.get("previewView");
             previewPane.getChildren().add(previewView);
-
-            HashMap<String, ArrayList<GridPane>> map = (HashMap) display.get("results");
+            @SuppressWarnings("unchecked")
+            HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
 
             if (tabFlag.equalsIgnoreCase("byImage")) {
                 byImageTab = getByImage(map);
@@ -306,23 +287,24 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    public TabPane getByImage(HashMap map) {
+    public TabPane getByImage(HashMap<String, ArrayList<GridPane>> map) {
 
         TabPane tabpane = new TabPane();
         Tab tabForImage;
-        GridPane paneForImage;
+        FlowPane paneForImage;
 
-        Iterator iterator = map.keySet().iterator();
+        Iterator<String> iterator = map.keySet().iterator();
         while (iterator.hasNext()) {
             tabForImage = new Tab();
-            paneForImage = new GridPane();
-            String nameOfArtefact = (String) iterator.next();
+            paneForImage = new FlowPane();
+            String nameOfArtefact = iterator.next();
             tabForImage.setId("li_" + nameOfArtefact);
             tabForImage.setText(nameOfArtefact);
-            ArrayList<GridPane> cells = (ArrayList) map.get(nameOfArtefact);
-            for (int i = 0; i < cells.size(); i++) {
-                GridPane cell = (GridPane) cells.get(i);
-                paneForImage.add(cell, 0, i);
+            ArrayList<GridPane> cells = map.get(nameOfArtefact);
+            for (GridPane cell1 : cells) {
+                GridPane cell = cell1;
+                //paneForImage.add(cell, 0, i);
+                paneForImage.getChildren().add(cell);
             }
             ScrollPane scrollPane = new ScrollPane();
             scrollPane.setContent(paneForImage);
@@ -332,7 +314,7 @@ public class FXMLDocumentController implements Initializable {
         return tabpane;
     }
 
-    public TabPane getByProfile(HashMap map, int noOfProfiles) {
+    public TabPane getByProfile(HashMap<String, ArrayList<GridPane>> map, int noOfProfiles) {
 
         TabPane tabpane = new TabPane();
         Tab tabForProfile;
@@ -344,9 +326,9 @@ public class FXMLDocumentController implements Initializable {
             tabForProfile.setId("li_Profile_" + i);
             tabForProfile.setText("Profile " + i);
             int j = 0;
-            for (Iterator iterator = map.keySet().iterator(); iterator.hasNext(); j++) {
-                String nameOfArtefact = (String) iterator.next();
-                ArrayList<GridPane> cells = (ArrayList<GridPane>) map.get(nameOfArtefact);
+            for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext(); j++) {
+                String nameOfArtefact = iterator.next();
+                ArrayList<GridPane> cells = map.get(nameOfArtefact);
                 paneForProfile.add(cells.get(i), 0, j);
             }
             ScrollPane scrollPane = new ScrollPane();

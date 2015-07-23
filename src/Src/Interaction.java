@@ -27,20 +27,17 @@ public class Interaction {
      * @param controller
      * @return
      */
-    public Profile[] updateProfileHints(HashMap data, Profile[] currentGenerationOfProfiles, HashMap hints) {
+    public Profile[] updateProfileHints(HashMap<String, Object> data, Profile[] currentGenerationOfProfiles, HashMap<String, Hint> hints) {
 
-        //Check for data structure
-        Iterator it = data.keySet().iterator();
-        while (it.hasNext()) {
-            String hint = (String) it.next();
+        data.keySet().stream().forEach((hint) -> {
             Object value = data.get(hint);
             System.out.println("hint " + hint + " / value " + value);
-        }
+        });
 
         int numOfProfiles = currentGenerationOfProfiles.length;
         int numOfHints = hints.size();
-        HashMap<String, HashMap> averageCounters = new HashMap();
-        HashMap<String, HashMap> ordered = new HashMap();
+        HashMap<String, HashMap<Integer, Double>> averageCounters = new HashMap<>();
+        HashMap<String, HashMap<Integer, ?>> ordered = new HashMap<>();
         Hint hintProc;
 
         // We don't know the order in which hints are initialised in hints.xml so organisation of return values is required
@@ -49,7 +46,7 @@ public class Interaction {
         logger.debug("Num of Hints =" + numOfHints);
         logger.debug("Data Size =" + data.size());
 
-        Set hintSet = data.keySet();
+        Set<String> hintSet = data.keySet();
         int numOfResults = data.size() / numOfHints;
         logger.debug("numOfResults =" + numOfResults);
         int numOfUploads = numOfResults / numOfProfiles;
@@ -75,7 +72,7 @@ public class Interaction {
 
                 // determine the data type, add it to the appropriate hashmap which is then added to "ordered"
                 if (rawValue instanceof Boolean) {
-                    HashMap<Integer, Boolean> profilesBooleanHintAverages = new HashMap();
+                    HashMap<Integer, Boolean> profilesBooleanHintAverages = new HashMap<>();
                     Boolean value = (Boolean) rawValue;
                     profilesBooleanHintAverages.put(profileNum, value);
                     ordered.put(hint, profilesBooleanHintAverages);
@@ -83,8 +80,8 @@ public class Interaction {
                 }
 
                 if (rawValue instanceof String) {
-                    HashMap<Integer, Double> averageCountMap = new HashMap();
-                    HashMap<Integer, Double> profilesDoubleHintAverages = new HashMap();
+                    HashMap<Integer, Double> averageCountMap = new HashMap<>();
+                    HashMap<Integer, Double> profilesDoubleHintAverages = new HashMap<>();
                     profilesDoubleHintAverages.put(profileNum, Double.parseDouble((String) rawValue));
                     averageCountMap.put(profileNum, 1.0);
                     ordered.put(hint, profilesDoubleHintAverages);
@@ -96,7 +93,8 @@ public class Interaction {
             } else {
 
                 if (rawValue instanceof Boolean) {
-                    HashMap<Integer, Boolean> PBHA = ordered.get(hint);
+                    @SuppressWarnings("unchecked")
+                    HashMap<Integer, Boolean> PBHA = (HashMap<Integer, Boolean>) ordered.get(hint);
                     if (!PBHA.containsKey(profileNum)) {
                         PBHA.put(profileNum, ((Boolean) rawValue));
                         ordered.put(hint, PBHA);
@@ -111,14 +109,17 @@ public class Interaction {
                 } else {
 
                     // get the averageMap for this hint
-                    HashMap<Integer, Double> PDHA = ordered.get(hint);
+                    @SuppressWarnings("unchecked")
+                    HashMap<Integer, Double> PDHA =  (HashMap<Integer, Double>) ordered.get(hint);
+                    
+                    
 
                     // check if the profile we are adding a value to already has a value, if it does add to its average
                     if (PDHA.containsKey(profileNum)) {
                         //if (PDHA.get(profileNum) != null) {
                         Double runningAverage = PDHA.get(profileNum);
-                        HashMap averageCount = averageCounters.get(hint);
-                        Double currentCount = (Double) averageCount.get(profileNum);
+                        HashMap<Integer, Double> averageCount = averageCounters.get(hint);
+                        Double currentCount = averageCount.get(profileNum);
 
                     //    System.out.println("runningAverage " + runningAverage);
                         //   System.out.println("currentCount " + currentCount);
@@ -132,7 +133,7 @@ public class Interaction {
 
                         // if it doesnt, create the first entry
                     } else {
-                        HashMap averageCount = averageCounters.get(hint);
+                        HashMap<Integer, Double> averageCount = averageCounters.get(hint);
                         averageCount.put(profileNum, 1.0);
                         PDHA.put(profileNum, Double.parseDouble((String) rawValue));
                         averageCounters.put(hint, averageCount);
@@ -152,7 +153,7 @@ public class Interaction {
             Iterator<String> iterator = hint.iterator();
             while (iterator.hasNext()) {
                 String key = iterator.next();
-                HashMap profilesHintAverages = ordered.get(key);
+                HashMap<Integer, ?> profilesHintAverages = ordered.get(key);
 
                 if (key.equalsIgnoreCase("globalScore")) {
                     Object value = profilesHintAverages.get(i);
@@ -167,7 +168,7 @@ public class Interaction {
 
                     if (value instanceof Boolean) {
                         Boolean booleanValue = (Boolean) value;
-                        hintProc = (Hint) hints.get(key);
+                        hintProc = hints.get(key);
                         if (booleanValue) {
                             logger.info("Updated " + key + " : true");
                             currentGenerationOfProfiles[i] = hintProc.InterpretHintInProfile(currentGenerationOfProfiles[i], 0.0);
@@ -177,7 +178,7 @@ public class Interaction {
                         }
                     } else {
                         Double doubleValue = (Double) value;
-                        hintProc = (Hint) hints.get(key);
+                        hintProc = hints.get(key);
                         logger.info("Updated " + key + " : " + doubleValue);
                         currentGenerationOfProfiles[i] = hintProc.InterpretHintInProfile(currentGenerationOfProfiles[i], doubleValue);
                     }

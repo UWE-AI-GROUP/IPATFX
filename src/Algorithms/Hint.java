@@ -22,9 +22,9 @@ public class Hint {
 
     private static final Logger logger = Logger.getLogger(Hint.class);
 
-    private final ArrayList profileVariablesAffected;
-    private final ArrayList kernelsAffected;
-    private final ArrayList kernelVariablesAffected;
+    private final ArrayList<String> profileVariablesAffected;
+    private final ArrayList<String> kernelsAffected;
+    private final ArrayList<String> kernelVariablesAffected;
     private String hintName;
     private String displaytype;
     private String displaytext;
@@ -39,9 +39,9 @@ public class Hint {
      * sets the hintName to null.
      */
     public Hint() {
-        profileVariablesAffected = new ArrayList();
-        kernelsAffected = new ArrayList();
-        kernelVariablesAffected = new ArrayList();
+        profileVariablesAffected = new ArrayList<>();
+        kernelsAffected = new ArrayList<>();
+        kernelVariablesAffected = new ArrayList<>();
         hintName = null;
     }
 
@@ -53,9 +53,9 @@ public class Hint {
      * @param name
      */
     public Hint(String name) {
-        profileVariablesAffected = new ArrayList();
-        kernelsAffected = new ArrayList();
-        kernelVariablesAffected = new ArrayList();
+        profileVariablesAffected = new ArrayList<>();
+        kernelsAffected = new ArrayList<>();
+        kernelVariablesAffected = new ArrayList<>();
         hintName = name;
     }
 
@@ -72,9 +72,9 @@ public class Hint {
      * @param theEffect
      */
     public Hint(String theName, String theDisplaytype, String theDisplaytext, double theRangeMin, double theRangeMax, String theDefaultVal, String theEffect) {
-        profileVariablesAffected = new ArrayList();
-        kernelsAffected = new ArrayList();
-        kernelVariablesAffected = new ArrayList();
+        profileVariablesAffected = new ArrayList<>();
+        kernelsAffected = new ArrayList<>();
+        kernelVariablesAffected = new ArrayList<>();
         hintName = theName;
         displaytype = theDisplaytype;
         displaytext = theDisplaytext;
@@ -102,7 +102,7 @@ public class Hint {
      *
      * @return ArrayList of all kernels affected by this Hint.
      */
-    public ArrayList getKernelsAffected() {
+    public ArrayList<String> getKernelsAffected() {
         return kernelsAffected;
     }
 
@@ -138,7 +138,7 @@ public class Hint {
      *
      * @return ArrayList of profile level variables names
      */
-    public ArrayList getProfileVariablesAffected() {
+    public ArrayList<String> getProfileVariablesAffected() {
         return profileVariablesAffected;
     }
 
@@ -154,7 +154,7 @@ public class Hint {
      *
      * @return
      */
-    public ArrayList getKernelVariablesAffected() {
+    public ArrayList<String> getKernelVariablesAffected() {
         return kernelVariablesAffected;
     }
 
@@ -306,19 +306,18 @@ public class Hint {
      */
     public Profile InterpretSetNewValueInProfile(Profile toChange, double amount) {
         Profile thisProfile = toChange;
-        IpatVariable currentVariable = null;
-        HashMap profileLevelVars = thisProfile.getProfileLevelVariables();
-        HashMap kernels = thisProfile.getKernels();
+        IpatVariable currentVariable;
+        HashMap<String, IpatVariable> profileLevelVars = thisProfile.getProfileLevelVariables();
         String currentVarName;
 
         assert ((amount >= rangeMin) && (amount <= rangeMax));
 
         logger.debug("in InterpretModeratingHintInProfile(), range min = " + rangeMin + "rangeMax = " + rangeMax + "amount = " + amount +"\n");   
         //start off with the profile variables that are affected
-        for (Iterator profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
-            currentVarName = (String) profileVariableIterator.next();
+        for (Iterator<String> profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
+            currentVarName =  profileVariableIterator.next();
             //get the variable from the local copy in the hashtable
-            currentVariable = (IpatVariable) profileLevelVars.get(currentVarName);
+            currentVariable = profileLevelVars.get(currentVarName);
             if (currentVariable == null) {
                 logger.error("error - trying to change  variable " + currentVarName + " which does not exist in profile\n");
             } else {
@@ -329,21 +328,20 @@ public class Hint {
             }
         }
         //then for each of the affected kernels
-        for (Iterator kernelIterator = kernelsAffected.iterator(); kernelIterator.hasNext();) {
-            String kernelname = (String) kernelIterator.next();
-            Kernel kernel = (Kernel) thisProfile.getKernelCalled(kernelname);
+        for (String kernelname : kernelsAffected) {
+            Kernel kernel = thisProfile.getKernelCalled(kernelname);
             if (kernel == null) {
                 logger.error("Kernel " + kernelname + " not present in profile " + thisProfile.getName() + " within Hint\n");
             } else {
-                HashMap vars = kernel.getVariables();
-                Iterator kvarIterator;
+                HashMap<String, IpatVariable> vars = kernel.getVariables();
+                Iterator<String> kvarIterator;
                 // if we don't have a list of which kernel variables to change use all
                 if (kernelVariablesAffected.isEmpty()) {//boring conversion because Profile uses hashmaps and enumerators
-                    ArrayList allKernelVariables = new ArrayList();
-                    Set keySet = vars.keySet();
-                    Iterator kVarNames = keySet.iterator();
+                    ArrayList<String> allKernelVariables = new ArrayList<>();
+                    Set<String> keySet = vars.keySet();
+                    Iterator<String> kVarNames = keySet.iterator();
                     while (kVarNames.hasNext()) {
-                        allKernelVariables.add(kVarNames.next().toString());
+                        allKernelVariables.add(kVarNames.next());
                     }
                     kvarIterator = allKernelVariables.iterator();
                 } else // otherwise, if we have some specified, just use them
@@ -352,8 +350,8 @@ public class Hint {
                 }
 
                 while (kvarIterator.hasNext()) {
-                    currentVarName = (String) kvarIterator.next();
-                    currentVariable = (IpatVariable) vars.get(currentVarName);
+                    currentVarName =  kvarIterator.next();
+                    currentVariable = vars.get(currentVarName);
                     //reset the value in thecopy of the variable
                     currentVariable.setValue(amount);
                     vars.put(currentVarName, currentVariable);
@@ -379,16 +377,15 @@ public class Hint {
      */
     public Profile InterpretSetRateOfEvolutionEqualZeroHintInProfile(Profile toChange, double amount) {
         Profile thisProfile = toChange;
-        IpatVariable currentVariable = null;
-        HashMap profileLevelVars = thisProfile.getProfileLevelVariables();
-        HashMap kernels = thisProfile.getKernels();
+        IpatVariable currentVariable;
+        HashMap<String, IpatVariable> profileLevelVars = thisProfile.getProfileLevelVariables();
         String currentVarName;
 
         //first freeze all of the profile level variables
-        for (Iterator profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
-            currentVarName = (String) profileVariableIterator.next();
+        for (Iterator<String> profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
+            currentVarName = profileVariableIterator.next();
             //get the variable from the local copy in the hashtable
-            currentVariable = (IpatVariable) profileLevelVars.get(currentVarName);
+            currentVariable = profileLevelVars.get(currentVarName);
             //set the rate of evoltion to zero so mutation has no effect
             currentVariable.setRateOfEvolution(amount);
             //write back in the changed variable
@@ -396,21 +393,20 @@ public class Hint {
         }
 
         //then for each of the affected kernels
-        for (Iterator kernelIterator = kernelsAffected.iterator(); kernelIterator.hasNext();) {
-            String kernelname = (String) kernelIterator.next();
-            Kernel kernel = (Kernel) thisProfile.getKernelCalled(kernelname);
+        for (String kernelname : kernelsAffected) {
+            Kernel kernel = thisProfile.getKernelCalled(kernelname);
             if (kernel == null) {
                 logger.error("Kernel " + kernelname + " not present in profile " + thisProfile.getName() + " within Hint\n");
             } else {
-                HashMap vars = kernel.getVariables();
-                Iterator kvarIterator;
+                HashMap<String, IpatVariable> vars = kernel.getVariables();
+                Iterator<String> kvarIterator;
                 // if we don't have a list of which kernel variables to change use all
                 if (kernelVariablesAffected.isEmpty()) {//boring conversion because Profile uses hashmaps and enumerators
-                    ArrayList allKernelVariables = new ArrayList();
-                    Set keySet = vars.keySet();
-                    Iterator kVarNames = keySet.iterator();
+                    ArrayList<String> allKernelVariables = new ArrayList<>();
+                    Set<String> keySet = vars.keySet();
+                    Iterator<String> kVarNames = keySet.iterator();
                     while (kVarNames.hasNext()) {
-                        allKernelVariables.add(kVarNames.next().toString());
+                        allKernelVariables.add(kVarNames.next());
                     }
                     kvarIterator = allKernelVariables.iterator();
                 } else // otherwise, if we have some specified, just use them
@@ -419,8 +415,8 @@ public class Hint {
                 }
 
                 while (kvarIterator.hasNext()) {
-                    currentVarName = (String) kvarIterator.next();
-                    currentVariable = (IpatVariable) vars.get(currentVarName);
+                    currentVarName =  kvarIterator.next();
+                    currentVariable =  vars.get(currentVarName);
                     //set the rate of evoltion to zero so mutation has no effect
                     currentVariable.setRateOfEvolution(amount);
                     vars.put(currentVarName, currentVariable);
@@ -428,7 +424,7 @@ public class Hint {
                 Kernel changedKernel = new Kernel(kernel.getName(), vars);
                 //finally need to write this new kernel back to the profile in the  nextGen arraylist
                 //delete the old one the add the new one
-               // thisProfile.removeKernel(kernel.getName());
+                // thisProfile.removeKernel(kernel.getName());
                 thisProfile.replaceKernel(changedKernel);
             } //end of code dealing with affected kernels
         }
@@ -447,9 +443,8 @@ public class Hint {
      */
     public Profile InterpretModeratingHintInProfile(Profile toChange, double amount) {
         Profile thisProfile = toChange;
-        IpatVariable currentVariable = null;
-        HashMap profileLevelVars = thisProfile.getProfileLevelVariables();
-        HashMap kernels = thisProfile.getKernels();
+        IpatVariable currentVariable;
+        HashMap<String, IpatVariable> profileLevelVars = thisProfile.getProfileLevelVariables();
         String currentVarName;
 
         assert ((amount >= rangeMin) && (amount <= rangeMax));
@@ -460,10 +455,10 @@ public class Hint {
 
         logger.debug("in InterpretModeratingHintInProfile(), range min = " + rangeMin + "rangeMax = " + rangeMax + "amount = " + amount + "multiplier is " + multiplier + "\n");   
         //start off with the profile variables that are affected
-        for (Iterator profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
-            currentVarName = (String) profileVariableIterator.next();
+        for (Iterator<String> profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
+            currentVarName =  profileVariableIterator.next();
             //get the variable from the local copy in the hashtable
-            currentVariable = (IpatVariable) profileLevelVars.get(currentVarName);
+            currentVariable = profileLevelVars.get(currentVarName);
             // TODO check for currentVariable !null
             //set the rate of evoltion to zero so mutation has no effect
             double oldValue = currentVariable.getValue();
@@ -482,21 +477,20 @@ public class Hint {
             thisProfile.replaceVariable(currentVariable);
         }
         //then for each of the affected kernels
-        for (Iterator kernelIterator = kernelsAffected.iterator(); kernelIterator.hasNext();) {
-            String kernelname = (String) kernelIterator.next();
-            Kernel kernel = (Kernel) thisProfile.getKernelCalled(kernelname);
+        for (String kernelname : kernelsAffected) {
+            Kernel kernel = thisProfile.getKernelCalled(kernelname);
             if (kernel == null) {
                 logger.error("Kernel " + kernelname + " not present in profile " + thisProfile.getName() + " within Hint\n");
             } else {
-                HashMap vars = kernel.getVariables();
-                Iterator kvarIterator;
+                HashMap<String, IpatVariable> vars = kernel.getVariables();
+                Iterator<String> kvarIterator;
                 // if we don't have a list of which kernel variables to change use all
                 if (kernelVariablesAffected.isEmpty()) {//boring conversion because Profile uses hashmaps and enumerators
-                    ArrayList allKernelVariables = new ArrayList();
-                    Set keySet = vars.keySet();
-                    Iterator kVarNames = keySet.iterator();
+                    ArrayList<String> allKernelVariables = new ArrayList<>();
+                    Set<String> keySet = vars.keySet();
+                    Iterator<String> kVarNames = keySet.iterator();
                     while (kVarNames.hasNext()) {
-                        allKernelVariables.add(kVarNames.next().toString());
+                        allKernelVariables.add(kVarNames.next());
                     }
                     kvarIterator = allKernelVariables.iterator();
                 } else // otherwise, if we have some specified, just use them
@@ -505,25 +499,25 @@ public class Hint {
                 }
 
                 while (kvarIterator.hasNext()) {
-                    currentVarName = (String) kvarIterator.next();
-                    currentVariable = (IpatVariable) vars.get(currentVarName);
+                    currentVarName = kvarIterator.next();
+                    currentVariable =  vars.get(currentVarName);
                     if(currentVariable==null)
                         logger.error("couldn't find variable with name " + currentVarName + " in kernel " + kernelname + "\n");
                     else
-                      {double oldValue = currentVariable.getValue();
-
-                        //calculate raw new value
-                        double newValue = oldValue * multiplier;
-                        //take account of granularity
-                        newValue = newValue - Math.IEEEremainder(newValue, currentVariable.getGranularity());
-                        //truncate to range
-                        newValue = Math.max(currentVariable.getLbound(), newValue);
-                        newValue = Math.min(currentVariable.getUbound(), newValue);
-
-                        //reset the value in thecopy of the variable
-                        currentVariable.setValue(newValue);
-                        vars.put(currentVarName, currentVariable);
-                      }
+                    {double oldValue = currentVariable.getValue();
+                    
+                    //calculate raw new value
+                    double newValue = oldValue * multiplier;
+                    //take account of granularity
+                    newValue = newValue - Math.IEEEremainder(newValue, currentVariable.getGranularity());
+                    //truncate to range
+                    newValue = Math.max(currentVariable.getLbound(), newValue);
+                    newValue = Math.min(currentVariable.getUbound(), newValue);
+                    
+                    //reset the value in thecopy of the variable
+                    currentVariable.setValue(newValue);
+                    vars.put(currentVarName, currentVariable);
+                    }
                 }
                 Kernel changedKernel = new Kernel(kernel.getName(), vars);
                 //finally need to write this new kernel back to the profile in the  nextGen arraylist
@@ -546,17 +540,16 @@ public class Hint {
      */
     public Profile InterpretToggleHintInProfile(Profile toChange, double amount) {
         Profile thisProfile = toChange;
-        IpatVariable currentVariable = null;
-        HashMap profileLevelVars = thisProfile.getProfileLevelVariables();
-        HashMap kernels = thisProfile.getKernels();
+        IpatVariable currentVariable;
+        HashMap<String, IpatVariable> profileLevelVars = thisProfile.getProfileLevelVariables();
         String currentVarName;
         double newValue;
 
         //start off with the profile variables that are affected
-        for (Iterator profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
-            currentVarName = (String) profileVariableIterator.next();
+        for (Iterator<String> profileVariableIterator = profileVariablesAffected.iterator(); profileVariableIterator.hasNext();) {
+            currentVarName = profileVariableIterator.next();
             //get the variable from the local copy in the hashtable
-            currentVariable = (IpatVariable) profileLevelVars.get(currentVarName);
+            currentVariable = profileLevelVars.get(currentVarName);
 
             if (currentVariable == null) {
                 logger.error("trying to change profile variable " + currentVarName + " but it doesnt exist in the profile\n");
@@ -571,57 +564,55 @@ public class Hint {
                 newValue = currentVariable.getValue();
             }
             //reset the value in thecopy of the variable
-            currentVariable.setValue(newValue);
+            currentVariable.setValue(newValue); 
             //write back in the changed variable
             thisProfile.replaceVariable(currentVariable);
         }
         //then for each of the affected kernels
-        for (Iterator kernelIterator = kernelsAffected.iterator(); kernelIterator.hasNext();) {
-            String kernelname = (String) kernelIterator.next();
-            Kernel kernel = (Kernel) thisProfile.getKernelCalled(kernelname);
-            if (kernel != null) {
-                if (kernel == null) {
-                    logger.error("Kernel " + kernelname + " not present in profile " + thisProfile.getName() + " within Hint\n");
-                } else {
-                    HashMap vars = kernel.getVariables();
-                    Iterator kvarIterator;
-                    // if we don't have a list of which kernel variables to change use all
-                    if (kernelVariablesAffected.isEmpty()) {//boring conversion because Profile uses hashmaps and enumerators
-                        ArrayList allKernelVariables = new ArrayList();
-                        Set keySet = vars.keySet();
-                        Iterator kVarNames = keySet.iterator();
-                        while (kVarNames.hasNext()) {
-                            allKernelVariables.add(kVarNames.next().toString());
-                        }
-                        kvarIterator = allKernelVariables.iterator();
-                    } else // otherwise, if we have some specified, just use them
-                    {
-                        kvarIterator = kernelVariablesAffected.iterator();
+        for (String kernelname : kernelsAffected) {
+            Kernel kernel =  thisProfile.getKernelCalled(kernelname);
+            
+            if (kernel == null) {
+                logger.error("Kernel " + kernelname + " not present in profile " + thisProfile.getName() + " within Hint\n");
+            } else {
+                HashMap<String, IpatVariable> vars = kernel.getVariables();
+                Iterator<String> kvarIterator;
+                // if we don't have a list of which kernel variables to change use all
+                if (kernelVariablesAffected.isEmpty()) {//boring conversion because Profile uses hashmaps and enumerators
+                    ArrayList<String> allKernelVariables = new ArrayList<>();
+                    Set<String> keySet = vars.keySet();
+                    Iterator<String> kVarNames = keySet.iterator();
+                    while (kVarNames.hasNext()) {
+                        allKernelVariables.add(kVarNames.next());
                     }
-
-                    while (kvarIterator.hasNext()) {
-                        currentVarName = (String) kvarIterator.next();
-                        currentVariable = (IpatVariable) vars.get(currentVarName);
-                        //toggle the value of the variables
-                        if (amount == rangeMin) {
-                            newValue = currentVariable.getLbound();
-                        } else if (amount == rangeMax) {
-                            newValue = currentVariable.getUbound();
-                        } else {
-                            newValue = currentVariable.getValue();
-                        }
-
-                        //reset the value in thecopy of the variable
-                        currentVariable.setValue(newValue);
-                        vars.put(currentVarName, currentVariable);
+                    kvarIterator = allKernelVariables.iterator();
+                } else // otherwise, if we have some specified, just use them
+                {
+                    kvarIterator = kernelVariablesAffected.iterator();
+                }
+                
+                while (kvarIterator.hasNext()) {
+                    currentVarName = kvarIterator.next();
+                    currentVariable = vars.get(currentVarName);
+                    //toggle the value of the variables
+                    if (amount == rangeMin) {
+                        newValue = currentVariable.getLbound();
+                    } else if (amount == rangeMax) {
+                        newValue = currentVariable.getUbound();
+                    } else {
+                        newValue = currentVariable.getValue();
                     }
-                    Kernel changedKernel = new Kernel(kernel.getName(), vars);
-                    //finally need to write this new kernel back to the profile in the  nextGen arraylist
-                    //delete the old one the add the new one
-                    //thisProfile.removeKernel(kernel.getName());
-                    thisProfile.replaceKernel(changedKernel);
-                } //end of code dealing with affected kernels
-            }
+                    
+                    //reset the value in thecopy of the variable
+                    currentVariable.setValue(newValue);
+                    vars.put(currentVarName, currentVariable);
+                }
+                Kernel changedKernel = new Kernel(kernel.getName(), vars);
+                //finally need to write this new kernel back to the profile in the  nextGen arraylist
+                //delete the old one the add the new one
+                //thisProfile.removeKernel(kernel.getName());
+                thisProfile.replaceKernel(changedKernel);
+            } //end of code dealing with affected kernels
         }
 
         return thisProfile;

@@ -23,7 +23,7 @@ public class Kernel {
          * The hashmap containing the IpatVariable(s) which are likely to
          * repeat.
          */
-	private HashMap variables;
+	private HashMap<String, IpatVariable> variables;
 
 	/**
 	 * Instantiates a new ipat kernel.
@@ -31,7 +31,7 @@ public class Kernel {
 	 * @param name the name
 	 * @param variables the variables
 	 */
-	public Kernel(String name, HashMap variables){
+	public Kernel(String name, HashMap<String, IpatVariable> variables){
 		this.name = name;
 		this.variables = variables;
 	}
@@ -50,15 +50,15 @@ public class Kernel {
 	 *
 	 * @return the variables
 	 */
-	public HashMap getVariables() {
+	public HashMap<String, IpatVariable> getVariables() {
 		return variables;
 	}
         
         public void randomiseValues(){
             Collection<IpatVariable> values = this.variables.values();
-            for (IpatVariable SA : values) {
+            values.stream().forEach((SA) -> {
                 SA.randomiseValues();
-            }
+            });
         }
         
 }
