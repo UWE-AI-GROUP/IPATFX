@@ -152,8 +152,8 @@ public class Profile {
                 } else if (hint.getName().equalsIgnoreCase("interaction")) {
                 }
             }
-        } catch (Exception pce) {
-            pce.printStackTrace();
+        } catch (JDOMException | IOException | NumberFormatException pce) {
+            logger.error(pce +" In Profile Constructor");
         }
     }
 
@@ -168,16 +168,20 @@ public class Profile {
    
     public void randomiseKernelVariableValues() {
         Collection<Kernel> collection = this.kernels.values();
-        for (Kernel kernel : collection) {
+        collection.stream().map((kernel) -> {
             kernel.randomiseValues();
+            return kernel;
+        }).map((kernel) -> {
             logger.debug("new values for " + this.name + " KERNEL VARIABLE " + kernel.getName() + ":\n");
-            HashMap<String, IpatVariable> variables = kernel.getVariables();
-           Collection<IpatVariable> KernelCollection = variables.values();
-           KernelCollection.stream().forEach((SA) -> {
-               logger.debug(SA.getName() + " = " + SA.getValue());
+            return kernel;
+        }).map((kernel) -> kernel.getVariables()).map((variables) -> variables.values()).map((KernelCollection) -> {
+            KernelCollection.stream().forEach((SA) -> {
+                logger.debug(SA.getName() + " = " + SA.getValue());
             });
-           logger.debug("\n----------------------------------------------------------------------------\n");
-        }
+            return KernelCollection;
+        }).forEach((_item) -> {
+            logger.debug("\n----------------------------------------------------------------------------\n");
+        });
     }
 
     /**
@@ -322,7 +326,7 @@ public class Profile {
         try {
             StringReader stringReader = new StringReader(string);
             return new SAXBuilder().build(stringReader);
-        } catch (Exception e) {
+        } catch (JDOMException | IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -462,7 +466,9 @@ public class Profile {
             //System.out.println("[SetProfile] Writing score " + 0 + " to profile: " + profile.getFile().toString());
             XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
             String xmlString = outputter.outputString(XmlDoc);
-
+             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println(this.getFile().getAbsolutePath());
+             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
             try( BufferedWriter writer = new BufferedWriter(new FileWriter(this.getFile().getAbsolutePath()))) {
                 writer.write(xmlString);
             }

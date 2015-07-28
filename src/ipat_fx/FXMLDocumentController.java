@@ -14,9 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +30,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -42,8 +44,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
-import javax.swing.JFileChooser;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -52,36 +56,27 @@ import javax.swing.JOptionPane;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private Button chooseFilesButton;
-    @FXML
     private Pane previewPane;
     @FXML
     private BorderPane byImagePane;
     @FXML
     private BorderPane byProfilePane;
     @FXML
-    private MenuBar menuBar;
-    @FXML
     private Menu cases;
-    @FXML
-    private Button abort;
-    @FXML
-    private Button nextGen;
     @FXML
     private TextField noOfProfiles;
     @FXML
     private TextArea fileTextArea;
     @FXML
-    private TabPane tabPane;
 
+    private TabPane tabPane;
     private TabPane byProfileTab;
     private TabPane byImageTab;
-
     private String contextPath;
-    private File inputFolder = null;
-    private File outputFolder = null;
-    private File profilePath = null;
-    private File hintsXML = null;
+    private File inputFolder;
+    private File outputFolder;
+    private File profilePath;
+    private File hintsXML;
     private String dataPath;
     private String problemDataFolderName;
     private final ArrayList<File> caseFileArray = new ArrayList<>();
@@ -89,6 +84,99 @@ public class FXMLDocumentController implements Initializable {
     public Controller controller;
     public Interaction interaction = new Interaction();
     private String tabFlag;
+
+    @FXML
+    private void saveOption(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        File file = new File(contextPath + "Saves/");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        fc.setInitialDirectory(file);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        Date date = new Date();
+        fc.setInitialFileName("Ipat_" + dateFormat.format(date));
+        File dest = fc.showSaveDialog(null);
+        File src = new File(dataPath);
+        try {
+            FileUtils.copyDirectory(src, dest);
+        } catch (IOException ex) {
+            Logger.getLogger(IPAT_FX.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void loadOption(ActionEvent event) {
+        
+            DirectoryChooser dc = new DirectoryChooser();
+            File file = new File(contextPath + "Saves/");
+            dc.setInitialDirectory(file);
+            File dest = new File(dataPath);
+            File seeds = new File(dataPath + "/seeds/");
+            seeds.delete();
+            seeds.mkdirs();
+            dest.delete();
+            dest.mkdirs();
+            File src = dc.showDialog(null);
+            
+            try {
+                
+                FileUtils.copyDirectory(src, dest);
+                File profiles = new File(outputFolder.getAbsolutePath() + "/generations");
+                File[] listFiles = profiles.listFiles();
+                
+                int lastGeneration = 0;
+                for (File listFile : listFiles) {
+                    if (!listFile.isDirectory()) {
+                        String profileName = listFile.getName();
+                        System.out.println("profileName : " + profileName);
+                        int generation = Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-')));
+                        System.out.println("generation : " + generation);
+                        if (generation > lastGeneration) {
+                            lastGeneration = generation;
+                        }
+                    }
+                }
+                
+                for (File listFile : listFiles) {
+                    String profileName = listFile.getName();
+                    if (Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-'))) == lastGeneration) {
+                        FileUtils.copyFile(listFile, new File(seeds + "/" + listFile.getName()));
+                    }
+                }
+                
+                controller = new Controller(inputFolder, outputFolder, seeds, hintsXML, problemDataFolderName);
+                 
+                HashMap<String, Object> display = controller.initialisation();
+                WebView previewView = (WebView) display.get("previewView");
+                previewPane.getChildren().add(previewView);
+                @SuppressWarnings("unchecked")
+                HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
+
+                if (tabFlag.equalsIgnoreCase("byImage")) {
+                    byImageTab = getByImage(map);
+                    byImagePane.setCenter(byImageTab);
+                } else if (tabFlag.equalsIgnoreCase("byProfile")) {
+                    byProfileTab = getByProfile(map, controller.noOfProfiles);
+                    byProfilePane.setCenter(byProfileTab);
+                }
+
+                tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
+                    if (newValue == Number.class.cast(1)) {
+                        byImageTab = getByImage(map);
+                        byImagePane.setCenter(byImageTab);
+                    } else if (newValue == Number.class.cast(0)) {
+                        byProfileTab = getByProfile(map, controller.noOfProfiles);
+                        byProfilePane.setCenter(byProfileTab);
+                    } else {
+                        System.out.println("Error this tab has not been created.");
+                    }
+                });
+            } catch (IOException ex) {
+                Logger.getLogger(IPAT_FX.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+    }
 
     @FXML
     private void chooseFiles(ActionEvent event) {
@@ -100,12 +188,11 @@ public class FXMLDocumentController implements Initializable {
             JOptionPane.showMessageDialog(null, "Please first select a case from the cases tab in the menu bar.\n"
                     + "If no cases exist, ensure the candidate solutions are correctly entered in the /web/data folder.");
         } else {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setMultiSelectionEnabled(true);
-            chooser.showOpenDialog(null);
-            File[] uploads = chooser.getSelectedFiles();
+            FileChooser chooser = new FileChooser();
 
-            for (File fi : uploads) {
+            List<File> uploads = chooser.showOpenMultipleDialog(null);
+
+            uploads.stream().forEach((fi) -> {
                 File file;
                 String fileName = fi.getName();
                 File input = new File(dataPath + "/input/");
@@ -132,7 +219,7 @@ public class FXMLDocumentController implements Initializable {
                     Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, "Error loading file see mainframe ", ex);
                 }
                 fileTextArea.appendText(fileName + "\n");
-            }
+            });
             try {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
                 HashMap<String, Object> display = controller.initialisation();
@@ -142,10 +229,10 @@ public class FXMLDocumentController implements Initializable {
                 HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
                 byProfileTab = getByProfile(map, numOfProfiles);
                 byProfilePane.setCenter(byProfileTab);
-                
+
                 tabPane.getSelectionModel().select(0);
                 tabFlag = "byProfile";
-                
+
                 tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
                     if (newValue == Number.class.cast(1)) {
                         tabFlag = "byImage";
@@ -179,7 +266,6 @@ public class FXMLDocumentController implements Initializable {
 
             ObservableList<Tab> tabs = null;
 
-            
             if (tabFlag.equalsIgnoreCase("byImage")) {
                 tabs = byImageTab.getTabs();
             } else if (tabFlag.equalsIgnoreCase("byProfile")) {
@@ -192,7 +278,7 @@ public class FXMLDocumentController implements Initializable {
             while (profileTabIterator.hasNext()) {
                 Tab profileTab = profileTabIterator.next();
                 ScrollPane scrollPane = (ScrollPane) profileTab.getContent();
-                GridPane cells = (GridPane) scrollPane.getContent();
+                FlowPane cells = (FlowPane) scrollPane.getContent();
                 Iterator<Node> cellIterator = cells.getChildren().iterator();
                 while (cellIterator.hasNext()) {
                     GridPane cell = (GridPane) cellIterator.next();
@@ -252,6 +338,16 @@ public class FXMLDocumentController implements Initializable {
 
         contextPath = System.getProperty("user.dir") + "/web/";
         dataPath = contextPath + "/Client Data";
+        File index = new File(dataPath);
+        if (!index.exists()) {
+            index.mkdir();
+        } else {
+            index.delete();
+            if (!index.exists()) {
+                index.mkdir();
+            }
+        }
+
         File prePopulatedProfilePath = new File(contextPath + "/data/");
         File[] listFiles = prePopulatedProfilePath.listFiles();
 
@@ -285,6 +381,7 @@ public class FXMLDocumentController implements Initializable {
                 outputFolder = new File(dataPath + "/output/");
             });
         }
+        tabFlag = "byProfile";
     }
 
     public TabPane getByImage(HashMap<String, ArrayList<GridPane>> map) {
@@ -318,18 +415,18 @@ public class FXMLDocumentController implements Initializable {
 
         TabPane tabpane = new TabPane();
         Tab tabForProfile;
-        GridPane paneForProfile;
+        FlowPane paneForProfile;
 
         for (int i = 0; i < noOfProfiles; i++) {
             tabForProfile = new Tab();
-            paneForProfile = new GridPane();
+            paneForProfile = new FlowPane();
             tabForProfile.setId("li_Profile_" + i);
             tabForProfile.setText("Profile " + i);
             int j = 0;
             for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext(); j++) {
                 String nameOfArtefact = iterator.next();
                 ArrayList<GridPane> cells = map.get(nameOfArtefact);
-                paneForProfile.add(cells.get(i), 0, j);
+                paneForProfile.getChildren().add(cells.get(i));
             }
             ScrollPane scrollPane = new ScrollPane();
             scrollPane.setContent(paneForProfile);

@@ -48,7 +48,7 @@ public class Controller {
     public int iterationCount = 0;
 
     /**
-     * the number of candidate solutions presented for evaluation 
+     * the number of candidate solutions presented for evaluation
      */
     public int noOfProfiles = 6;
 
@@ -58,7 +58,8 @@ public class Controller {
     public Artifact[] raw_artifacts;
 
     /**
-     * results of applying profiles to raw artefacts : shown to user for evaluation
+     * results of applying profiles to raw artefacts : shown to user for
+     * evaluation
      */
     public Artifact[] processedArtifacts;
 
@@ -68,7 +69,7 @@ public class Controller {
     public Profile[] currentGenerationOfProfiles;
 
     /**
-     * the folder on the server disk which stores the uploaded artefacts 
+     * the folder on the server disk which stores the uploaded artefacts
      */
     public static File inputFolder;
 
@@ -78,9 +79,9 @@ public class Controller {
     public static File outputFolder;
 
     /**
-     * the folder on the server disk holding the user-supplied initial candidate solutions.
-     * naming Format : These should be placed within a sub directory named "profiles", with
-     * the hint.xml file within this folder
+     * the folder on the server disk holding the user-supplied initial candidate
+     * solutions. naming Format : These should be placed within a sub directory
+     * named "profiles", with the hint.xml file within this folder
      */
     public static File profileFolder;
 
@@ -104,9 +105,8 @@ public class Controller {
         Controller.inputFolder = inputFolder;
         Controller.profileFolder = profileFolder;
         Controller.hintsXML = hintsXML;
-   
-        
-                // ### Add additional problem cases below ###
+
+        // ### Add additional problem cases below ###
         switch (caseName) {
             case "/UML Evolution":
                 this.processor = new UMLProcessor();
@@ -114,11 +114,10 @@ public class Controller {
             case "/CSS Evolution":
                 this.processor = new CSSProcessor();
                 break;
-                
+
 //            case "{/Folder Name}":    
 //                 this.processor = new YourProcessor();
 //                break;
-                
             default:
                 logger.info("Trouble with the instantiation of the Processor in Dispatchers doGet(). No case"
                         + " for this URL extension. Ensure case Strings in Dispatcher.doGet() exactly match those in web.xml");
@@ -157,7 +156,7 @@ public class Controller {
      * @param profileCount
      * @return
      */
-    public HashMap<String, Object> mainloop(HashMap<String, Object> scores, int profileCount ) {
+    public HashMap<String, Object> mainloop(HashMap<String, Object> scores, int profileCount) {
         Interaction interaction = new Interaction();
         currentGenerationOfProfiles = interaction.updateProfileHints(scores, currentGenerationOfProfiles, hints);
         setNoOfProfiles(profileCount);
@@ -167,7 +166,7 @@ public class Controller {
             currentGenerationOfProfiles[i] = metaHeuristic.getNextGenProfileAtIndex(i);
         }
         getResultArtifacts();
-      HashMap<String, Object> results = display.loadDisplay(this.getHints(), this.processedArtifacts, this.noOfProfiles);
+        HashMap<String, Object> results = display.loadDisplay(this.getHints(), this.processedArtifacts, this.noOfProfiles);
         return results;
     }
 
@@ -179,18 +178,13 @@ public class Controller {
     private void bootstrapApplication() {
 
         //set up Profiles filter to pick up all the files ending with .xml within Profile folder
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".xml");
-            }
-        };
+        FilenameFilter filter = (File dir, String name) -> name.endsWith(".xml");
         //create an array holding all the files ending .xml in the profile folder to act as seeds
         File[] profiles_list = profileFolder.listFiles(filter);
         if (profiles_list == null) {
             logger.error("Error : profiles_list  == null in bootstrap application. Please check the web.xml in WEB-INF to ensure paths to config folders are correct.\n");
-           logger.error("profile folder with path : " + profileFolder.getAbsolutePath());
-           logger.error(" with "+profileFolder.listFiles().length+" files : \n");
+            logger.error("profile folder with path : " + profileFolder.getAbsolutePath());
+            logger.error(" with " + profileFolder.listFiles().length + " files : \n");
             for (File profile : profileFolder.listFiles()) {
                 logger.error(profile + "\n");
             }
@@ -205,9 +199,7 @@ public class Controller {
                 logger.debug("noOfProfiles = " + noOfProfiles + "\n");
 
                 // fill new array with the seeds from profile folder
-                for (int i = 0; i < profiles_list.length; i++) {
-                    new_profiles_list[i] = profiles_list[i];
-                }
+                System.arraycopy(profiles_list, 0, new_profiles_list, 0, profiles_list.length);
 
                 int diffOfNrOfProfilesToMake = noOfProfiles - profiles_list.length;
 
@@ -227,11 +219,7 @@ public class Controller {
 
                 //we had just the right number - or more than 9    
             } else if (profiles_list.length > 9 || profiles_list.length == noOfProfiles) {
-                for (int i = 0; i < noOfProfiles; i++) {
-                    new_profiles_list[i] = profiles_list[i];
-                }
-
-                // we have no Profile seeds or some error has occured
+                System.arraycopy(profiles_list, 0, new_profiles_list, 0, noOfProfiles); // we have no Profile seeds or some error has occured
             } else {
                 logger.error("There are no Profiles Seeds found. "
                         + "Please Check the profile folder path is correct and that Profile seeds exist within it.\n");
@@ -253,7 +241,7 @@ public class Controller {
                 if (i >= profiles_list.length) {
                     logger.debug("randomising generating profile [" + i + "]\n");
                     //create the new filename for this extra profile
-                    File fileRename = new File(profileFolder + "/gen_0-profile_" +(i+1)+ ".xml");
+                    File fileRename = new File(profileFolder + "/gen_0-profile_" + (i + 1) + ".xml");
                     logger.debug("fileRename of Profile to be generated : " + fileRename.getAbsolutePath());
                     //write the profile we are copying into this new file so that it exists on disk
                     currentGenerationOfProfiles[i].copyToNewFile(fileRename.getAbsolutePath());
@@ -262,9 +250,9 @@ public class Controller {
                     currentGenerationOfProfiles[i].randomiseProfileVariableValues();
                     currentGenerationOfProfiles[i].randomiseKernelVariableValues();
                     //and writw back to disk for posterity
-                   //currentGenerationOfProfiles[i].writeToFile();
+                    //currentGenerationOfProfiles[i].writeToFile();
                     currentGenerationOfProfiles[i].copyToNewFile(fileRename.getAbsolutePath());
-                    
+
                 }
             }
         }
@@ -273,13 +261,10 @@ public class Controller {
     // populates the Artifacts in memory from the new_profiles_list found in the input folder
     private void loadRawArtifacts() {
         //create pKernel filter to pick put all the files ending .htm
-        FilenameFilter filter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                //boolean bool = name.endsWith(".xml") || name.endsWith(".htm");
-                boolean bool = name.endsWith(".htm");
-                return bool;
-            }
+        FilenameFilter filter = (File dir, String name) -> {
+            //boolean bool = name.endsWith(".xml") || name.endsWith(".htm");
+            boolean bool = name.endsWith(".htm");
+            return bool;
         };
         //create an array of all the files in the inpurfolder using the filter        
         File[] file = inputFolder.listFiles(filter);
@@ -294,9 +279,9 @@ public class Controller {
 
     // Responsible for applying profiles to artifacts
     private void getResultArtifacts() {
-        Profile currentProfile = null;
+        Profile currentProfile;
         Artifact rawArtifact;
-        Artifact processedArtifact = null;
+        Artifact processedArtifact;
         processedArtifacts = new Artifact[raw_artifacts.length * noOfProfiles];
         int count = 0;
 
@@ -307,14 +292,12 @@ public class Controller {
             logger.debug("Processing : " + currentProfile.getName());
 
             // Process the profile to generate CSS
-            for (int artifactID = 0; artifactID < raw_artifacts.length; artifactID++) {
-
-                rawArtifact = raw_artifacts[artifactID];
+            for (Artifact raw_artifact : raw_artifacts) {
+                rawArtifact = raw_artifact;
                 //System.out.println(rawArtifact.getFilename());
                 processedArtifact = processor.applyProfileToArtifact(currentProfile, rawArtifact, outputFolder.getAbsolutePath() + "/");
                 processedArtifacts[count] = processedArtifact;
                 count++;
-
             }
         }
     }
@@ -392,40 +375,39 @@ public class Controller {
         return hintMap;
     }
 
-
     public void setNoOfProfiles(int newNoOfProfiles) {
-        
-        Profile [] newCurrentGenerationOfProfiles = new Profile[newNoOfProfiles];
+
+        Profile[] newCurrentGenerationOfProfiles = new Profile[newNoOfProfiles];
         for (int i = 0; i < newNoOfProfiles; i++) {
-           if (i < this.noOfProfiles) { 
-               newCurrentGenerationOfProfiles[i] = currentGenerationOfProfiles[i];
-           }
-                // randomise the generated extra profiles
-                if (i >= this.noOfProfiles) {
-                    newCurrentGenerationOfProfiles[i] = currentGenerationOfProfiles[0];
-                    logger.debug("randomising generated profile [" + i + "]\n");
-                    //create the new filename for this extra profile
-                    String fileRename = profileFolder + "/gen_0-profile_" +(i+1)+ ".xml";
-                    //write the profile we are copying into this new file so that it exists on disk
-                    newCurrentGenerationOfProfiles[i].copyToNewFile(fileRename);
-                    //chnage the sotred values in memory
-                    newCurrentGenerationOfProfiles[i].setFile(new File(fileRename));
-                    newCurrentGenerationOfProfiles[i].randomiseProfileVariableValues();
-                    newCurrentGenerationOfProfiles[i].randomiseKernelVariableValues();
-                    newCurrentGenerationOfProfiles[i].setGlobalScore(0);
-                    //and writw back to disk for posterity
-                    newCurrentGenerationOfProfiles[i].writeToFile();
-                    newCurrentGenerationOfProfiles[i].copyToNewFile(fileRename);  
-                    
-                }
+            if (i < this.noOfProfiles) {
+                newCurrentGenerationOfProfiles[i] = currentGenerationOfProfiles[i];
             }
+            // randomise the generated extra profiles
+            if (i >= this.noOfProfiles) {
+                newCurrentGenerationOfProfiles[i] = currentGenerationOfProfiles[0];
+                logger.debug("randomising generated profile [" + i + "]\n");
+                //create the new filename for this extra profile
+                String fileRename = profileFolder + "/gen_0-profile_" + (i + 1) + ".xml";
+                //write the profile we are copying into this new file so that it exists on disk
+                newCurrentGenerationOfProfiles[i].copyToNewFile(fileRename);
+                //chnage the sotred values in memory
+                newCurrentGenerationOfProfiles[i].setFile(new File(fileRename));
+                newCurrentGenerationOfProfiles[i].randomiseProfileVariableValues();
+                newCurrentGenerationOfProfiles[i].randomiseKernelVariableValues();
+                newCurrentGenerationOfProfiles[i].setGlobalScore(0);
+                //and writw back to disk for posterity
+                newCurrentGenerationOfProfiles[i].writeToFile();
+                newCurrentGenerationOfProfiles[i].copyToNewFile(fileRename);
+
+            }
+        }
         this.noOfProfiles = newNoOfProfiles;
         this.currentGenerationOfProfiles = newCurrentGenerationOfProfiles;
         metaHeuristic.updateWorkingMemory(currentGenerationOfProfiles);
         System.out.println("How Many in Controller.setNoOfProfiles after : " + this.noOfProfiles);
     }
-    
-    public HashMap<String, Hint> getHints(){
-    return this.hints;
+
+    public HashMap<String, Hint> getHints() {
+        return this.hints;
     }
 }

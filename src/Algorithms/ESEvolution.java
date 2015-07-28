@@ -294,7 +294,7 @@ public class ESEvolution implements MetaHeuristic {
                 // write out the profile to file for safe keeping
                 //build the path by fetching the session details from the controller and adding generaios + this file name
                 String outProfilePath = Controller.outputFolder.getAbsolutePath() + "/generations/" + outProfileName;
-
+               
                 //write to file
                 nextGen.get(k).copyToNewFile(outProfilePath);
                 File thisfile = new File(outProfilePath);
