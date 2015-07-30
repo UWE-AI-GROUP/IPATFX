@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,65 +8,80 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ipat_fx.FXMLDocumentController">
+<BorderPane prefHeight="442.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ipat_fx.FXMLDocumentController">
    <center>
-      <ScrollPane prefViewportHeight="533.0" prefViewportWidth="907.0">
-         <content>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="907.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="907.0">
-                     <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Close" />
-                              <MenuItem fx:id="saveOption" mnemonicParsing="false" onAction="#saveOption" text="Save" />
-                              <MenuItem mnemonicParsing="false" onAction="#loadOption" text="Load" />
-                           </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Delete" />
-                           </items>
-                        </Menu>
-                        <Menu fx:id="cases" mnemonicParsing="false" text="Cases" />
-                        <Menu mnemonicParsing="false" text="Help">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="About" />
-                           </items>
-                        </Menu>
-                     </menus>
-                  </MenuBar>
-                  <TextArea fx:id="fileTextArea" layoutX="30.0" layoutY="65.0" prefHeight="41.0" prefWidth="270.0" />
-                  <Button id="chooseFilesButton" fx:id="chooseFilesButton" layoutX="30.0" layoutY="34.0" mnemonicParsing="false" onAction="#chooseFiles" prefHeight="25.0" prefWidth="103.0" text="Choose Files" />
-                  <Button fx:id="abort" layoutX="30.0" layoutY="475.0" mnemonicParsing="false" onAction="#abort" text="Abort" />
-                  <Button fx:id="reset" layoutX="101.0" layoutY="475.0" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores" />
-                  <Button fx:id="nextGen" layoutX="202.0" layoutY="475.0" mnemonicParsing="false" onAction="#nextGeneration" text="Next Generation" />
-                  <TabPane fx:id="tabPane" layoutX="30.0" layoutY="115.0" prefHeight="342.0" prefWidth="418.0" tabClosingPolicy="UNAVAILABLE">
-                     <tabs>
-                        <Tab text="By Profile">
-                           <content>
-                              <BorderPane fx:id="byProfilePane" layoutX="9.0" layoutY="7.0" prefHeight="305.0" prefWidth="409.0" />
-                           </content>
-                        </Tab>
-                        <Tab text="By Images">
-                           <content>
-                              <BorderPane fx:id="byImagePane" layoutX="9.0" layoutY="6.0" prefHeight="308.0" prefWidth="410.0" />
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-                  <TextField layoutX="509.0" layoutY="47.0" promptText="Desktop" />
-                  <TextField layoutX="509.0" layoutY="94.0" text="N / A " />
-                  <TextField layoutX="710.0" layoutY="47.0" text="0" />
-                  <TextField fx:id="noOfProfiles" layoutX="710.0" layoutY="94.0" text="6" />
-                  <Label layoutX="509.0" layoutY="26.0" text="Application Mode" />
-                  <Label layoutX="710.0" layoutY="26.0" text="Generation" />
-                  <Label layoutX="509.0" layoutY="77.0" text="Loaded Profile" />
-                  <Label layoutX="710.0" layoutY="77.0" text="No. Of Profiles" />
-                  <Pane fx:id="previewPane" layoutX="476.0" layoutY="141.0" prefHeight="360.0" prefWidth="407.0" />
-               </children>
-            </Pane>
-         </content>
-      </ScrollPane>
+      <GridPane alignment="CENTER" hgap="30.0" vgap="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.66665649414062" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.33334350585938" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints maxWidth="180.0" minWidth="0.0" prefWidth="120.0" />
+            <ColumnConstraints maxWidth="185.0" minWidth="10.0" prefWidth="120.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="158.33334350585938" minHeight="0.0" prefHeight="26.333333015441895" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="270.0" minHeight="0.0" prefHeight="20.666666984558105" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="330.0" minHeight="0.0" prefHeight="26.666664123535156" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="662.0" minHeight="10.0" prefHeight="647.3333358764648" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+         <children>
+            <MenuBar fx:id="menuBar" prefHeight="25.0" prefWidth="907.0" GridPane.columnSpan="6">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="saveOption" mnemonicParsing="false" onAction="#saveOption" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadOption" text="Load" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="cases" mnemonicParsing="false" text="Cases" />
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <Button id="chooseFilesButton" fx:id="chooseFilesButton" mnemonicParsing="false" onAction="#chooseFiles" prefHeight="25.0" prefWidth="103.0" text="Choose Files" GridPane.rowIndex="4" />
+            <Button fx:id="abort" mnemonicParsing="false" onAction="#abort" text="Abort" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="reset" mnemonicParsing="false" onAction="#resetScores" text="Reset Scores" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="nextGen" mnemonicParsing="false" onAction="#nextGeneration" text="Next Generation" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TabPane fx:id="tabPane" prefHeight="265.0" prefWidth="321.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="3" GridPane.rowIndex="3">
+               <tabs>
+                  <Tab text="By Profile">
+                     <content>
+                        <BorderPane fx:id="byProfilePane" layoutX="9.0" layoutY="7.0" prefHeight="376.0" prefWidth="201.0" />
+                     </content>
+                  </Tab>
+                  <Tab text="By Images">
+                     <content>
+                        <BorderPane fx:id="byImagePane" layoutX="9.0" layoutY="6.0" prefHeight="308.0" prefWidth="410.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <TextField promptText="Desktop" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <TextField text="N / A " GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField text="0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="noOfProfiles" text="6" GridPane.rowIndex="2" />
+            <Label text="Application Mode" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Label text="Generation" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Loaded Profile" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="No. Of Profiles" GridPane.rowIndex="1" />
+            <Pane fx:id="previewPane" prefHeight="703.0" prefWidth="476.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </GridPane>
    </center>
 </BorderPane>

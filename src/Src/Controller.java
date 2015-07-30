@@ -40,7 +40,7 @@ public class Controller {
     Processor processor;
     Display display = new DesktopDisplay();
     MetaHeuristic metaHeuristic = new ESEvolution();
-    HashMap<String, Hint> hints = new HashMap<>();
+    public HashMap<String, Hint> hints = new HashMap<>();
 
     /**
      * How many times a user has interacted during this session

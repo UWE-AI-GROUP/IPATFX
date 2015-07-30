@@ -5,6 +5,7 @@
  */
 package ipat_fx;
 
+import Algorithms.Hint;
 import Src.Controller;
 import Src.Interaction;
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
@@ -66,10 +68,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField noOfProfiles;
     @FXML
-    private TextArea fileTextArea;
-    @FXML
-
     private TabPane tabPane;
+
     private TabPane byProfileTab;
     private TabPane byImageTab;
     private String contextPath;
@@ -107,74 +107,74 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void loadOption(ActionEvent event) {
-        
-            DirectoryChooser dc = new DirectoryChooser();
-            File file = new File(contextPath + "Saves/");
-            dc.setInitialDirectory(file);
-            File dest = new File(dataPath);
-            File seeds = new File(dataPath + "/seeds/");
-            seeds.delete();
-            seeds.mkdirs();
-            dest.delete();
-            dest.mkdirs();
-            File src = dc.showDialog(null);
-            
-            try {
-                
-                FileUtils.copyDirectory(src, dest);
-                File profiles = new File(outputFolder.getAbsolutePath() + "/generations");
-                File[] listFiles = profiles.listFiles();
-                
-                int lastGeneration = 0;
-                for (File listFile : listFiles) {
-                    if (!listFile.isDirectory()) {
-                        String profileName = listFile.getName();
-                        System.out.println("profileName : " + profileName);
-                        int generation = Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-')));
-                        System.out.println("generation : " + generation);
-                        if (generation > lastGeneration) {
-                            lastGeneration = generation;
-                        }
-                    }
-                }
-                
-                for (File listFile : listFiles) {
-                    String profileName = listFile.getName();
-                    if (Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-'))) == lastGeneration) {
-                        FileUtils.copyFile(listFile, new File(seeds + "/" + listFile.getName()));
-                    }
-                }
-                
-                controller = new Controller(inputFolder, outputFolder, seeds, hintsXML, problemDataFolderName);
-                 
-                HashMap<String, Object> display = controller.initialisation();
-                WebView previewView = (WebView) display.get("previewView");
-                previewPane.getChildren().add(previewView);
-                @SuppressWarnings("unchecked")
-                HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
 
-                if (tabFlag.equalsIgnoreCase("byImage")) {
+        DirectoryChooser dc = new DirectoryChooser();
+        File file = new File(contextPath + "Saves/");
+        dc.setInitialDirectory(file);
+        File dest = new File(dataPath);
+        File seeds = new File(dataPath + "/seeds/");
+        seeds.delete();
+        seeds.mkdirs();
+        dest.delete();
+        dest.mkdirs();
+        File src = dc.showDialog(null);
+
+        try {
+
+            FileUtils.copyDirectory(src, dest);
+            File profiles = new File(outputFolder.getAbsolutePath() + "/generations");
+            File[] listFiles = profiles.listFiles();
+
+            int lastGeneration = 0;
+            for (File listFile : listFiles) {
+                if (!listFile.isDirectory()) {
+                    String profileName = listFile.getName();
+                    System.out.println("profileName : " + profileName);
+                    int generation = Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-')));
+                    System.out.println("generation : " + generation);
+                    if (generation > lastGeneration) {
+                        lastGeneration = generation;
+                    }
+                }
+            }
+
+            for (File listFile : listFiles) {
+                String profileName = listFile.getName();
+                if (Integer.parseInt(profileName.substring((profileName.indexOf('_') + 1), profileName.indexOf('-'))) == lastGeneration) {
+                    FileUtils.copyFile(listFile, new File(seeds + "/" + listFile.getName()));
+                }
+            }
+
+            controller = new Controller(inputFolder, outputFolder, seeds, hintsXML, problemDataFolderName);
+
+            HashMap<String, Object> display = controller.initialisation();
+            WebView previewView = (WebView) display.get("previewView");
+            previewPane.getChildren().add(previewView);
+            @SuppressWarnings("unchecked")
+            HashMap<String, ArrayList<GridPane>> map = (HashMap<String, ArrayList<GridPane>>) display.get("results");
+
+            if (tabFlag.equalsIgnoreCase("byImage")) {
+                byImageTab = getByImage(map);
+                byImagePane.setCenter(byImageTab);
+            } else if (tabFlag.equalsIgnoreCase("byProfile")) {
+                byProfileTab = getByProfile(map, controller.noOfProfiles);
+                byProfilePane.setCenter(byProfileTab);
+            }
+
+            tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
+                if (newValue == Number.class.cast(1)) {
                     byImageTab = getByImage(map);
                     byImagePane.setCenter(byImageTab);
-                } else if (tabFlag.equalsIgnoreCase("byProfile")) {
+                } else if (newValue == Number.class.cast(0)) {
                     byProfileTab = getByProfile(map, controller.noOfProfiles);
                     byProfilePane.setCenter(byProfileTab);
+                } else {
+                    System.out.println("Error this tab has not been created.");
                 }
-
-                tabPane.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov, Number oldValue, Number newValue) -> {
-                    if (newValue == Number.class.cast(1)) {
-                        byImageTab = getByImage(map);
-                        byImagePane.setCenter(byImageTab);
-                    } else if (newValue == Number.class.cast(0)) {
-                        byProfileTab = getByProfile(map, controller.noOfProfiles);
-                        byProfilePane.setCenter(byProfileTab);
-                    } else {
-                        System.out.println("Error this tab has not been created.");
-                    }
-                });
-            } catch (IOException ex) {
-                Logger.getLogger(IPAT_FX.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(IPAT_FX.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -218,7 +218,7 @@ public class FXMLDocumentController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, "Error loading file see mainframe ", ex);
                 }
-                fileTextArea.appendText(fileName + "\n");
+
             });
             try {
                 controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
@@ -325,12 +325,55 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void abort() {
-        System.out.println("abort button pressed");
+        byProfilePane.getChildren().clear();
+        byImagePane.getChildren().clear();
+        previewPane.getChildren().clear();
+        noOfProfiles.setText("6");
+        try {
+            controller = new Controller(inputFolder, outputFolder, profilePath, hintsXML, problemDataFolderName);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     public void resetScores() {
-        System.out.println("reset scores button pressed");
+
+        HashMap<String, Hint> hintMap = controller.hints;
+        TabPane tabpane = (TabPane) byProfilePane.getChildren().get(0);
+        Tab tab = null;
+        if (tabFlag.equalsIgnoreCase("byProfile")) {
+            tab = (Tab) tabpane.getTabs().get(0);
+        } else if (tabFlag.equalsIgnoreCase("byImage")) {
+            tab = (Tab) tabpane.getTabs().get(0);
+        } else {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, "Something wrong with tabFlag");
+        }
+        ScrollPane scrollPane = (ScrollPane) tab.getContent();
+        FlowPane flowPane = (FlowPane) scrollPane.getContent();
+        Iterator<Node> cellsIterator = flowPane.getChildren().iterator();
+        while (cellsIterator.hasNext()) {
+            GridPane cell = (GridPane) cellsIterator.next();
+            Iterator<Node> cellIterator = cell.getChildren().iterator();
+            while (cellIterator.hasNext()) {
+                Node cellElement = cellIterator.next();
+                if (cellElement instanceof Slider) {
+                    Set<String> keySet = hintMap.keySet();// get the hints one by one and apply to cell
+                    int keyCount = 0;
+                    for (String key : keySet) {
+                        Hint h = hintMap.get(key);
+                       Slider slider = ((Slider) cellElement);
+                        String[] split = slider.getId().split("_");
+                        if (split[0].equalsIgnoreCase(h.getHintName())) {
+                            slider.setValue(Double.valueOf(h.getDefaultValue()));
+                        }
+                    }
+                }
+                if (cellElement instanceof CheckBox) {
+                    ((CheckBox) cellElement).setSelected(false);
+                }
+            }
+        }
     }
 
     @Override
