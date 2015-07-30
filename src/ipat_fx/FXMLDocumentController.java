@@ -343,9 +343,9 @@ public class FXMLDocumentController implements Initializable {
         TabPane tabpane = (TabPane) byProfilePane.getChildren().get(0);
         Tab tab = null;
         if (tabFlag.equalsIgnoreCase("byProfile")) {
-            tab = (Tab) tabpane.getTabs().get(0);
+            tab = tabpane.getTabs().get(0);
         } else if (tabFlag.equalsIgnoreCase("byImage")) {
-            tab = (Tab) tabpane.getTabs().get(0);
+            tab = tabpane.getTabs().get(0);
         } else {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, "Something wrong with tabFlag");
         }
